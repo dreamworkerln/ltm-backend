@@ -1,0 +1,56 @@
+package ru.geekbrains.handmade.ltmbackend.core.converters.userrole;
+
+
+import ru.geekbrains.handmade.ltmbackend.core.converters._base.AbstractMapper;
+import ru.geekbrains.handmade.ltmbackend.core.converters._base.InstantMapper;
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.UserRole;
+import ru.geekbrains.handmade.ltmbackend.core.services.user.UserRoleService;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserRoleDto;
+import org.mapstruct.*;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.annotation.PostConstruct;
+
+@Mapper(componentModel = "spring",
+    unmappedTargetPolicy = ReportingPolicy.ERROR,
+    uses = {InstantMapper.class})
+public abstract class UserRoleMapper extends AbstractMapper<UserRole, UserRoleDto> {
+
+    @Autowired
+    private UserRoleService userRoleService;
+
+    @PostConstruct
+    private void postConstruct() {
+        this.baseRepoAccessService = userRoleService;
+        constructor = new EntityConstructor();
+    }
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "created", ignore = true)
+    @Mapping(target = "updated", ignore = true)
+    @Mapping(target = "enabled", ignore = true)
+    public abstract UserRoleDto toDto(UserRole user);
+
+    public abstract UserRole toEntity(UserRoleDto userDto);
+
+    @AfterMapping
+    UserRole afterMapping(UserRoleDto source, @MappingTarget UserRole target) {
+
+        // костыль, роли невозможно изменять через jrpc, они hardcoded, в БД присутствуют для мебели
+        // (поэтому и не enum)
+        return userRoleService.findByName(source.getName())
+            .orElseThrow(() -> new IllegalArgumentException("UserRole " + source.getName() + "not found"));
+    }
+
+    protected class EntityConstructor extends Constructor<UserRole, UserRoleDto> {
+        @Override
+        public UserRole create(UserRoleDto dto, UserRole entity) {
+            return new UserRole(dto.getName());
+        }
+    }
+
+
+
+
+
+}

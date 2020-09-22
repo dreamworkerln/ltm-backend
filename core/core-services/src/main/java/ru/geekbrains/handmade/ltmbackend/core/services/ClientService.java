@@ -1,0 +1,49 @@
+package ru.geekbrains.handmade.ltmbackend.core.services;
+
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+import ru.geekbrains.handmade.ltmbackend.core.repositories.ClientRepository;
+import ru.geekbrains.handmade.ltmbackend.core.services.base.BaseRepoAccessService;
+import ru.geekbrains.handmade.ltmbackend.core.entities.Client;
+import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
+import org.springframework.context.annotation.Lazy;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Optional;
+import java.util.concurrent.atomic.AtomicReference;
+
+@Service
+@Transactional
+public class ClientService extends BaseRepoAccessService<Client> {
+
+    private final ClientRepository clientRepository;
+    private final UserService userService;
+
+    @Lazy
+    public ClientService(ClientRepository clientRepository, UserService userService) {
+        super(clientRepository);
+        this.clientRepository = clientRepository;
+        this.userService = userService;
+    }
+
+    public Optional<Client> findOneByUser(User user) {
+        return clientRepository.findOneByUser(user);
+    }
+
+    public Optional<Client> findByUsername(String username) {
+        return clientRepository.findOneByUserUsername(username);
+    }
+
+
+    public Client getCurrent() {
+
+        AtomicReference<Client> result = new AtomicReference<>();
+        findOneByUser(userService.getCurrent()).ifPresent(result::set);
+        return result.get();
+    }
+
+    // =================================================================================================
+
+
+
+}

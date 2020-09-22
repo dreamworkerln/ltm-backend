@@ -1,0 +1,12 @@
+package ru.geekbrains.handmade.ltmbackend.core.repositories;
+
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
+import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
+
+@Repository
+public interface UserRoleRepository extends CustomRepository<UserRole, Long> {
+
+    Optional<UserRole> findOneByName(String name);
+}

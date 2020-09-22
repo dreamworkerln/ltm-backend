@@ -1,0 +1,4 @@
+package ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base;
+
+public class VoidSpecDto extends AbstractSpecDto{
+}

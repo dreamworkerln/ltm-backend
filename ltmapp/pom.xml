@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>ltm-backend</artifactId>
+        <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+        <version>0.1</version>
+    </parent>
+
+
+    <artifactId>ltmapp</artifactId>
+
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-jpa</artifactId>
+        </dependency>
+
+        <!--module core/core-services -->
+        <dependency>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+            <artifactId>core-services</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--module core/core-controllers -->
+        <dependency>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+            <artifactId>core-controllers</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+<!--
+        &lt;!&ndash;module mail &ndash;&gt;
+        <dependency>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+            <artifactId>mail</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        &lt;!&ndash;module payment &ndash;&gt;
+        <dependency>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+            <artifactId>payment</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        -->
+
+
+    </dependencies>
+
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+        <finalName>ltmapp-${app.version}</finalName>
+    </build>
+
+</project>
+
+
+
+<!--
+<plugin>
+    <groupId>org.flywaydb</groupId>
+    <artifactId>flyway-maven-plugin</artifactId>
+    <version>6.0.1</version>
+    <configuration>
+        <configFiles>src/main/resources/flyway.conf</configFiles>
+    </configuration>
+</plugin>
+-->
