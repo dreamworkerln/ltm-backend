@@ -8,14 +8,18 @@ https://docs.docker.com/get-docker/
 https://docs.docker.com/compose/install/
 ```
 
-cd ltm-backend/infrastructure/docker/docker-compose/  
+then
 
-to start use  
+```
+cd ltm-backend/infrastructure/docker/docker-compose/  
+``` 
+
+to start  
 ```
 start.sh
 ```
 
-To stop  
+to stop  
 ```
 stop.sh
 ```
