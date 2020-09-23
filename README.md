@@ -2,6 +2,12 @@
 
 #### INSTALL && RUN
 
+Install docker & docker-compose
+```
+https://docs.docker.com/get-docker/
+https://docs.docker.com/compose/install/
+```
+
 cd ltm-backend/infrastructure/docker/docker-compose/  
 
 to start use  

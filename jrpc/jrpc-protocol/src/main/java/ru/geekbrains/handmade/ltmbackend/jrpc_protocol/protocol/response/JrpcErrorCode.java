@@ -18,7 +18,7 @@ public enum JrpcErrorCode {
     FORBIDDEN(-32610);
 
 
-    private int code;
+    private final int code;
 
     JrpcErrorCode(int code) {
         this.code = code;
