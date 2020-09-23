@@ -1,6 +1,16 @@
 # ltm-backend
 
 #### DOCKER POSTGRESS
+
+#### INSTALL && RUN
+
+cd ltm-backend/infrastructure/docker/docker-compose/  
+
+to start use  
+start.sh  
+  
+To stop  
+stop.sh  
  
 ##### connect to postgresql
 <br>  
