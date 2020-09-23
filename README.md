@@ -1,7 +1,5 @@
 # ltm-backend
 
-#### DOCKER POSTGRESS
-
 #### INSTALL && RUN
 
 cd ltm-backend/infrastructure/docker/docker-compose/  
