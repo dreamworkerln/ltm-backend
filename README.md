@@ -11,7 +11,7 @@ https://docs.docker.com/compose/install/
 then
 
 ```
-cd ltm-backend/infrastructure/docker/docker-compose/  
+cd ltm-backend/infrastructure/docker-compose/  
 ``` 
 
 to start  
