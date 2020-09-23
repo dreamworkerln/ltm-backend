@@ -1,4 +1,4 @@
 #!/bin/bash
 set -o allexport
 source config
-docker-compose -p ${PROJECT_NAME} up
+docker-compose -p ${PROJECT_NAME} up -d
