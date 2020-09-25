@@ -2,23 +2,26 @@ version: '3.2'
 services:
   ltm-postgres:
     image: "dreamworkerln/ltm-postgres"
-    network_mode: bridge
+    #network_mode: bridge
     environment:
       POSTGRES_PASSWORD: gjhUY876787ytuh87gdf
-      PGDATA: ${PGDATA}/pgdata   
-    ports:
-      - 127.0.0.1:${POSTGRES_PORT}:5432
+      PGDATA: ${PGDATA}/pgdata
+    # ports:
+    #  - 127.0.0.1:${POSTGRES_PORT}:5432
     volumes:
       - type: bind
         source: ${PGDATA_LTM}
-        target: ${PGDATA}      
+        target: ${PGDATA}
   ltm-app:
     image: "dreamworkerln/ltm-app"
-    network_mode: bridge
-    links:
+    #network_mode: bridge
+    depends_on:
       - ltm-postgres
+    #links:
+    #  - ltm-postgres
     environment:
       spring.datasource.url: ${POSTGRES_URL}
     ports:
       - ${WEB_PORT}:8080
+
 
