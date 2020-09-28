@@ -71,7 +71,7 @@ public class HandlerName {
 
     public static class user {
 
-        public static final String path = "cmsapp.core.user";
+        public static final String path = "ltmapp.core.user";
         public static final String getCurrent = HandlerName.getCurrent;
         public static final String save = HandlerName.save;
         public static final String makeClient = HandlerName.makeClient;
@@ -83,7 +83,7 @@ public class HandlerName {
 
     public static class client {
 
-        public static final String path = "cmsapp.core.client";
+        public static final String path = "ltmapp.core.client";
         public static final String getCurrent = HandlerName.getCurrent;
         public static final String save = HandlerName.save;
     }
@@ -94,7 +94,7 @@ public class HandlerName {
 
     public static class courier {
 
-        public static final String path = "cmsapp.core.courier";
+        public static final String path = "ltmapp.core.courier";
         public static final String getCurrent = HandlerName.getCurrent;
         public static final String save = HandlerName.save;
     }
@@ -104,7 +104,7 @@ public class HandlerName {
     public static class order {
 
         public static class courier {
-            public static final String path = "cmsapp.core.order.courier";
+            public static final String path = "ltmapp.core.order.courier";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -120,7 +120,7 @@ public class HandlerName {
         }
 
         public static class client {
-            public static final String path = "cmsapp.core.order.client";
+            public static final String path = "ltmapp.core.order.client";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -139,7 +139,7 @@ public class HandlerName {
 
         public static class order {
 
-            public static final String path = "cmsapp.core.manager.order";
+            public static final String path = "ltmapp.core.manager.order";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -151,7 +151,7 @@ public class HandlerName {
 
         public static class user {
 
-            public static final String path = "cmsapp.core.manager.user";
+            public static final String path = "ltmapp.core.manager.user";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -165,7 +165,7 @@ public class HandlerName {
 
         public static class client {
 
-            public static final String path = "cmsapp.core.manager.client";
+            public static final String path = "ltmapp.core.manager.client";
 
             public static final String findById = HandlerName.findById;
             public static final String save = HandlerName.save;
@@ -175,7 +175,7 @@ public class HandlerName {
 
         public static class courier {
 
-            public static final String path = "cmsapp.core.manager.courier";
+            public static final String path = "ltmapp.core.manager.courier";
 
             public static final String findById = HandlerName.findById;
             public static final String save = HandlerName.save;
@@ -193,7 +193,7 @@ public class HandlerName {
 
 
         public static class cashflow {
-            public static final String path = "cmsapp.core.payment.cashflow";
+            public static final String path = "ltmapp.core.payment.cashflow";
             public static final String findAll = HandlerName.findAll;
             public static final String save = HandlerName.save;
         }

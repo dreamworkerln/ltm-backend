@@ -7,9 +7,9 @@ public enum TokenType {
 
 
 
-    ACCESS("access_token", 3600),
-    REFRESH("refresh_token", 3600*24*30),
-    CONFIRM("confirm_token", 3600*24);
+    ACCESS("access_token", 3600*24),       // сутки
+    REFRESH("refresh_token", 3600*24*30),  // месяц
+    CONFIRM("confirm_token", 3600*24);     // сутки      токен для подтверждения регистрации
 
     private static final Map<String, TokenType> values = new HashMap<>();
 
@@ -19,8 +19,8 @@ public enum TokenType {
         }
     }
 
-    private Long ttl;
-    private String name;
+    private final Long ttl;
+    private final String name;
 
 
     TokenType(String name, long ttl) {

@@ -1,12 +1,10 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.user;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.oauth_utils.data.TokenType;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
@@ -55,6 +53,10 @@ public class UnconfirmedUser extends AbstractEntity {
     @Column(name = "last_name")
     private String lastName;
 
+    @Column(name = "age")
+    @Setter(AccessLevel.NONE)
+    private Integer age;
+
     @NotNull
     @Column(name = "email")
     private String email;      // use email as username ??
@@ -73,15 +75,35 @@ public class UnconfirmedUser extends AbstractEntity {
 
 
     public UnconfirmedUser(@NotNull String username,
+                @NotNull String password,
+                @NotNull String firstName,
+                @NotNull String lastName,
+                @NotNull String email,
+                @NotNull String phoneNumber) {
+
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+
+        this.getRoles().add(UserRole.USER);
+    }
+
+
+    public UnconfirmedUser(@NotNull String username,
                            @NotNull String password,
                            @NotNull String firstName,
                            @NotNull String lastName,
+                           @NotNull Integer age,
                            @NotNull String email,
                            @NotNull String phoneNumber) {
         super();
 
         this.firstName = firstName;
         this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
         this.username = username;
@@ -99,6 +121,7 @@ public class UnconfirmedUser extends AbstractEntity {
                 password,
                 firstName,
                 lastName,
+                age,
                 email,
                 phoneNumber);
 

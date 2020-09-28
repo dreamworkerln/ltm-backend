@@ -63,6 +63,7 @@ public abstract class UserMapper extends AbstractMapper<User, UserDto> {
             dto.getPassword(),
             dto.getFirstName(),
             dto.getLastName(),
+            dto.getAge(),
             dto.getEmail(),
             dto.getPhoneNumber());
         }

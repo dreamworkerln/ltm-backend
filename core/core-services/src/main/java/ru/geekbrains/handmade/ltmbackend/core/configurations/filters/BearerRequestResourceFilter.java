@@ -85,7 +85,12 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
         // ASAP EDC
         // DEBUGZ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Collection<? extends GrantedAuthority> grantedAuthorities =
-            new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.USER.getName())));
+        //    new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.ADMIN.getName())));
+            new HashSet<GrantedAuthority>(Arrays.asList(
+                new SimpleGrantedAuthority(UserRole.ADMIN.getName()),
+                new SimpleGrantedAuthority(UserRole.MANAGER.getName())
+            ));
+
         UserDetails userDetails =
             new org.springframework.security.core.userdetails.User(
                 "Пупкин Вася",

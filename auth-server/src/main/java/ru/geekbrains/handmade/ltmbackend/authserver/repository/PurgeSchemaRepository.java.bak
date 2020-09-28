@@ -1,0 +1,23 @@
+package ru.geekbrains.handmade.ltmbackend.authserver.repository;
+
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+import ru.geekbrains.handmade.ltmbackend.core.repositories.CustomRepository;
+import org.springframework.data.jpa.repository.Modifying;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+@Repository
+public interface PurgeSchemaRepository extends CustomRepository<User, Long> {
+
+    @Modifying
+    @Query(value =
+        "    DO $$ DECLARE\n" +
+            "    r RECORD;\n" +
+            "    BEGIN\n" +
+            "    FOR r IN (SELECT tablename FROM pg_tables WHERE schemaname = current_schema()) LOOP\n" +
+            "    EXECUTE 'DROP TABLE IF EXISTS ' || quote_ident(r.tablename) || ' CASCADE';\n" +
+            "    END LOOP;\n" +
+            "    END $$;",
+        nativeQuery = true)
+    void purge();
+}

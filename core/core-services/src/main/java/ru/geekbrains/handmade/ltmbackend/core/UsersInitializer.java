@@ -58,7 +58,8 @@ public class UsersInitializer {
         // vasya/vasya_password
         if (!userService.findByUsername("vasya").isPresent()) {
             user = new User("vasya", "{bcrypt}$2a$10$ptWulW3vFICm8Pu.CmulbuNx1GsgwO8UHrcZuVJi22mF792qRxjMu",
-                "Вася", "Пупкин", "vasya@mail.ru", "1122334455");
+                "Вася", "Пупкин", 37, "vasya@mail.ru", "1122334455");
+
             userService.save(user);
         }
 

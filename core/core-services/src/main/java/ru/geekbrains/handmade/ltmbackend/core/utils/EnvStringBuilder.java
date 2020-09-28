@@ -38,11 +38,14 @@ public class EnvStringBuilder {
         if (StringUtils.isBlank(host)) {
             protocol = "localhost";
         }
+        if (StringUtils.isBlank(portString)) {
+            portString = "-1";
+        }
 
 
         //Assert.notNull(protocol, "protocol == null");
         //Assert.notNull(host, "host == null");
-        Assert.notNull(portString, "port == null");
+        //Assert.notNull(portString, "port == null");
 
         port = Integer.parseInt(portString);
         servletPath = environment.getProperty(CorePropNames.SERVER_SERVLET_CONTEXT_PATH);

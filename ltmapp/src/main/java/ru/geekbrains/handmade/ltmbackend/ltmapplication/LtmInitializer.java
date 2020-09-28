@@ -27,9 +27,11 @@ public class LtmInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        //log.info("CmsAppDemoInitializer - add basic entities to DB");
+        //log.info("LtmAppDemoInitializer - add basic entities to DB");
 
         testRepository.save(new TestEntity("Вася test"));
+
+        usersInitializer.initUsers();
 
 //        // Only for Tests purposes on H2 database !!!
 //        // to handle that each microservice has separate H2 instance

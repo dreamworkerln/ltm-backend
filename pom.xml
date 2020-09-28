@@ -6,6 +6,8 @@
     <parent>
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
+
+<!--        <version>2.2.6.RELEASE</version>-->
         <version>2.3.4.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
@@ -25,13 +27,13 @@
                 <module>jrpc/jrpc-client</module>
                 <module>oauth/oauth-protocol</module>
                 <module>oauth/oauth-utils</module>
-        <!--        <module>mail</module>-->
+                <module>mail</module>
         <!--        <module>payment</module>-->
         <!--        <module>geodata</module>-->
         <module>core/core-services</module>
         <module>core/core-controllers</module>
                 <module>ltmapp</module>
-        <!--        <module>auth-server</module>-->
+                <module>auth-server</module>
         <!--        <module>chat</module>-->
         <!--        <module>cost-calculation</module>-->
         <!--        <module>ztests/system-test</module>-->

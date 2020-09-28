@@ -101,7 +101,6 @@ public class User extends AbstractEntity {
     private Account account;
 
 
-    @NotNull
     @Column(name = "age")
     @Setter(AccessLevel.NONE)
     private Integer age;
@@ -128,6 +127,25 @@ public class User extends AbstractEntity {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
+        this.email = email;
+        this.phoneNumber = phoneNumber;
+
+        this.getRoles().add(UserRole.USER);
+    }
+
+    public User(@NotNull String username,
+                @NotNull String password,
+                @NotNull String firstName,
+                @NotNull String lastName,
+                @NotNull Integer age,
+                @NotNull String email,
+                @NotNull String phoneNumber) {
+
+        this.username = username;
+        this.password = password;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.age = age;
         this.email = email;
         this.phoneNumber = phoneNumber;
 

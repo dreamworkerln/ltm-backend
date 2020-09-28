@@ -12,7 +12,7 @@ docker_run_ltm-postgres.sh
 (windows 10 в powershell
 sh docker_run_ltm-postgres.sh)
 
-При этом файлы базы cms разместятся на локальной машине в ${HOME}/pgdata/ltm/
+При этом файлы базы ltm разместятся на локальной машине в ${HOME}/pgdata/ltm/
 а порт postgres будет 5432
 
 Проверить: 

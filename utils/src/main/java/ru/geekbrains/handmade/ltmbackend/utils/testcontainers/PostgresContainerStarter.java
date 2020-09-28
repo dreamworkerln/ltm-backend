@@ -17,7 +17,7 @@ public class PostgresContainerStarter {
 
     // DockerImageName ("redis:5.0.3-alpine")
     //@Container
-    private static final FixedHostPortGenericContainer<?> container = new FixedHostPortGenericContainer<>("dreamworkerln/cms-postgres")
+    private static final FixedHostPortGenericContainer<?> container = new FixedHostPortGenericContainer<>("dreamworkerln/ltm-postgres")
         .withEnv("POSTGRES_PASSWORD","gjhUY876787ytuh87gdf")
         .withEnv("PGDATA","/var/lib/postgresql/data/pgdata")
         .withFixedExposedPort(EXPOSED_PORT, CONTAINER_PORT);
