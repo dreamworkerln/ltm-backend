@@ -27,7 +27,7 @@ public class JwtTokenService implements Serializable {
     public String createJWT(TokenType tokenType,
                             String id,
                             String issuer,
-                            String subject,
+                            String subject,      // username
                             Set<String> roles) {
 
         //The JWT signature algorithm we will be using to sign the token
@@ -41,8 +41,8 @@ public class JwtTokenService implements Serializable {
         //We will sign our JWT with our ApiKey secret
 
         Map<String, Object> customClaims = new HashMap<>();
-        customClaims.put("authorities", roles);
-        customClaims.put("type", tokenType.getName());
+        customClaims.put(TokenType.TOKEN_AUTHORITIES, roles);
+        customClaims.put(TokenType.TOKEN_TYPE_NAME, tokenType.getName());
         //customClaims.put("approved", approved);
 
         //Let's set the JWT Claims

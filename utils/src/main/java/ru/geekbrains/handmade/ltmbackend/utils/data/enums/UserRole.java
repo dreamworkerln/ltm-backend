@@ -85,6 +85,11 @@ public enum UserRole {
         return result;
     }
 
+    public static Set<GrantedAuthority> rolesToGrantedAuthority(Object authorities) {
+        //noinspection unchecked
+        return ((List<String>)authorities)
+            .stream().map(SimpleGrantedAuthority::new).collect(Collectors.toSet());
+    }
 
     public static Set<GrantedAuthority> rolesToGrantedAuthority(Set<UserRole> roles) {
         return  roles.stream().map(role -> new SimpleGrantedAuthority(role.name)).collect(Collectors.toSet());

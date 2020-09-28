@@ -11,6 +11,10 @@ public enum TokenType {
     REFRESH("refresh_token", 3600*24*30),  // месяц
     CONFIRM("confirm_token", 3600*24);     // сутки      токен для подтверждения регистрации
 
+    public static final String TOKEN_TYPE_NAME = "type";
+    public static final String TOKEN_AUTHORITIES = "authorities";
+
+
     private static final Map<String, TokenType> values = new HashMap<>();
 
     static {

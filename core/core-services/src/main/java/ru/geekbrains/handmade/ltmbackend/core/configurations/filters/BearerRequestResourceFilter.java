@@ -1,9 +1,9 @@
 package ru.geekbrains.handmade.ltmbackend.core.configurations.filters;
 
 
+import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
+import org.springframework.security.core.userdetails.User;
 import ru.geekbrains.handmade.ltmbackend.oauth_utils.data.TokenType;
 import ru.geekbrains.handmade.ltmbackend.oauth_utils.services.JwtTokenService;
 import ru.geekbrains.handmade.ltmbackend.utils.StringUtils;
@@ -17,7 +17,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -41,17 +40,17 @@ import java.util.*;
 public class BearerRequestResourceFilter extends OncePerRequestFilter {
 
     private final JwtTokenService jwtTokenService;
-    private final UserService userService;
+    //private final UserService userService;
 
     @Autowired
-    public BearerRequestResourceFilter(JwtTokenService jwtTokenService, UserService userService) {
+    public BearerRequestResourceFilter(JwtTokenService jwtTokenService) {
         this.jwtTokenService = jwtTokenService;
-        this.userService = userService;
+        //this.userService = userService;
     }
 
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
+    protected void doFilterInternal(HttpServletRequest request, @NotNull HttpServletResponse response, @NotNull FilterChain chain)
         throws ServletException, IOException {
 
         // get header "Authorization"
@@ -131,6 +130,23 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
             throw new BadCredentialsException("Token type " + type + " not allowed");
         }
 
+        Set<GrantedAuthority> grantedAuthorities = UserRole.rolesToGrantedAuthority(claims.get(TokenType.TOKEN_AUTHORITIES));
+
+        if(grantedAuthorities.size() == 0) {
+            throw new InsufficientAuthenticationException("User without roles");
+        }
+
+        /*
+        UserDetails userDetails = new org.springframework.security.core.userdetails.User(claims.getSubject(), "[PROTECTED]", authorities);
+
+        // if jwt is valid configure Spring Security to manually set authentication
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+            userDetails, null, userDetails.getAuthorities());
+
+        authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
+
+        claims.get()
+
         // load user from DB
         User user = userService.findByUsername(claims.getSubject())
             .orElseThrow(() -> new UsernameNotFoundException("User not found"));
@@ -138,14 +154,16 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
         if(user.getRoles().size() == 0) {
             throw new InsufficientAuthenticationException("User without roles");
         }
-
-        // Готовим grantedAuthorities
         // Берем роли пользователя из БД, какие ему назначены
-        Collection<? extends GrantedAuthority> grantedAuthorities = UserRole.rolesToGrantedAuthority(user.getRoles());
+        // Collection<? extends GrantedAuthority> grantedAuthorities = UserRole.rolesToGrantedAuthority(user.getRoles());
+        // Готовим grantedAuthorities
+        */
+
+
 
         // Готовим UserDetails
         UserDetails userDetails =
-            new org.springframework.security.core.userdetails.User(
+            new User(
                 claims.getSubject(),
                 "",
                 grantedAuthorities);
