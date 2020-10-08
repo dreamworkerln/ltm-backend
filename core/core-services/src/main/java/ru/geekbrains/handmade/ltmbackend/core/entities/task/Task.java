@@ -10,9 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 
 /**
@@ -49,7 +47,9 @@ public class Task extends AbstractEntity {
     private String title;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = CascadeType.ALL)
-    Set<TaskMember> members = new HashSet<>();
+    @MapKey(name = "user")
+    private Map<User, TaskMember> members = new HashMap<>();
+    //private Set<TaskMember> members = new HashSet<>();
 
 //    // owner
 //    @ManyToOne
@@ -92,16 +92,15 @@ public class Task extends AbstractEntity {
 
     public void addMember(User user, TaskUserRole taskUserRole) {
 
-        TaskMember probe = new TaskMember(this, user, taskUserRole);
 
         // user was already added to Task
-        if(members.contains(probe)) {
+        if(members.containsKey(user)) {
             throw new IllegalArgumentException("User " + user.getUsername() +
                 " has been already assigned to task + " + title + ", " + id);
         }
         
-        TaskMember taskOwner = new TaskMember(this, user, taskUserRole);
-        members.add(taskOwner);
+        TaskMember taskMember = new TaskMember(this, user, taskUserRole);
+        members.put(user, taskMember);
     }
 
 
@@ -118,4 +117,14 @@ public class Task extends AbstractEntity {
     public int hashCode() {
         return Objects.hash(id);
     }
+
+    @Override
+    public String toString() {
+        return "Task{" +
+            "id=" + id +
+            ", title='" + title + '\'' +
+            '}';
+    }
+
+
 }

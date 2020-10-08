@@ -50,4 +50,14 @@ public class TaskMember {
     public int hashCode() {
         return Objects.hash(user, task);
     }
+
+    @Override
+    public String toString() {
+        return "TaskMember{" +
+            "id=" + id +
+            ", user=" + user.getId() + ": " + user.getUsername() +
+            ", task=" + task +
+            ", taskUserRole=" + taskUserRole +
+            '}';
+    }
 }
