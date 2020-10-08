@@ -4,6 +4,7 @@ import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.Account.AccountDto;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.AbstractDto;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.client.ClientDto;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.courier.CourierDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.task.TaskMemberDto;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -26,15 +27,9 @@ public class UserDto extends AbstractDto {
     private String phoneNumber;
 
     private String payPalEmail;
-
-
     private AccountDto account;
-    private ClientDto client;
-    private CourierDto courier;
 
-    //private Account account;   // Not implemented
-    // private Client client;   // Not implemented
-    // private Courier courier;  // Not implemented
+    private Set<TaskMemberDto> taskMembers = new HashSet<>();
 
     @Override
     public String toString() {

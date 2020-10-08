@@ -27,7 +27,7 @@ public class Order extends AbstractEntity {
 
     //@Transient - нельзя иначе хибер скажет что изменения только в этом поле
     // не меняют сущность и не будет вызывать @PreUpdate
-    // - мусорное поле в базе
+    // поэтому это - мусорное поле в базе, без которого не работает
     private OrderStatus status;
 
     //region enum mapping OrderStatus

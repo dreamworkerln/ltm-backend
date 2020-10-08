@@ -1,10 +1,10 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Client;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Courier;
+import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.oauth2.token.RefreshToken;
+import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import lombok.*;
 
@@ -18,8 +18,12 @@ import java.util.*;
 //@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Table(
         name = "uzer",
-        indexes = {@Index(name = "user_account_id_idx", columnList = "account_id"),
-                @Index(name = "user_first_name_last_name_unq", columnList = "last_name, first_name",unique = true)
+        indexes = {
+                @Index(name = "user_account_id_idx", columnList = "account_id"),
+                @Index(name = "user_username_unq", columnList = "username", unique = true),
+                @Index(name = "user_email_unq", columnList = "email", unique = true),
+                @Index(name = "user_phone_number_unq", columnList = "phone_number", unique = true),
+                @Index(name = "user_first_name_last_name_unq", columnList = "last_name, first_name", unique = true)
         })
 
 @NamedEntityGraph(name = User.FULL_ENTITY_GRAPH,
@@ -39,7 +43,7 @@ public class User extends AbstractEntity {
 //    private Long id;
 
     @NotNull
-    @Column(name = "user_name")
+    @Column(name = "username")
     @Setter(AccessLevel.NONE)
     private String username;     // username is approved by dictionary.com //  use email as username ???
 
@@ -57,8 +61,12 @@ public class User extends AbstractEntity {
 //    @Column(name = "roles")
 //    private Set<UserRole> roles = new HashSet<>();
 
+    // Many-To-Many between entity and enum
     // https://www.w3ma.com/persisting-set-of-enums-in-a-many-to-many-spring-data-relationship/
 
+    // Хранит список ролей для каждого пользователя
+    // тут используется @Converter для преобразования enum UserRole <-> DB String
+    // class UserRoleConverter implements AttributeConverter<UserRole, String>
     @NotNull
     @NotEmpty
     @ElementCollection(targetClass = UserRole.class, fetch = FetchType.EAGER)
@@ -106,13 +114,23 @@ public class User extends AbstractEntity {
     private Integer age;
 
 
-    @OneToOne(mappedBy= "user", orphanRemoval = true)
-    @OrderBy("id ASC")
-    private Client client;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    Set<TaskMember> taskMembers = new HashSet<>();
 
-    @OneToOne(mappedBy= "user", orphanRemoval = true)
-    @OrderBy("id ASC")
-    private Courier courier;
+//    // User tasks (user may have roles of owner, executor or other crew in each task)
+//    @ManyToMany
+//    @JoinTable(name = "task_member",
+//        joinColumns = @JoinColumn(name = "user_id"),
+//        inverseJoinColumns = @JoinColumn(name = "task_id"))
+//    Set<Task> tasks = new HashSet<>();
+
+//    @OneToOne(mappedBy= "user", orphanRemoval = true)
+//    @OrderBy("id ASC")
+//    private Client client;
+//
+//    @OneToOne(mappedBy= "user", orphanRemoval = true)
+//    @OrderBy("id ASC")
+//    private Courier courier;
 
     public User() {}
 
@@ -152,9 +170,9 @@ public class User extends AbstractEntity {
         this.getRoles().add(UserRole.USER);
     }
 
-//    protected void setId(Long id) {
-//        this.id = id;
-//    }
+
+
+
 
     public void setAccount(Account account) {
 
@@ -181,19 +199,19 @@ public class User extends AbstractEntity {
         return lastName + firstName;
     }
 
-    public void setClient(Client client) {
-        this.client = client;
-        if (client.getUser() != this) {
-            client.setUser(this);
-        }
-    }
-
-    public void setCourier(Courier courier) {
-        this.courier = courier;
-        if (courier.getUser() != this) {
-            courier.setUser(this);
-        }
-    }
+//    public void setClient(Client client) {
+//        this.client = client;
+//        if (client.getUser() != this) {
+//            client.setUser(this);
+//        }
+//    }
+//
+//    public void setCourier(Courier courier) {
+//        this.courier = courier;
+//        if (courier.getUser() != this) {
+//            courier.setUser(this);
+//        }
+//    }
 
 
 
@@ -201,20 +219,27 @@ public class User extends AbstractEntity {
     private void prePersists() {
     }
 
-    // ToDo: что делать с остальными полями я хз
-    //  пользователь идентифицируется(principals) по username,email, phoneNumber
+    // ToDo: Пользователь может/должен идентифицироваться(principals) не только по username, но и по email, phoneNumber
+    //  Одно из предлагаемых решений - взять UserDetailsCustomService
+    //  и намутить ему еще кастомных методов по типу
+    //  public UserDetails loadUserByEmail(String email)
+    //  public UserDetails loadUserByPhone(String phone)
+    //  Далее уже везде, где внедряется/используется UserDetailsService заменить на UserDetailsCustomService
+    //  Но тогда не понятно, а что тогда использовать вместо username - глобального идентификатора пользователя в системе?
+    //  Или что использоваться в качестве этого username(как генерировать username - на основе телефона, ящика GUID, и т.д.) ?
+    //
+    // Тут пользователь предполагается идентичным если у него одинаковые поля username & email & phone
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         User user = (User) o;
-        return username.equals(user.username) &&
-            email.equals(user.email) &&
-            phoneNumber.equals(user.phoneNumber);
+        return username.equals(user.username);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(username, email, phoneNumber);
+        return Objects.hash(username);
     }
 }

@@ -1,5 +1,6 @@
 package ru.geekbrains.handmade.ltmbackend.utils;
 
+import org.springframework.beans.factory.annotation.Value;
 import ru.geekbrains.handmade.ltmbackend.utils.testcontainers.PostgresContainerStarter;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
@@ -13,9 +14,14 @@ public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Stor
 
     private static boolean started = false;
 
+    @Value("${testcontainers.enable:true}")
+    private boolean testContainersEnabled;
+
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
+
+        if(!testContainersEnabled) return;
 
         if (!started) {
 
@@ -33,6 +39,8 @@ public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Stor
 
     @Override
     public void afterAll(ExtensionContext context) throws Exception {
+        if(!testContainersEnabled) return;
+
         //System.out.println("================================================ " + "AFTER ALL");
     }
 
@@ -40,6 +48,8 @@ public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Stor
 
     @Override
     public void close() throws Throwable {
+        if(!testContainersEnabled) return;
+
         //System.out.println("================================================ " + "CLOSE");
         PostgresContainerStarter.stop();
     }

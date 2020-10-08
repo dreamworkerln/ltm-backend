@@ -31,6 +31,8 @@ public class LtmInitializer implements ApplicationRunner {
 
         testRepository.save(new TestEntity("Вася test"));
 
+        // ASAP EDC
+        // TODO REMOVE ME!!!!
         usersInitializer.initUsers();
 
 //        // Only for Tests purposes on H2 database !!!

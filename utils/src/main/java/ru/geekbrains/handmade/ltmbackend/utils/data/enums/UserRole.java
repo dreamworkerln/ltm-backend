@@ -19,8 +19,11 @@ import java.util.stream.Collectors;
 //  https://www.baeldung.com/jpa-persisting-enums-in-jpa#converter
 //  https://www.w3ma.com/persisting-set-of-enums-in-a-many-to-many-spring-data-relationship/
 
+
+// Храним роли в коде, а не в БД
 public enum UserRole {
 
+    // ENUM(role,code)
     ADMIN(VAL.ADMIN, VAL.M.get(VAL.ADMIN)),
     USER(VAL.USER, VAL.M.get(VAL.USER)),
     ANONYMOUS(VAL.ANONYMOUS, VAL.M.get(VAL.ANONYMOUS)),
@@ -101,7 +104,7 @@ public enum UserRole {
 
 
 
-
+    // Это имена ролей, как они используются в коде (и в DTO)
     public static class VAL {
 
         public static final String ADMIN                  = "ROLE_ADMIN";
@@ -117,16 +120,17 @@ public enum UserRole {
 
         private final static Map<String, String> M = new HashMap<>();
 
+        // это коды имен ролей (кодированные имена ролей), в таком виде они хранятся в БД
         static {
-            M.put(ADMIN, "ADMIN");
-            M.put(USER, "USER");
-            M.put(ANONYMOUS, "ANON");
-            M.put(RESOURCE, "RESOURCE");
-            M.put(REFRESH, "REFRESH");
+            M.put(ADMIN,                "ADMIN");
+            M.put(USER,                 "USER");
+            M.put(ANONYMOUS,            "ANON");
+            M.put(RESOURCE,             "RESOURCE");
+            M.put(REFRESH,              "REFRESH");
             M.put(CONFIRM_REGISTRATION, "CONFIRM");
-            M.put(CLIENT, "CLIENT");
-            M.put(COURIER, "COURIER");
-            M.put(MANAGER, "MANAGER");
+            M.put(CLIENT,               "CLIENT");
+            M.put(COURIER,              "COURIER");
+            M.put(MANAGER,              "MANAGER");
         }
 
     }

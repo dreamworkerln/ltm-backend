@@ -1,6 +1,7 @@
 package ru.geekbrains.handmade.ltmbackend.core.configurations.filters;
 
 
+import com.sun.xml.bind.v2.TODO;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.User;
@@ -25,6 +26,7 @@ import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.swing.plaf.basic.BasicEditorPaneUI;
 import java.io.IOException;
 import java.util.*;
 
@@ -82,6 +84,7 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
         }
 
         // ASAP EDC
+        // TODO REMOVE ME!!!!
         // DEBUGZ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         Collection<? extends GrantedAuthority> grantedAuthorities =
         //    new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.ADMIN.getName())));

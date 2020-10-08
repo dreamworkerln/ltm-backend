@@ -1,20 +1,30 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.user;
 
+import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
 import ru.geekbrains.handmade.ltmbackend.core.services.AccountService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.persistence.PrePersist;
 import javax.persistence.PreUpdate;
-import java.util.HashSet;
 
 @Component
+@Data
 @Slf4j
 public class UserToPersistListener {
-    static private AccountService accountService;
 
+// SETTER INJECTION NOT WORKING
+//    private AccountService accountService;
+//
+//    public void setAccountService(AccountService accountService) {
+//        this.accountService = accountService;
+//    }
+
+    static private AccountService accountService;
+    // Injecting a Spring dependency into a JPA EntityListener
+    // https://stackoverflow.com/questions/12155632/injecting-a-spring-dependency-into-a-jpa-entitylistener
     @Autowired
     public void init(AccountService accountService) {
         UserToPersistListener.accountService = accountService;
@@ -40,10 +50,11 @@ public class UserToPersistListener {
                 .ifPresent(account -> {
                     throw new IllegalArgumentException("User " + user.getUsername() + " already have Account");
                 });
+
+            Account account = new Account();
+            user.setAccount(account);
+            account.setUser(user);
+            accountService.save(account);
         }
-        Account account = new Account();
-        user.setAccount(account);
-        account.setUser(user);
-        accountService.save(account);
     }
 }

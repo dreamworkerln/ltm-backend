@@ -24,6 +24,12 @@ public interface UserRepository extends CustomRepository<User, Long> {
         "u.phoneNumber = :#{#user.phoneNumber}")
     boolean checkIfExists(@Param("user")User user);
 
+
+    Optional<User> findOneByEmail(String email);
+    Optional<User> findOneByPhoneNumber(String phoneNumber);
+
+
+
     //@EntityGraph(value = "Item.characteristics")
     //load
 

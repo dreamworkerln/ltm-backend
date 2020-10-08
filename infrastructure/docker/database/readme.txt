@@ -17,3 +17,5 @@ sh docker_run_ltm-postgres.sh)
 
 Проверить: 
 psql -h localhost -p 5432 -U ltmadmin ltm
+
+PGOPTIONS=--search_path=ltm PAGER="less -S -iMSx4 -RSFX -e" psql -h localhost -p 5432 -U ltmadmin ltm

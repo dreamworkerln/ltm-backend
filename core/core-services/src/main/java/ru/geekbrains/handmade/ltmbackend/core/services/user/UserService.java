@@ -28,7 +28,7 @@ public class UserService extends BaseRepoAccessService<User> {
     private final UserRepository userRepository;
 
     @Autowired
-    public UserService( UserRepository userRepository) {
+    public UserService(UserRepository userRepository) {
         super(userRepository);
         this.userRepository = userRepository;
     }
@@ -56,6 +56,25 @@ public class UserService extends BaseRepoAccessService<User> {
         return result;
     }
 
+
+    public Optional<User> findByEmail(String email) {
+        Optional<User> result = Optional.empty();
+        if (!StringUtils.isBlank(email)) {
+            result = userRepository.findOneByEmail(email);
+        }
+        return result;
+    }
+
+    public Optional<User> findByPhone(String phone) {
+        Optional<User> result = Optional.empty();
+        if (!StringUtils.isBlank(phone)) {
+            result = userRepository.findOneByPhoneNumber(phone);
+        }
+        return result;
+    }
+
+
+
     /**
      * Check if user already exists by username OR FullName OR email OR phoneNumber
      * @param user
@@ -65,6 +84,10 @@ public class UserService extends BaseRepoAccessService<User> {
         return userRepository.checkIfExists(user);
     }
 
+
+    /**
+     * Выдает User вместе с refresh tokens? а зачем ?
+     */
     @Override
     public Optional<User> findByIdEager(Long id) {
         return userRepository.findById(id, EntityGraphs.named(User.FULL_ENTITY_GRAPH));

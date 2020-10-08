@@ -24,14 +24,12 @@ public abstract class UserMapper extends AbstractMapper<User, UserDto> {
     }
 
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "client", ignore = true)
-    @Mapping(target = "courier", ignore = true)
+    @Mapping(target = "taskMembers", ignore = true)
     public abstract UserDto toDto(User user);
 
-    @Mapping(target = "client", ignore = true)
-    @Mapping(target = "courier", ignore = true)
     @Mapping(target = "refreshTokenList", expression = "java(null)") // всегда подгружаем из БД
     @Mapping(target = "account", ignore = true)
+    @Mapping(target = "taskMembers", ignore = true)
     public abstract User toEntity(UserDto userDto);
 
 

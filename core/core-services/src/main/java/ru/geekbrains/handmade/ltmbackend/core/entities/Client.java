@@ -35,15 +35,15 @@ public class Client extends AbstractEntity {
 
     public Client(@NotNull User user, String clientSpecificData) {
         this.user = user;
-        user.setClient(this);
+//        user.setClient(this);
         this.clientSpecificData = clientSpecificData;
     }
 
     public void setUser(User user) {
         this.user = user;
-        if (user.getClient() != this) {
-            user.setClient(this);
-        }
+//        if (user.getClient() != this) {
+//            user.setClient(this);
+//        }
     }
 
     @Override
