@@ -2,6 +2,7 @@ package ru.geekbrains.handmade.ltmbackend.core.entities.task;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.TaskUserRole;
 
@@ -11,12 +12,12 @@ import java.util.Objects;
 @Entity
 @Table(name = "task_member")
 @Data
-public class TaskMember {
+public class TaskMember extends AbstractEntity {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Long id;
+//    @Id
+//    @Column(name = "id")
+//    @GeneratedValue(strategy = GenerationType.IDENTITY)
+//    protected Long id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")

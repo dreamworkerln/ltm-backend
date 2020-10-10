@@ -27,13 +27,17 @@ public class HandlerName {
 
     
 
-    //geodata specific
+    // geodata specific
     private static final String getRoute = "getRoute";
 
-    //user specific
+    // user specific
     private static final String findByUsername = "findByUsername";
     private static final String makeClient = "makeClient";
     private static final String makeCourier = "makeCourier";
+
+    // task specific
+    private static final String findByCurrentUser = "findByCurrentUser";
+    private static final String findByUser = "findByUser";
 
     // order specific
     private static final String cancel = "cancel";
@@ -72,10 +76,22 @@ public class HandlerName {
     public static class user {
 
         public static final String path = "ltmapp.core.user";
-        public static final String getCurrent = HandlerName.getCurrent;
+        public static final String getCurrent = HandlerName.getCurrent;    // current user tasks
         public static final String save = HandlerName.save;
         public static final String makeClient = HandlerName.makeClient;
         public static final String makeCourier = HandlerName.makeCourier;
+    }
+
+
+    // TASK  --------------------------------------------------------
+
+    public static class task {
+
+        public static final String path = "ltmapp.core.task";
+        public static final String findAll = HandlerName.findAll;
+        public static final String findByCurrentUser = HandlerName.findByCurrentUser;
+        public static final String findByUser = HandlerName.findByUser;  // used by manager
+        public static final String save = HandlerName.save;
     }
 
     // CLIENT --------------------------------------------------------
@@ -133,13 +149,13 @@ public class HandlerName {
     }
 
 
-    // MANAGER ------------------------------------------------------
+    // MANAGEMENT ------------------------------------------------------
 
-    public static class manager {
+    public static class management {
 
         public static class order {
 
-            public static final String path = "ltmapp.core.manager.order";
+            public static final String path = "ltmapp.core.management.order";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -151,7 +167,7 @@ public class HandlerName {
 
         public static class user {
 
-            public static final String path = "ltmapp.core.manager.user";
+            public static final String path = "ltmapp.core.management.user";
 
             public static final String findById = HandlerName.findById;
             public static final String findAllById = HandlerName.findAllById;
@@ -165,7 +181,7 @@ public class HandlerName {
 
         public static class client {
 
-            public static final String path = "ltmapp.core.manager.client";
+            public static final String path = "ltmapp.core.management.client";
 
             public static final String findById = HandlerName.findById;
             public static final String save = HandlerName.save;
@@ -175,7 +191,7 @@ public class HandlerName {
 
         public static class courier {
 
-            public static final String path = "ltmapp.core.manager.courier";
+            public static final String path = "ltmapp.core.management.courier";
 
             public static final String findById = HandlerName.findById;
             public static final String save = HandlerName.save;

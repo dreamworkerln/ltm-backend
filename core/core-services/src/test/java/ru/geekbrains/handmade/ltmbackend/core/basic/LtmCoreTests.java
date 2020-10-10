@@ -92,7 +92,7 @@ class LtmCoreTests {
         Assert.assertNotNull(user.getRefreshTokenList());
 
         user = new User("testsema", "INVALID",
-            "Семенов", "Тест", "testsema@mail.ru", "456678test");
+            "Семенов", "Тест", 23, "testsema@mail.ru", "456678test");
         userService.save(user);
         Client client = new Client(user, "КЛИЕНТ_DATA");
         clientService.save(client);
@@ -142,24 +142,24 @@ class LtmCoreTests {
         //Optional<User> opUser = userService.findByEmail("vasya@mail.ru");
         //Assertions.assertThat(opUser).isPresent().info.description("No user 'vasya@mail.ru' was found");
 
-        Task task = new Task(null, "Task1", user);
+        Task task = new Task("Task1", null, user);
 
 
         User subUser = new User("subuser", "INVALID",
-            "Subuser", "Sub", "sub@mail.ru", "32101");
+            "Subuser", "Sub", 33, "sub@mail.ru", "32101");
 
         userService.save(subUser);
 
 
         User execUser = new User("executer", "",
-            "Exe", "Cutor", "exec@mail.ru", "76868");
+            "Exe", "Cutor", 45, "exec@mail.ru", "76868");
 
         userService.save(execUser);
 
         task.addMember(subUser, TaskUserRole.REGULAR);
         task.addMember(execUser, TaskUserRole.EXECUTOR);
 
-        Task subtask = new Task(task, "Task1subtask1", subUser);
+        Task subtask = new Task("Task1subtask1", task, subUser);
         taskService.save(task); // cascading
         //taskService.save(subtask);
         System.out.println("ok");

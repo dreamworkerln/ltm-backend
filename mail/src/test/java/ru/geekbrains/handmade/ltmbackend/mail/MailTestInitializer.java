@@ -32,7 +32,7 @@ public class MailTestInitializer implements ApplicationRunner {
 
         Account account = new Account();
         User user = new User("vasya", "INVALID",
-                "Пупкин", "Вася", "ltmbackendgeek@gmail.com","123");
+                "Пупкин", "Вася", 56,"ltmbackendgeek@gmail.com","123");
         user.setAccount(account);
         userService.save(user);
 

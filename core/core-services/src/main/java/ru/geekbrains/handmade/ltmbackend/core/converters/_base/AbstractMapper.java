@@ -18,7 +18,7 @@ public abstract class AbstractMapper<E extends AbstractEntity, D extends Abstrac
 
     protected BaseRepoAccessService<E> baseRepoAccessService;
 
-    protected Constructor<E,D> constructor;
+//    protected Constructor<E,D> constructor;
 
 //    public void setBaseRepoAccessService(BaseRepoAccessService<E> baseRepoAccessService) {
 //        this.baseRepoAccessService = baseRepoAccessService;
@@ -43,10 +43,8 @@ public abstract class AbstractMapper<E extends AbstractEntity, D extends Abstrac
      */
     public E merge(D source, E target) {
 
-
-
-        E result;
-
+        // assign to result entity, converted from dto by mapstruct
+        E result = target;
 
         // source.getId() - cause entity.id has protected setter and target.id always be null
         // Update existing entity
@@ -57,9 +55,9 @@ public abstract class AbstractMapper<E extends AbstractEntity, D extends Abstrac
             // Merge entity from DTO to entity loaded from DB
         }
         // Create new entity
-        else {
-            result = constructor.create(source, target);
-        }
+        //else {
+        //    //result = constructor.create(source, target);
+        //}
         
         SpringBeanUtilsEx.CopyPropertiesExcludeNull(target, result);
         return result;
@@ -77,13 +75,29 @@ public abstract class AbstractMapper<E extends AbstractEntity, D extends Abstrac
 
     public abstract List<E> toEntityList(List<D> dtoList);
 
-    // ====================================================
-
-    // метод create нельзя размещать внутри AbstractMapper - mapstruct начнет ругань,
-    // что он не знает, куда прикрутить этот ваш create() и что им делать.
-
-    // allow to obtain new object from descendants classes
-    protected abstract class Constructor<E extends AbstractEntity, D extends AbstractDto> {
-        public abstract E create(D dto, E entity);
-    }
+//    // ====================================================
+//
+//    // allow to obtain new object from descendants classes
+//
+//    *
+//     * Создаватель сущностей<br>
+//     * К примеру - когда приехало DTO, а в базе соответствующая сущность еще не создана,
+//     * и просто переконвертировать dto в entity нельзя,
+//     * там, к примеру, надо к-то данные еще заполнить в других сущностях либо че-то прочесть из других сущностей.
+//     * @param <E>
+//     * @param <D>
+//
+//    protected abstract class Constructor<E extends AbstractEntity, D extends AbstractDto> {
+//
+//
+//        // метод create нельзя размещать внутри AbstractMapper - mapstruct начнет ругань,
+//        // что он не знает, куда прикрутить этот ваш create() и что им делать.
+//        *
+//         *
+//         * @param dto то что приехало на входе (в контроллер)
+//         * @param entity то, что Mapstruct осилил создать своими силами
+//         * @return новое entity,
+//
+//        public abstract E create(D dto, E entity);
+//    }
 }

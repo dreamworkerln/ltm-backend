@@ -11,6 +11,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.*;
+import java.util.stream.Collectors;
 
 
 /**
@@ -25,15 +26,19 @@ import java.util.*;
 //@AllArgsConstructor
 public class Task extends AbstractEntity {
 
+    @NotNull
+    @Size(min = 3, max = 30)
+    private String title;
+
 
     // Родительское задание
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "parent_id")
     private Task parent;
 
-    // Список дочерних заданий
+    // Subtasks - список дочерних заданий
     @OneToMany(mappedBy = "parent", cascade = CascadeType.ALL)
-    private Set<Task> tasks = new HashSet<>();
+    private Set<Task> subtasks = new HashSet<>();
 
     //@Column(name = "address")
 
@@ -41,10 +46,6 @@ public class Task extends AbstractEntity {
     @JoinColumn(name="address_id")
     private Address address;
 
-
-    @NotNull
-    @Size(min = 3, max = 30)
-    private String title;
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = CascadeType.ALL)
     @MapKey(name = "user")
@@ -77,17 +78,25 @@ public class Task extends AbstractEntity {
     private Instant deadline;
 
     public Task() {}
-    public Task(Task parent, String title, @NotNull User owner) {
+    public Task(String title, Task parent, @NotNull User owner) {
         this.parent = parent;
         this.title = title;
 
         // add parent
         if(parent != null) {
-            parent.getTasks().add(this);
+            parent.getSubtasks().add(this);
         }
 
-        // add owner
+        // add owner member
         addMember(owner, TaskUserRole.OWNER);
+    }
+
+    public Task(String title, Task parent, Set<Task> subtasks, Set<TaskMember> members) {
+
+        this.parent = parent;
+        this.title = title;
+        this.subtasks = subtasks;
+        this.members = members.stream().collect(Collectors.toMap(TaskMember::getUser, tm -> tm));
     }
 
     public void addMember(User user, TaskUserRole taskUserRole) {

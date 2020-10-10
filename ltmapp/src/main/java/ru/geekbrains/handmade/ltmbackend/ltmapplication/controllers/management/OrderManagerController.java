@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.manager;
+package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.management;
 
 import ru.geekbrains.handmade.ltmbackend.core.converters.order.OrderConverter;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Order;
@@ -17,7 +17,7 @@ import org.springframework.security.access.annotation.Secured;
 
 import java.util.List;
 
-@JrpcController(HandlerName.manager.order.path)
+@JrpcController(HandlerName.management.order.path)
 @Secured(UserRole.VAL.MANAGER)
 public class OrderManagerController {
 
@@ -35,7 +35,7 @@ public class OrderManagerController {
      * @param params Long id
      * @return
      */
-    @JrpcMethod(HandlerName.manager.order.findById)
+    @JrpcMethod(HandlerName.management.order.findById)
     public OrderDto findById(Long id) {
 
         Order order = orderService.findById(id).orElse(null);
@@ -48,7 +48,7 @@ public class OrderManagerController {
      * @param params List<Long> idList
      * @return
      */
-    @JrpcMethod(HandlerName.manager.order.findAllById)
+    @JrpcMethod(HandlerName.management.order.findAllById)
     public List<OrderDto> findAllById(List<Long> idList) {
 
         List<Order> list = orderService.findAllById(idList);
@@ -60,7 +60,7 @@ public class OrderManagerController {
      * @param params OrderSpecDto
      * @return
      */
-    @JrpcMethod(HandlerName.manager.order.findAll)
+    @JrpcMethod(HandlerName.management.order.findAll)
     public List<OrderDto> findAll(OrderSpecDto specDto) {
 
         Specification<Order> spec = converter.buildSpec(specDto);
@@ -79,7 +79,7 @@ public class OrderManagerController {
      * @param params
      * @return
      */
-    @JrpcMethod(HandlerName.manager.order.findFirst)
+    @JrpcMethod(HandlerName.management.order.findFirst)
     public List<OrderDto> findFirst(OrderSpecDto specDto) {
 
         int limit = specDto != null ? specDto.getLimit() : 1;
@@ -93,7 +93,7 @@ public class OrderManagerController {
      * Save Order(insert new or update existing)
      * @param params Order
      * @return order.id     */
-    @JrpcMethod(HandlerName.manager.order.save)
+    @JrpcMethod(HandlerName.management.order.save)
     public Long save(OrderDto orderDto) {
 
         Order order = converter.toEntity(orderDto);
@@ -106,7 +106,7 @@ public class OrderManagerController {
      * Delete Order
      * @param OrderDto
      */
-    @JrpcMethod(HandlerName.manager.order.delete)
+    @JrpcMethod(HandlerName.management.order.delete)
     public void delete(OrderDto orderDto) {
         
         Order order = converter.toEntity(orderDto);

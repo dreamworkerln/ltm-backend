@@ -19,10 +19,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.util.Assert;
 
 
-// ToDo: перенести это все в управлялку ManagerUserController, кроме последнего метод
-
 /**
- * User management
+ * Allow manage user properties by user themselves
  */
 @JrpcController(HandlerName.user.path)
 @Secured(UserRole.VAL.USER)
@@ -72,7 +70,8 @@ public class UserController {
             throw new IllegalArgumentException("Invalid user params. Username, mail, phone should be the same");
         }
 
-        // update password - if not empty and not loaded from DB
+        // ToDo:  тут нужна двухфакторная авторизация, чтобы не угнали аккаунт и сменили пароль
+        // update password - if not empty and not already bcrypted(loaded from DB)
         if (!StringUtils.isBlank(user.getPassword()) &&
             !user.getPassword().contains("{bcrypt}")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -93,7 +92,7 @@ public class UserController {
 
 
     /**
-     * Up current user to Client
+     * Upgrade current user to Client
      * @return Long id of created Client
      */
     @JrpcMethod(HandlerName.user.makeClient)
@@ -130,7 +129,7 @@ public class UserController {
 
 
     /**
-     * Up current user to Courier
+     * Upgrade current user to Courier
      * @return Long id of created Client
      */
     @JrpcMethod(HandlerName.user.makeCourier)

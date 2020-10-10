@@ -22,7 +22,7 @@ public abstract class OrderMapper extends AbstractMapper<Order, OrderDto> {
     @PostConstruct
     private void postConstruct() {
         this.baseRepoAccessService = orderService;
-        constructor = new EntityConstructor();
+        //constructor = new EntityConstructor();
     }
 
 
@@ -65,12 +65,12 @@ public abstract class OrderMapper extends AbstractMapper<Order, OrderDto> {
     }
 
 
-    protected class EntityConstructor extends Constructor<Order, OrderDto> {
-        @Override
-        public Order create(OrderDto dto, Order entity) {
-            return new Order();
-        }
-    }
+//    protected class EntityConstructor extends Constructor<Order, OrderDto> {
+//        @Override
+//        public Order create(OrderDto dto, Order entity) {
+//            return new Order();
+//        }
+//    }
 
 
 

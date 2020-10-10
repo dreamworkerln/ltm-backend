@@ -20,7 +20,7 @@ public abstract class CourierMapper extends AbstractMapper<Courier, CourierDto> 
     @PostConstruct
     private void postConstruct() {
         this.baseRepoAccessService = courierService;
-        constructor = new EntityConstructor();
+        //constructor = new EntityConstructor();
     }
 
     public abstract CourierDto toDto(Courier courier);
@@ -33,14 +33,14 @@ public abstract class CourierMapper extends AbstractMapper<Courier, CourierDto> 
         merge(source, target);
     }
 
-    protected class EntityConstructor extends Constructor<Courier, CourierDto> {
-        @Override
-        public Courier create(CourierDto dto, Courier entity) {
-            return new Courier(
-                entity.getUser(),
-                dto.getCourierSpecificData()
-            );
-        }
-    }
+//    protected class EntityConstructor extends Constructor<Courier, CourierDto> {
+//        @Override
+//        public Courier create(CourierDto dto, Courier entity) {
+//            return new Courier(
+//                entity.getUser(),
+//                dto.getCourierSpecificData()
+//            );
+//        }
+//    }
 
 }

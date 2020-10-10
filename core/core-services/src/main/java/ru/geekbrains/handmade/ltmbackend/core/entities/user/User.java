@@ -5,6 +5,8 @@ import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.oauth2.token.RefreshToken;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
+//import ru.geekbrains.handmade.ltmbackend.utils.configurations.Default;
+import ru.geekbrains.handmade.ltmbackend.utils.configurations.Default;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import lombok.*;
 
@@ -132,30 +134,36 @@ public class User extends AbstractEntity {
 //    @OrderBy("id ASC")
 //    private Courier courier;
 
-    public User() {}
+    //public User() {}
 
+
+    protected User() {}
+
+
+
+//    public User(@NotNull String username,
+//                @NotNull String password,
+//                @NotNull String firstName,
+//                @NotNull String lastName,
+//                @NotNull String email,
+//                @NotNull String phoneNumber) {
+//
+//        this.username = username;
+//        this.password = password;
+//        this.firstName = firstName;
+//        this.lastName = lastName;
+//        this.email = email;
+//        this.phoneNumber = phoneNumber;
+//
+//        this.getRoles().add(UserRole.USER);
+//    }
+
+    @Default
     public User(@NotNull String username,
                 @NotNull String password,
                 @NotNull String firstName,
                 @NotNull String lastName,
-                @NotNull String email,
-                @NotNull String phoneNumber) {
-
-        this.username = username;
-        this.password = password;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.phoneNumber = phoneNumber;
-
-        this.getRoles().add(UserRole.USER);
-    }
-
-    public User(@NotNull String username,
-                @NotNull String password,
-                @NotNull String firstName,
-                @NotNull String lastName,
-                @NotNull Integer age,
+                         Integer age,
                 @NotNull String email,
                 @NotNull String phoneNumber) {
 
@@ -169,8 +177,6 @@ public class User extends AbstractEntity {
 
         this.getRoles().add(UserRole.USER);
     }
-
-
 
 
 

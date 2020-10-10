@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.data;
+package ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.http_wrapper;
 
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.protocol.JrpcBase;
 import org.springframework.http.HttpStatus;

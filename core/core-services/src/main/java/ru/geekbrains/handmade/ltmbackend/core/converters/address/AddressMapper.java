@@ -18,7 +18,7 @@ public abstract class AddressMapper extends AbstractMapper<Address, AddressDto> 
     @PostConstruct
     private void postConstruct() {
         this.baseRepoAccessService = addressService;
-        constructor = new EntityConstructor();
+        //constructor = new EntityConstructor();
     }
 
     @Mapping(target = "created", ignore = true)
@@ -32,16 +32,17 @@ public abstract class AddressMapper extends AbstractMapper<Address, AddressDto> 
         return merge(source, target);
     }
 
-    protected class EntityConstructor extends Constructor<Address, AddressDto> {
-        @Override
-        public Address create(AddressDto dto, Address entity) {
-            return new Address(
-                dto.getCity(),
-                dto.getStreet(),
-                dto.getHouse(),
-                dto.getBuilding(),
-                dto.getFlat());
-        }
-    }
+//    protected class EntityConstructor extends Constructor<Address, AddressDto> {
+//        @Override
+//        public Address create(AddressDto dto, Address entity) {
+//            return new Address();
+//
+////                dto.getCity(),
+////                dto.getStreet(),
+////                dto.getHouse(),
+////                dto.getBuilding(),
+////                dto.getFlat());
+//        }
+//    }
 
 }

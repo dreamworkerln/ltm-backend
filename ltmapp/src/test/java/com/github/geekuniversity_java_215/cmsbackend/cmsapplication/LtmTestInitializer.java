@@ -60,14 +60,14 @@ public class LtmTestInitializer implements ApplicationRunner {
             to = new Address("Мухосранск", "Западная", 2, 2, 5);
 
             user = new User("vasya1", "INVALID",
-                "Вася1", "Пупкин1", "vasya1@mail.ru", "112232344551");
+                "Вася1", "Пупкин1", 56, "vasya1@mail.ru", "112232344551");
             userService.save(user);
 
             client = new Client(user, "CLIENT_DATA");
             clientService.save(client);
 
             user = new User("sema1", "INVALID",
-                "Сема1", "Пасечкин", "sema1@mail.ru", "9087967865431");
+                "Сема1", "Пасечкин", 56,"sema1@mail.ru", "9087967865431");
             userService.save(user);
             courier = new Courier(user, "COURIER_DATA");
             courierService.save(courier);

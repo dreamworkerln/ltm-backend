@@ -15,28 +15,28 @@ public class CourierManagerRequest extends AbstractJrpcRequest {
 
     @SneakyThrows
     public CourierDto findById(long id) {
-        String uri = HandlerName.manager.courier.path + "." + HandlerName.manager.courier.findById;
+        String uri = HandlerName.management.courier.path + "." + HandlerName.management.courier.findById;
         JsonNode response = performJrpcRequest(uri, id);
         return objectMapper.treeToValue(response, CourierDto.class);
     }
 
     @SneakyThrows
     public CourierDto findByUsername(String username) {
-        String uri = HandlerName.manager.courier.path + "." + HandlerName.manager.courier.findByUsername;
+        String uri = HandlerName.management.courier.path + "." + HandlerName.management.courier.findByUsername;
         JsonNode response = performJrpcRequest(uri, username);
         return objectMapper.treeToValue(response, CourierDto.class);
     }
 
     @SneakyThrows
     public CourierDto findByUser(UserDto user) {
-        String uri = HandlerName.manager.courier.path + "." + HandlerName.manager.courier.findByUsername;
+        String uri = HandlerName.management.courier.path + "." + HandlerName.management.courier.findByUsername;
         JsonNode response = performJrpcRequest(uri, user.getUsername());
         return objectMapper.treeToValue(response, CourierDto.class);
     }
 
     @SneakyThrows
     public Long save(CourierDto courier) {
-        String uri = HandlerName.manager.courier.path + "." + HandlerName.manager.courier.save;
+        String uri = HandlerName.management.courier.path + "." + HandlerName.management.courier.save;
         JsonNode response = performJrpcRequest(uri, courier);
         return objectMapper.treeToValue(response, Long.class);
     }

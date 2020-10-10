@@ -3,7 +3,7 @@ package ru.geekbrains.handmade.ltmbackend.core.controllers;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.data.HttpResponseFactory;
+import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.http_wrapper.HttpResponseFactory;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.utils.HandlerSignature;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.utils.ReflectionUtils;
 import ru.geekbrains.handmade.ltmbackend.core.exceptions.InvalidLogicException;
@@ -35,7 +35,7 @@ import ru.geekbrains.handmade.ltmbackend.utils.StringUtils;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcController;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcMethod;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.JrpcMethodHandler;
-import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.data.HttpResponse;
+import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.http_wrapper.HttpResponse;
 
 
 

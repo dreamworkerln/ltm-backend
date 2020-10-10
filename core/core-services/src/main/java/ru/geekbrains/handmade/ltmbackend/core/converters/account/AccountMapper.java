@@ -20,7 +20,7 @@ public abstract class AccountMapper extends AbstractMapper<Account, AccountDto> 
     @PostConstruct
     private void postConstruct() {
         this.baseRepoAccessService = accountService;
-        constructor = new AccountMapper.EntityConstructor();
+        //constructor = new AccountMapper.EntityConstructor();
     }
 
     @Mapping(target = "user", ignore = true)
@@ -34,16 +34,16 @@ public abstract class AccountMapper extends AbstractMapper<Account, AccountDto> 
         return merge(source, target);
     }
 
-    protected class EntityConstructor extends Constructor<Account, AccountDto> {
-
-        //private UserRoleService userRoleService;
-
-        @Override
-        public Account create(AccountDto dto, Account entity) {
-            return new Account();
-        }
-
-    }
+//    protected class EntityConstructor extends Constructor<Account, AccountDto> {
+//
+//        //private UserRoleService userRoleService;
+//
+//        @Override
+//        public Account create(AccountDto dto, Account entity) {
+//            return new Account();
+//        }
+//
+//    }
 
 
 }

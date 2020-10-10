@@ -30,7 +30,7 @@ public class UsersInitializer {
         if (!userService.findByUsername("root").isPresent()) {
             user = new User("root",
                 "{bcrypt}$2a$10$SQUaDnIckmdPr1Wf/WOYiOL42yn0zCPHoM9qC3XNYsH9NyLqVbWKK",
-                "root", "root", "root@mail.ru", "root");
+                "root", "root", null, "root@mail.ru", "root");
             user.getRoles().add(UserRole.ADMIN);
             user.getRoles().add(UserRole.MANAGER);
             userService.save(user);
@@ -51,7 +51,7 @@ public class UsersInitializer {
         // user/user_password
         if (!userService.findByUsername("user").isPresent()) {
             user = new User("user", "{bcrypt}$2a$10$4oxoJzJti6NZmP.4d98VJue..tPH6otFLlgMTuA.nWHvtmnZRupE2",
-                "user", "user", "user@mail.ru", "user");
+                "user", "user", null,"user@mail.ru", "user");
             userService.save(user);
         }
 
@@ -66,7 +66,7 @@ public class UsersInitializer {
         // sema/sema_password
         if (!userService.findByUsername("sema").isPresent()) {
             user = new User("sema", "{bcrypt}$2a$10$zqdgSPaIehsb82r7psbBKOU5bkfCo8pqv9BwuwLz5BoEcSXQuqdnW",
-                "Сема", "Пасечкин", "sema@mail.ru", "908796786543");
+                "Сема", "Пасечкин",null, "sema@mail.ru", "908796786543");
             userService.save(user);
         }
 

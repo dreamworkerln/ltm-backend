@@ -20,7 +20,7 @@ public abstract class ClientMapper extends AbstractMapper<Client, ClientDto> {
     @PostConstruct
     private void postConstruct() {
         this.baseRepoAccessService = clientService;
-        constructor = new EntityConstructor();
+        //constructor = new EntityConstructor();
     }
 
     public abstract ClientDto toDto(Client client);
@@ -36,14 +36,14 @@ public abstract class ClientMapper extends AbstractMapper<Client, ClientDto> {
         merge(source, target);
     }
 
-    protected class EntityConstructor extends Constructor<Client, ClientDto> {
-        @Override
-        public Client create(ClientDto dto, Client entity) {
-            return new Client(
-                entity.getUser(),
-                dto.getClientSpecificData()
-            );
-        }
-    }
+//    protected class EntityConstructor extends Constructor<Client, ClientDto> {
+//        @Override
+//        public Client create(ClientDto dto, Client entity) {
+//            return new Client(
+//                entity.getUser(),
+//                dto.getClientSpecificData()
+//            );
+//        }
+//    }
 
 }

@@ -14,21 +14,21 @@ public class UserManagerRequest extends AbstractJrpcRequest {
 
     @SneakyThrows
     public UserDto findByUsername(String username) {
-        String uri = HandlerName.manager.user.path + "." + HandlerName.manager.user.findByUsername;
+        String uri = HandlerName.management.user.path + "." + HandlerName.management.user.findByUsername;
         JsonNode response = performJrpcRequest(uri, username);
         return objectMapper.treeToValue(response, UserDto.class);
     }
 
     @SneakyThrows
     public UserDto findById(long id) {
-        String uri = HandlerName.manager.user.path + "." + HandlerName.manager.user.findById;
+        String uri = HandlerName.management.user.path + "." + HandlerName.management.user.findById;
         JsonNode response = performJrpcRequest(uri, id);
         return objectMapper.treeToValue(response, UserDto.class);
     }
 
     @SneakyThrows
     public Long save(UserDto user) {
-        String uri = HandlerName.manager.user.path + "." + HandlerName.manager.user.save;
+        String uri = HandlerName.management.user.path + "." + HandlerName.management.user.save;
         JsonNode response = performJrpcRequest(uri, user);
         return objectMapper.treeToValue(response, Long.class);
     }

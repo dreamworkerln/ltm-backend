@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.manager;
+package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.management;
 
 
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcController;
@@ -6,7 +6,6 @@ import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcM
 import ru.geekbrains.handmade.ltmbackend.core.converters.user.UserConverter;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
-import ru.geekbrains.handmade.ltmbackend.core.specifications.user.UserSpecBuilder;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserSpecDto;
@@ -20,16 +19,21 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.List;
 
-@JrpcController(HandlerName.manager.user.path)
+
+/**
+ * Управление пользователями
+ */
+
+@JrpcController(HandlerName.management.user.path)
 @Secured(UserRole.VAL.MANAGER)
-public class UserManagerController {
+public class ManagerUserController {
 
 
     private final UserService userService;
     private final UserConverter converter;
     private final PasswordEncoder passwordEncoder;
 
-    public UserManagerController(UserService userService, UserConverter converter,
+    public ManagerUserController(UserService userService, UserConverter converter,
                                  PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.converter = converter;
@@ -38,7 +42,7 @@ public class UserManagerController {
 
 
 
-    @JrpcMethod(HandlerName.manager.user.findById)
+    @JrpcMethod(HandlerName.management.user.findById)
     public UserDto findById(Long id) {
 
         User user = userService.findById(id).orElse(null);
@@ -51,7 +55,7 @@ public class UserManagerController {
      * @param params List<Long> idList
      * @return List<UserDto>
      */
-    @JrpcMethod(HandlerName.manager.user.findAllById)
+    @JrpcMethod(HandlerName.management.user.findAllById)
     public List<UserDto> findAllById(List<Long> idList) {
 
         List<User> list = userService.findAllById(idList);
@@ -64,7 +68,7 @@ public class UserManagerController {
      * @param String username
      * @return UserDto
      */
-    @JrpcMethod(HandlerName.manager.user.findByUsername)
+    @JrpcMethod(HandlerName.management.user.findByUsername)
     public UserDto findByUsername(String username) {
 
         User user = userService.findByUsername(username).orElse(null);
@@ -78,7 +82,7 @@ public class UserManagerController {
      * @param params UserSpecDto
      * @return List<UserDto>
      */
-    @JrpcMethod(HandlerName.manager.user.findAll)
+    @JrpcMethod(HandlerName.management.user.findAll)
     public List<UserDto> findAll(UserSpecDto specDto) {
 
         Specification<User> spec =  converter.buildSpec(specDto);
@@ -91,7 +95,7 @@ public class UserManagerController {
      * Get first limit elements by UserSpecDto (with ~pagination)
      * @return List<UserDto>
      */
-    @JrpcMethod(HandlerName.manager.user.findFirst)
+    @JrpcMethod(HandlerName.management.user.findFirst)
     public List<UserDto> findFirst(UserSpecDto specDto) {
 
         int limit = specDto != null ? specDto.getLimit() : 1;
@@ -107,7 +111,7 @@ public class UserManagerController {
      * @param params userDto
      * @return
      */
-    @JrpcMethod(HandlerName.manager.user.save)
+    @JrpcMethod(HandlerName.management.user.save)
     public Long save(UserDto userDto) {
 
         User user = converter.toEntity(userDto);
@@ -133,7 +137,7 @@ public class UserManagerController {
      * @param params
      * @return
      */
-    @JrpcMethod(HandlerName.manager.user.delete)
+    @JrpcMethod(HandlerName.management.user.delete)
     public void delete(UserDto userDto) {
 
         User user = converter.toEntity(userDto);

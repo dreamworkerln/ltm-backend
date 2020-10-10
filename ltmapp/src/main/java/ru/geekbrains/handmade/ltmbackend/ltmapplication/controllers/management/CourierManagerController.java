@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.manager;
+package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.management;
 
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcController;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcMethod;
@@ -14,7 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
-@JrpcController(HandlerName.manager.courier.path)
+@JrpcController(HandlerName.management.courier.path)
 @Secured(UserRole.VAL.MANAGER)
 public class CourierManagerController {
 
@@ -30,7 +30,7 @@ public class CourierManagerController {
     }
 
 
-    @JrpcMethod(HandlerName.manager.courier.findByUsername)
+    @JrpcMethod(HandlerName.management.courier.findByUsername)
     public CourierDto findByUsername(String username) {
 
         Courier courier = courierService.findByUsername(username).orElse(null);;
@@ -38,7 +38,7 @@ public class CourierManagerController {
     }
 
 
-    @JrpcMethod(HandlerName.manager.courier.save)
+    @JrpcMethod(HandlerName.management.courier.save)
     public Long save(CourierDto courierDto) {
 
 

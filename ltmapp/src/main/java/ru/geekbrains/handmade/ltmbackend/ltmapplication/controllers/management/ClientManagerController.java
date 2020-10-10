@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.manager;
+package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.management;
 
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcController;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcMethod;
@@ -14,7 +14,7 @@ import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 
 
-@JrpcController(HandlerName.manager.client.path)
+@JrpcController(HandlerName.management.client.path)
 @Secured(UserRole.VAL.MANAGER)
 public class ClientManagerController {
 
@@ -32,7 +32,7 @@ public class ClientManagerController {
     }
 
 
-    @JrpcMethod(HandlerName.manager.client.findByUsername)
+    @JrpcMethod(HandlerName.management.client.findByUsername)
     public ClientDto findByUsername(String username) {
 
         Client client = clientService.findByUsername(username).orElse(null);;
@@ -40,7 +40,7 @@ public class ClientManagerController {
     }
 
 
-    @JrpcMethod(HandlerName.manager.client.save)
+    @JrpcMethod(HandlerName.management.client.save)
     public Long save(ClientDto clientDto) {
 
         Client client = converter.toEntity(clientDto);
