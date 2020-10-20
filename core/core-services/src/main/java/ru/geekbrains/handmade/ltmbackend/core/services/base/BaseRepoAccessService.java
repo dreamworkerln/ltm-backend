@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
@@ -36,9 +37,13 @@ public abstract class BaseRepoAccessService<T> {
         return baseRepository.findById(id);
     }
 
-    public Optional<T> findByIdEager(Long id) {
-        return baseRepository.findById(id, EntityGraphs.empty());
+    public Optional<T> findById(Long id, EntityGraph entityGraph) {
+        return baseRepository.findById(id, entityGraph);
     }
+
+//    public Optional<T> findByIdEager(Long id) {
+//        return baseRepository.findById(id, EntityGraphs.empty());
+//    }
 
 
     public T findByIdOrError(Long id) {

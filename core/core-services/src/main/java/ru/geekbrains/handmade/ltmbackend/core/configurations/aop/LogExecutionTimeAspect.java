@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.aop;
+package ru.geekbrains.handmade.ltmbackend.core.configurations.aop;
 
 import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.ProceedingJoinPoint;

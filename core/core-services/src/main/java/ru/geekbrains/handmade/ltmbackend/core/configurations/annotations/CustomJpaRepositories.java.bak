@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.annotations;
+package ru.geekbrains.handmade.ltmbackend.core.configurations.annotations;
 
 import ru.geekbrains.handmade.ltmbackend.core.repositories.RepositoryWithEntityManager;
 import org.springframework.boot.autoconfigure.domain.EntityScan;

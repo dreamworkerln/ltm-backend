@@ -103,9 +103,9 @@
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
-    <logger name="org.hibernate.SQL" level="TRACE"/>                        <!-- SHOW SQL -->
-    <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>        <!-- SHOW PARAMS VALUES -->
-    <logger name="org.hibernate.tool.hbm2ddl" level="TRACE"/>               <!-- DDL SQL SCHEMA MIGRATION -->
+    <logger name="org.hibernate.SQL" level="TRACE"/>                      <!-- SHOW SQL; TRACE to enable -->
+    <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>        <!-- SHOW PARAMS VALUES -->
+    <logger name="org.hibernate.tool.hbm2ddl" level="TRACE"/>             <!-- DDL SQL SCHEMA MIGRATION -->
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>
     <logger name="org.springframework.security" level="WARN"/>
@@ -122,9 +122,9 @@
     <logger name="okhttp3" level="WARN"/>
 
     <!--PROJECT LEVEL-->
-    <logger name="ru.geekbrains.handmade.ltmbackend" level="INFO"/>
+    <logger name="ru.geekbrains.handmade.ltmbackend" level="TRACE"/>
 
-
+    <!--ROOT LEVEL, default log level to filter packages that not specified above-->
     <root level="INFO">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="LOG_TRACE"/>

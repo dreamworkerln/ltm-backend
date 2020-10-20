@@ -1,11 +1,10 @@
 package ru.geekbrains.handmade.ltmbackend.core.services;
 
-import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.CurrencyCode;
 import ru.geekbrains.handmade.ltmbackend.core.repositories.AccountRepository;
 import ru.geekbrains.handmade.ltmbackend.core.services.base.BaseRepoAccessService;
-import ru.geekbrains.handmade.ltmbackend.core.aop.LogExecutionTime;
+import ru.geekbrains.handmade.ltmbackend.core.configurations.aop.LogExecutionTime;
 
 import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
 import ru.geekbrains.handmade.ltmbackend.core.services.currency.CurrencyConverterService;

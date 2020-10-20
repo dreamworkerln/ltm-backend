@@ -1,7 +1,7 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities;
 
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
-import ru.geekbrains.handmade.ltmbackend.core.aop.LogExecutionTime;
+import ru.geekbrains.handmade.ltmbackend.core.configurations.aop.LogExecutionTime;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

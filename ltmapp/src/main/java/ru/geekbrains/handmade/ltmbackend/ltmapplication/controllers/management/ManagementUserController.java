@@ -26,15 +26,15 @@ import java.util.List;
 
 @JrpcController(HandlerName.management.user.path)
 @Secured(UserRole.VAL.MANAGER)
-public class ManagerUserController {
+public class ManagementUserController {
 
 
     private final UserService userService;
     private final UserConverter converter;
     private final PasswordEncoder passwordEncoder;
 
-    public ManagerUserController(UserService userService, UserConverter converter,
-                                 PasswordEncoder passwordEncoder) {
+    public ManagementUserController(UserService userService, UserConverter converter,
+                                    PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.converter = converter;
         this.passwordEncoder = passwordEncoder;

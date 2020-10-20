@@ -1,0 +1,42 @@
+package ru.geekbrains.handmade.ltmbackend.core.configurations.annotations;
+
+import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.core.annotation.AnnotationUtils;
+import org.springframework.security.access.AccessDeniedException;
+import org.springframework.stereotype.Component;
+import org.springframework.util.Assert;
+
+import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
+
+
+/**
+ * Check user rights to access resource aspect
+ */
+@Aspect
+@Component
+public class SecurityUserAccessAspect {
+
+    @Before("@annotation(SecurityResourceAccess)")
+    public void validateAccessToResource(JoinPoint joinPoint) {
+
+        MethodSignature signature = (MethodSignature)joinPoint.getSignature();
+        Method method = signature.getMethod();
+
+        ValidAuthenticationType foundAnnotation = AnnotationUtils.findAnnotation(method, ValidAuthenticationType.class);
+
+        Assert.notNull(foundAnnotation, "foundAnnotation == null");
+        Set<AuthType> validAuthTypes = new HashSet<>(Arrays.asList(foundAnnotation.value()));
+        AuthType currentAuthType = requestScopeBean.getAuthType();
+
+        if (!validAuthTypes.contains(currentAuthType)) {
+            throw new AccessDeniedException("Unauthenticated");
+        }
+    }
+
+}

@@ -90,12 +90,13 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
         //    new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.ADMIN.getName())));
             new HashSet<GrantedAuthority>(Arrays.asList(
                 new SimpleGrantedAuthority(UserRole.ADMIN.getName()),
-                new SimpleGrantedAuthority(UserRole.MANAGER.getName())
+                new SimpleGrantedAuthority(UserRole.MANAGER.getName()),
+                new SimpleGrantedAuthority(UserRole.USER.getName())
             ));
 
         UserDetails userDetails =
             new org.springframework.security.core.userdetails.User(
-                "Пупкин Вася",
+                "pupkinvasya",
                 "",
                 grantedAuthorities);
         UsernamePasswordAuthenticationToken authToken =

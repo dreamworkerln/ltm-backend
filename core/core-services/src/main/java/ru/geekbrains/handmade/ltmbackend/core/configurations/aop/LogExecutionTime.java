@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.aop;
+package ru.geekbrains.handmade.ltmbackend.core.configurations.aop;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

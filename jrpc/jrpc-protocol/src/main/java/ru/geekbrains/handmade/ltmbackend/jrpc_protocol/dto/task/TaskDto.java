@@ -14,7 +14,7 @@ import java.util.Set;
 public class TaskDto extends AbstractDto {
 
     private String title;
-    private TaskDto parent;
+    private Long parentId;
     private Set<TaskDto> subtasks = new HashSet<>();
     private Set<TaskMemberDto> members = new HashSet<>();
     private AddressDto address;

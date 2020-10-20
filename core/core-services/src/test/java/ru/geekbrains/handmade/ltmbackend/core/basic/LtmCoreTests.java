@@ -1,5 +1,6 @@
 package ru.geekbrains.handmade.ltmbackend.core.basic;
 
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import ru.geekbrains.handmade.ltmbackend.core.entities.*;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
@@ -88,7 +89,7 @@ class LtmCoreTests {
         userService.findByFullName(user.getLastName(), user.getFirstName())
             .orElseThrow( () -> new UsernameNotFoundException(finalUser.getFullName() + " не найден"));
 
-        user = userService.findByIdEager(user.getId()).get();
+        user = userService.findById(user.getId(), EntityGraphs.named(User.FULL_ENTITY_GRAPH)).get();
         Assert.assertNotNull(user.getRefreshTokenList());
 
         user = new User("testsema", "INVALID",

@@ -22,9 +22,36 @@ import java.util.stream.Collectors;
 @Entity
 @Data
 @Table(name = "task")
-//@NoArgsConstructor
-//@AllArgsConstructor
+
+
+@NamedEntityGraph(name = Task.PARENT_SUBTASKS_MEMBERS_GRAPH,
+    attributeNodes= {
+        @NamedAttributeNode("parent"),
+        @NamedAttributeNode("subtasks"),
+        @NamedAttributeNode("members")}
+)
+
+
+//@NamedEntityGraph(
+//    name = Task.PARENT_SUBTASKS_MEMBERS_GRAPH,
+//    attributeNodes = {
+//        @NamedAttributeNode("parent"),
+//        @NamedAttributeNode(value="subtasks",subgraph="subtasks_graph"),
+//        @NamedAttributeNode("members")
+//    },
+//    subgraphs = {
+//        @NamedSubgraph(
+//            name = "subtasks_graph",
+//            attributeNodes = {
+//                @NamedAttributeNode("parent")
+//            }
+//        )
+//    }
+//)
+
 public class Task extends AbstractEntity {
+
+    public static final String PARENT_SUBTASKS_MEMBERS_GRAPH = "task.parent.subtask.members";
 
     @NotNull
     @Size(min = 3, max = 30)
@@ -48,9 +75,10 @@ public class Task extends AbstractEntity {
 
 
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = CascadeType.ALL)
-    @MapKey(name = "user")
-    private Map<User, TaskMember> members = new HashMap<>();
-    //private Set<TaskMember> members = new HashSet<>();
+    //@MapKey(name = "user")
+    //@MapKeyJoinColumn(name = "user")
+    //private Map<User, TaskMember> members = new HashMap<>();
+    private Set<TaskMember> members = new HashSet<>();
 
 //    // owner
 //    @ManyToOne
@@ -96,20 +124,31 @@ public class Task extends AbstractEntity {
         this.parent = parent;
         this.title = title;
         this.subtasks = subtasks;
-        this.members = members.stream().collect(Collectors.toMap(TaskMember::getUser, tm -> tm));
+        this.members = members;
+        //this.members = members.stream().collect(Collectors.toMap(TaskMember::getUser, tm -> tm));
     }
 
     public void addMember(User user, TaskUserRole taskUserRole) {
 
-
         // user was already added to Task
-        if(members.containsKey(user)) {
-            throw new IllegalArgumentException("User " + user.getUsername() +
-                " has been already assigned to task + " + title + ", " + id);
+
+        for (TaskMember member : members) {
+            // user was already added to Task
+            if (member.getUser().equals(user)) {
+                throw new IllegalArgumentException("User " + user.getUsername() +
+                    " has been already assigned to task + " + title + ", " + id);
+            }
         }
-        
+
+
+//        if(members.containsKey(user)) {
+//            throw new IllegalArgumentException("User " + user.getUsername() +
+//                " has been already assigned to task + " + title + ", " + id);
+//        }
+
         TaskMember taskMember = new TaskMember(this, user, taskUserRole);
-        members.put(user, taskMember);
+        members.add(taskMember);
+        //members.put(user, taskMember);
     }
 
 

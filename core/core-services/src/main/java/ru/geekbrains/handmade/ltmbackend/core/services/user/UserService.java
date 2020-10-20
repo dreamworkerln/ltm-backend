@@ -85,13 +85,13 @@ public class UserService extends BaseRepoAccessService<User> {
     }
 
 
-    /**
-     * Выдает User вместе с refresh tokens? а зачем ?
-     */
-    @Override
-    public Optional<User> findByIdEager(Long id) {
-        return userRepository.findById(id, EntityGraphs.named(User.FULL_ENTITY_GRAPH));
-    }
+//    /**
+//     * Выдает User вместе с refresh tokens? а зачем это нужно?
+//     */
+//    @Override
+//    public Optional<User> findByIdEager(Long id) {
+//        return userRepository.findById(id, EntityGraphs.named(User.FULL_ENTITY_GRAPH));
+//    }
 
 
 

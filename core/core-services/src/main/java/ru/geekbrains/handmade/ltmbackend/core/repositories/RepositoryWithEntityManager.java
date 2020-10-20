@@ -7,6 +7,7 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
+import javax.persistence.PersistenceUnitUtil;
 import java.io.Serializable;
 
 
@@ -25,15 +26,17 @@ public class RepositoryWithEntityManager<T, ID extends Serializable> extends Ent
 
     private final EntityManager entityManager;
 
+    private final PersistenceUnitUtil persistenceUnitUtil;
+
     public RepositoryWithEntityManager(JpaEntityInformation entityInformation, EntityManager entityManager) {
         //noinspection unchecked
         super(entityInformation, entityManager);
         this.entityManager = entityManager;
+        this.persistenceUnitUtil = entityManager.getEntityManagerFactory().getPersistenceUnitUtil();
     }
 
     @Override
     public void refresh(T t) {
-
         entityManager.refresh(t);
     }
 
@@ -48,7 +51,9 @@ public class RepositoryWithEntityManager<T, ID extends Serializable> extends Ent
         entityManager.detach(t);
     }
 
-
+    public PersistenceUnitUtil getPersistenceUnitUtil() {
+        return persistenceUnitUtil;
+    }
 }
 
 
