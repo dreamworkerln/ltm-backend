@@ -29,7 +29,7 @@ public class UserDto extends AbstractDto {
     private String payPalEmail;
     private AccountDto account;
 
-    private Set<TaskMemberDto> taskMembers = new HashSet<>();
+    //private Set<TaskMemberDto> taskMembers = new HashSet<>();
 
     @Override
     public String toString() {

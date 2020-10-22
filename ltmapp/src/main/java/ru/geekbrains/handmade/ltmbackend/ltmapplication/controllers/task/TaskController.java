@@ -13,6 +13,7 @@ import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.task.TaskDto;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege;
 
 import java.util.List;
 
@@ -34,7 +35,7 @@ public class TaskController {
     }
 
     /**
-     * Return tasks for current user
+     * Return all tasks for current user
      * @return List<TaskDto>
      */
     @JrpcMethod(HandlerName.task.findAll)
@@ -48,15 +49,28 @@ public class TaskController {
 
 
     /**
-     * Return tasks for current user
+     * Return tasks by id, check permissions
      * @return List<TaskDto>
-     */
+     */                                      //TaskUserPrivilege.VAL.READ
     @JrpcMethod(HandlerName.task.findById)
-    //@PreAuthorize("hasPermission(#id, 'update')")
+    @PreAuthorize("hasPermission(#id, " +
+        "T(ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName$task).path, " +
+        "T(ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege).READ)")
     public TaskDto findById(Long id) {
+
+
         Task result = taskService.findById(id).orElse(null);
         taskService.truncateLazy(result);
         return converter.toDto(result);
+    }
+
+
+    
+    @JrpcMethod(HandlerName.task.save)
+    public Long save(TaskDto taskDto) {
+        Task task = converter.toEntity(taskDto);
+        task = taskService.save(task);
+        return task.getId();
     }
 
 

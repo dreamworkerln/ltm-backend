@@ -1,7 +1,7 @@
 #!/bin/bash
 
 #BUILD PROJECTS
-#mvn -DskipTests package
+mvn -DskipTests package
 
 #CREATE DIRECTORIES
 ssh u3-root "cd /root/projects/ltm-backend/ && mkdir -p ltmapp auth-server"

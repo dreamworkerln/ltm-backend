@@ -21,6 +21,10 @@ import java.util.stream.Collectors;
 
 
 // Храним роли в коде, а не в БД
+
+/**
+ * Глобальные роли пользователя
+ */
 public enum UserRole {
 
     // ENUM(role,code)

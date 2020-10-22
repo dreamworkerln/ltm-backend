@@ -10,6 +10,7 @@ import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.repositories.TaskRepository;
 import ru.geekbrains.handmade.ltmbackend.core.services.base.BaseRepoAccessService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import java.util.List;
 import java.util.Optional;
@@ -51,6 +52,13 @@ public class TaskService extends BaseRepoAccessService<Task> {
     public Optional<Task> findById(Long id) {
         return repository.findById(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
     }
+
+    public Optional<TaskUserRole> getTaskMemberRole(Long taskId, User user) {
+        return
+            repository.getTaskMemberRole(taskId, user, EntityGraphs.empty());
+    }
+
+    // ----------------------------------------------------------------------
 
     public void truncateLazy(Task task) {
         repository.truncateLazy(task);

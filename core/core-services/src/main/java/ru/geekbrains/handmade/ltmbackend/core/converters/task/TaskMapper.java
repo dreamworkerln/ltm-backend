@@ -55,25 +55,25 @@ public abstract class TaskMapper extends AbstractMapper<Task, TaskDto> {
 
 
 
-    protected Map<User,TaskMember> membersToMap(Set<TaskMemberDto> memberSetDto) {
+//    protected Map<User,TaskMember> membersToMap(Set<TaskMemberDto> memberSetDto) {
+//
+//        Map<User, TaskMember> result = new HashMap<>();
+//
+//        for (TaskMemberDto tmDto : memberSetDto) {
+//            TaskMember tm = taskMemberMapper.toEntity(tmDto);
+//            result.put(tm.getUser(), tm);
+//        }
+//        return result;
+//    }
 
-        Map<User, TaskMember> result = new HashMap<>();
-
-        for (TaskMemberDto tmDto : memberSetDto) {
-            TaskMember tm = taskMemberMapper.toEntity(tmDto);
-            result.put(tm.getUser(), tm);
-        }
-        return result;
-    }
-
-    protected Set<TaskMemberDto> membersToSet(Map<User, TaskMember> memberMap) {
-        return memberMap.values().stream().map(tm -> taskMemberMapper.toDto(tm)).collect(Collectors.toSet());
-    }
+//    protected Set<TaskMemberDto> membersToSet(Map<User, TaskMember> memberMap) {
+//        return memberMap.values().stream().map(tm -> taskMemberMapper.toDto(tm)).collect(Collectors.toSet());
+//    }
 
     @AfterMapping
     Task afterMapping(TaskDto source, @MappingTarget Task target) {
 
-        // load parent
+        // load Task parent
         target.setParent(taskService.findById(source.getParentId()).orElse(null));
 
         return merge(source, target);

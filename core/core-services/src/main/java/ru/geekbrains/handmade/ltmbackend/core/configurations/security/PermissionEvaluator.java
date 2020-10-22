@@ -4,18 +4,28 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRolePrivilege;
 
 import java.io.Serializable;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 @Component("permissionEvaluator")
 @Slf4j
 public class PermissionEvaluator implements org.springframework.security.access.PermissionEvaluator {
 
     private final UserService userService;
+    private final TaskService taskService;
+    private final TaskUserRolePrivilege taskUserRolePrivilege;
 
-    public PermissionEvaluator(UserService userService) {
+
+    public PermissionEvaluator(UserService userService, TaskService taskService, TaskUserRolePrivilege taskUserRolePrivilege) {
         this.userService = userService;
+        this.taskService = taskService;
+        this.taskUserRolePrivilege = taskUserRolePrivilege;
     }
 
     /**
@@ -30,7 +40,7 @@ public class PermissionEvaluator implements org.springframework.security.access.
     @Override
     public boolean hasPermission(Authentication authentication, Object targetDomainObject, Object permission) {
 
-        log.info("ENTER hasPermission(...)");
+        log.info("ENTER hasPermission1 task id:{},  privilege: {}", targetDomainObject, permission);
 
         if (authentication != null && permission instanceof String) {
 
@@ -63,16 +73,36 @@ public class PermissionEvaluator implements org.springframework.security.access.
     }
 
     @Override
-    public boolean hasPermission(Authentication authentication, Serializable serializable, String s, Object o) {
+    public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
 
-        log.info("ENTER hasPermission22222(...)");
+        AtomicBoolean result = new AtomicBoolean(false);
 
-        return false;
+        log.info("ENTER hasPermission2 type {} task id:{},  privilege: {}", targetType, targetId, permission);
+
+        if (authentication != null) {
+
+            // ToDo: switch to map to avoid encumbrance code
+            if(HandlerName.task.path.equals(targetType)) {
+
+                Long taskId = (Long) targetId;
+                User user = userService.getCurrent();
+                TaskUserPrivilege privilege = (TaskUserPrivilege)permission;
+
+                // 1. check user role on this task
+                taskService.getTaskMemberRole(taskId, user)
+                    .ifPresent(taskUserRole -> {
+
+                        // check if taskUserRole contain requested permission(privilege)
+                        if (taskUserRolePrivilege.getRolePrivileges().get(taskUserRole).contains(privilege)) {
+                            result.set(true);
+                        }
+                    });
+            }
+        }
+        return result.get();
     }
 
-
-
-//    @Override
+    //    @Override
 //    public boolean hasPermission(Authentication authentication, Serializable serializable, String s, Object o) {
 //        return false;
 //    }

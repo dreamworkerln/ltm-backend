@@ -14,6 +14,7 @@ import org.springframework.stereotype.Repository;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import javax.persistence.EntityManager;
 import javax.persistence.NamedEntityGraph;
@@ -41,6 +42,24 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
     Optional<Task> findById(@Param("id") Long id, EntityGraph entityGraph);
 
 
+    // ----------------------------------------------------------------
+
+    // Check if Task contains User
+    @Query("SELECT tm.taskUserRole FROM Task t " +
+        "JOIN TaskMember tm ON tm.task = t " +
+        //"JOIN FETCH t.members " +
+        //"LEFT JOIN FETCH t.parent " +
+        //"LEFT JOIN FETCH t.subtasks " +
+        "WHERE tm.user = :#{#user} AND t.id = :#{#taskId}")
+    Optional<TaskUserRole> getTaskMemberRole(@Param("taskId")Long taskId, @Param("user")User user, EntityGraph entityGraph);
+
+
+
+
+    // =================================================================
+
+    // replace non-initialized AOP Hibernate proxy to empty Set/Map
+    // for Task.subtasks and Task.members
     default void truncateLazy(Task task) {
 
         if(task != null) {
@@ -70,6 +89,7 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
             }
         }
     }
+
 
 //    public void lazyLoadFixSubtasks(Collection<Task> tasks) {
 //

@@ -1,6 +1,6 @@
 package ru.geekbrains.handmade.ltmbackend.core.data.enums.converters;
 
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.TaskUserRole;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 

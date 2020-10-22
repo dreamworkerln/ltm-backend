@@ -190,46 +190,51 @@ public class ReflectionUtils {
 //        if (signature.getParams().size() == 0) {
 //            result = null;
 //        }
-        // one param - copy whole jsonNode to handler parameter
-        if (signature.getParams().size() == 1) {
 
-            HandlerSignature.HandlerParameter parameter = signature.getParams().firstEntry().getValue();
-            setParameterValue(parameter, jsonNode);
-        }
-        // many params - passed json array - no fields
-        else if (jsonNode.isArray()) {
 
-            Iterator<JsonNode> it = jsonNode.iterator();
+        if (signature.getParams().size() > 0) {
 
-            for (Map.Entry<String, HandlerSignature.HandlerParameter> entry : signature.getParams().entrySet()) {
 
-                HandlerSignature.HandlerParameter parameter = entry.getValue();
-                setParameterValue(parameter, it.next());
+            // one param - copy whole jsonNode to handler parameter
+            if (signature.getParams().size() == 1) {
+
+                HandlerSignature.HandlerParameter parameter = signature.getParams().firstEntry().getValue();
+                setParameterValue(parameter, jsonNode);
             }
-        }
-        // many params - extract jsonNode fields to match handler params
-        else {
+            // many params - passed json array - no fields
+            else if (jsonNode.isArray()) {
 
+                Iterator<JsonNode> it = jsonNode.iterator();
 
-            Iterator<Map.Entry<String, JsonNode>> it = jsonNode.fields();
+                for (Map.Entry<String, HandlerSignature.HandlerParameter> entry : signature.getParams().entrySet()) {
 
-            for (Map.Entry<String, HandlerSignature.HandlerParameter> entry : signature.getParams().entrySet()) {
-
-                Map.Entry<String, JsonNode> jsonEntry = it.next(); // used for field access by index
-
-                HandlerSignature.HandlerParameter parameter = entry.getValue();
-
-                JsonNode paramNode = jsonNode.get(parameter.getName()); // get by name
-                if(paramNode == null) { // else get by index
-                    paramNode = jsonEntry.getValue();
+                    HandlerSignature.HandlerParameter parameter = entry.getValue();
+                    setParameterValue(parameter, it.next());
                 }
+            }
+            // many params - extract jsonNode fields to match handler params
+            else {
 
-                if(paramNode == null) {
-                    throw new ParseException(0, "JRPC method " + signature.getName() +
-                        " parameter: " + parameter.getName() + " not found");
+                Iterator<Map.Entry<String, JsonNode>> it = jsonNode.fields();
+
+                for (Map.Entry<String, HandlerSignature.HandlerParameter> entry : signature.getParams().entrySet()) {
+
+                    Map.Entry<String, JsonNode> jsonEntry = it.next(); // used for field access by index
+
+                    HandlerSignature.HandlerParameter parameter = entry.getValue();
+
+                    JsonNode paramNode = jsonNode.get(parameter.getName()); // get by name
+                    if (paramNode == null) { // else get by index
+                        paramNode = jsonEntry.getValue();
+                    }
+
+                    if (paramNode == null) {
+                        throw new ParseException(0, "JRPC method " + signature.getName() +
+                            " parameter: " + parameter.getName() + " not found");
+                    }
+
+                    setParameterValue(parameter, paramNode);
                 }
-
-                setParameterValue(parameter, paramNode);
             }
         }
 

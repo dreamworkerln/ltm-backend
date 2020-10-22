@@ -1,13 +1,13 @@
-package ru.geekbrains.handmade.ltmbackend.utils.data.enums;
+package ru.geekbrains.handmade.ltmbackend.utils.data.enums.task;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import lombok.Getter;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
+/**
+ * Роль пользователя в контексте конкретной Task
+ */
 public enum TaskUserRole {
 
     // ENUM(role,code)
@@ -86,6 +86,5 @@ public enum TaskUserRole {
             M.put(EXECUTOR, "EXEC");
             M.put(REGULAR,  "REGULAR");
         }
-
     }
 }

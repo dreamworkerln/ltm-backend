@@ -107,25 +107,26 @@ public class ManagementUserController {
 
     /**
      * Save User, may change roles
-     * <br> Will not save Account
      * @param params userDto
      * @return
      */
+    //* <br> Will not save Account
     @JrpcMethod(HandlerName.management.user.save)
     public Long save(UserDto userDto) {
 
         User user = converter.toEntity(userDto);
 
-        // update/set password - if not empty and not loaded from DB
+        // update/set password
+        // disallow empty password, bcrypt hash of password instead password
         if (!StringUtils.isBlank(user.getPassword()) &&
             !user.getPassword().contains("{bcrypt}")) {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
-        // Security
-        User currentUser = userService.getCurrent();
-        // preserve Account
-        user.setAccount(currentUser.getAccount());
+//        // Security
+//        User currentUser = userService.getCurrent();
+//        // preserve Account
+//        user.setAccount(currentUser.getAccount());
 
         user = userService.save(user);
         return user.getId();

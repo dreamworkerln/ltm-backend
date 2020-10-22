@@ -4,14 +4,13 @@ import lombok.*;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Address;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.TaskUserRole;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.*;
-import java.util.stream.Collectors;
 
 
 /**

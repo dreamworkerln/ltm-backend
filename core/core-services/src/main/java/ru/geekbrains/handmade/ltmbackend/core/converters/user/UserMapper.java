@@ -24,7 +24,7 @@ public abstract class UserMapper extends AbstractMapper<User, UserDto> {
     }
 
     @Mapping(target = "password", ignore = true)
-    @Mapping(target = "taskMembers", ignore = true)
+    //@Mapping(target = "taskMembers", ignore = true)
     public abstract UserDto toDto(User user);
 
     @Mapping(target = "refreshTokenList", expression = "java(null)") // всегда подгружаем из БД

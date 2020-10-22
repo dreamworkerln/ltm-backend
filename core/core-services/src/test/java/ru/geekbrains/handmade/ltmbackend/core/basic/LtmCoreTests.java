@@ -3,7 +3,6 @@ package ru.geekbrains.handmade.ltmbackend.core.basic;
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import ru.geekbrains.handmade.ltmbackend.core.entities.*;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
-import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
 import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskService;
 import ru.geekbrains.handmade.ltmbackend.utils.Junit5Extension;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.CurrencyCode;
@@ -20,7 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.TaskUserRole;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import java.math.BigDecimal;
 import java.util.concurrent.ExecutorService;

@@ -117,7 +117,7 @@ public class User extends AbstractEntity {
 
 
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    Set<TaskMember> taskMembers = new HashSet<>();
+    Set<TaskMember> taskMembers;/* = new HashSet<>();*/
 
 //    // User tasks (user may have roles of owner, executor or other crew in each task)
 //    @ManyToMany

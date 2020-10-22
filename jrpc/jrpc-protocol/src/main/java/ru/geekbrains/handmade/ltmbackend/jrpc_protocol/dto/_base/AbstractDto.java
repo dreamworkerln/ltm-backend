@@ -15,13 +15,13 @@ public abstract class AbstractDto implements Serializable {
 
     protected Long id;
 
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     protected Boolean enabled;
 
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     protected Instant created;
 
-    @Setter(AccessLevel.NONE)
+    //@Setter(AccessLevel.NONE)
     protected Instant updated;
 
 //    public Long getId() {

@@ -1,10 +1,9 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.task;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.TaskUserRole;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import javax.persistence.*;
 import java.util.Objects;
@@ -28,6 +27,8 @@ public class TaskMember extends AbstractEntity {
     private Task task;
 
     private TaskUserRole taskUserRole;
+
+    //private List<TaskUserRole> taskUserRoleList;
 
     protected TaskMember() {}
 

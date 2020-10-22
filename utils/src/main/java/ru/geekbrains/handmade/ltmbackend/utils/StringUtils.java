@@ -11,7 +11,7 @@ public class StringUtils extends org.springframework.util.StringUtils {
     /**
      * Checks if a String is null or empty ("") or whitespace only.
      * <br>Like org.apache.commons.lang3.StringUtils.isBlank
-     * <br>(against - .isEmpty doesn't trim whitespaces)
+     * <br>(against - Spring StringUtils.isEmpty doesn't trim whitespaces)
      */
     public boolean isBlank(String s) {
         return org.springframework.util.StringUtils.isEmpty(org.springframework.util.StringUtils.trimWhitespace(s));
