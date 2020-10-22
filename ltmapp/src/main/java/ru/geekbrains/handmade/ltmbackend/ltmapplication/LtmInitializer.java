@@ -85,7 +85,9 @@ public class LtmInitializer implements ApplicationRunner {
         task.addMember(execUser, TaskUserRole.EXECUTOR);
 
         Task subtask = new Task("Task1subtask1", task, subUser);
-        subtask.addMember(user,TaskUserRole.REGULAR);
+
+
+        subtask.addMember(userService.findByUsername("sema").get(),TaskUserRole.REGULAR);
         taskService.save(task); // cascading
         //taskService.save(subtask);
         System.out.println("remove me - added some tasks for debug");
