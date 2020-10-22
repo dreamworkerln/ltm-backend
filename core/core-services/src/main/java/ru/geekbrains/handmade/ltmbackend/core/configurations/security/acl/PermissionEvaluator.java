@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.configurations.security;
+package ru.geekbrains.handmade.ltmbackend.core.configurations.security.acl;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
@@ -11,21 +11,28 @@ import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRolePrivilege;
 
 import java.io.Serializable;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.Collectors;
 
 @Component("permissionEvaluator")
 @Slf4j
 public class PermissionEvaluator implements org.springframework.security.access.PermissionEvaluator {
 
     private final UserService userService;
-    private final TaskService taskService;
-    private final TaskUserRolePrivilege taskUserRolePrivilege;
+
+    private final Map<String, PermissionEvaluatorHandler> permissionEvaluatorHandlers;
 
 
-    public PermissionEvaluator(UserService userService, TaskService taskService, TaskUserRolePrivilege taskUserRolePrivilege) {
+
+    public PermissionEvaluator(UserService userService,
+                               List<PermissionEvaluatorHandler> permissionEvaluatorHandlers) {
+
         this.userService = userService;
-        this.taskService = taskService;
-        this.taskUserRolePrivilege = taskUserRolePrivilege;
+        this.permissionEvaluatorHandlers = permissionEvaluatorHandlers.stream()
+            .collect(Collectors.toMap(PermissionEvaluatorHandler::getKey, eh -> eh));
+
     }
 
     /**
@@ -75,31 +82,21 @@ public class PermissionEvaluator implements org.springframework.security.access.
     @Override
     public boolean hasPermission(Authentication authentication, Serializable targetId, String targetType, Object permission) {
 
-        AtomicBoolean result = new AtomicBoolean(false);
+        boolean result = false;
 
         log.info("ENTER hasPermission2 type {} task id:{},  privilege: {}", targetType, targetId, permission);
 
         if (authentication != null) {
 
-            // ToDo: switch to map to avoid encumbrance code
-            if(HandlerName.task.path.equals(targetType)) {
 
-                Long taskId = (Long) targetId;
-                User user = userService.getCurrent();
-                TaskUserPrivilege privilege = (TaskUserPrivilege)permission;
-
-                // 1. check user role on this task
-                taskService.getTaskMemberRole(taskId, user)
-                    .ifPresent(taskUserRole -> {
-
-                        // check if taskUserRole contain requested permission(privilege)
-                        if (taskUserRolePrivilege.getRolePrivileges().get(taskUserRole).contains(privilege)) {
-                            result.set(true);
-                        }
-                    });
+            if(permissionEvaluatorHandlers.containsKey(targetType)) {
+                result = permissionEvaluatorHandlers.get(targetType).hasPermission(
+                    userService.getCurrent(),
+                    (Long)targetId,
+                    permission);
             }
         }
-        return result.get();
+        return result;
     }
 
     //    @Override
