@@ -53,6 +53,8 @@ public class TaskService extends BaseRepoAccessService<Task> {
         return repository.findById(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
     }
 
+
+    // Подразумевается, что в конкретном задании у одного пользователя одновременно может существовать только одна роль
     public Optional<TaskUserRole> getTaskMemberRole(Long taskId, User user) {
         return
             repository.getTaskMemberRole(taskId, user, EntityGraphs.empty());

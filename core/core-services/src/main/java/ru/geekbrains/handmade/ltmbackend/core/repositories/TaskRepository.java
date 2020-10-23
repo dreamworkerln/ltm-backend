@@ -44,7 +44,7 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
 
     // ----------------------------------------------------------------
 
-    // Check if Task contains User
+    // Подразумевается, что в конкретном задании у одного пользователя одновременно может существовать только одна роль
     @Query("SELECT tm.taskUserRole FROM Task t " +
         "JOIN TaskMember tm ON tm.task = t " +
         //"JOIN FETCH t.members " +
