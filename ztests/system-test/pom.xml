@@ -1,0 +1,63 @@
+<?xmjrpc-client.propertiesl version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <parent>
+        <artifactId>cms-backend</artifactId>
+        <groupId>com.github.geekuniversity_java_215</groupId>
+        <version>0.1</version>
+        <relativePath>../../pom.xml</relativePath>
+    </parent>
+
+
+    <groupId>com.github.geekuniversity_java_215.tests</groupId>
+    <artifactId>system-test</artifactId>
+    <description>
+        Subsystem tests, disabled by default, required running
+        auth-server and cmsapp to perform
+    </description>
+
+    <!-- This test suite is DISABLED by default-->
+    <properties>
+        <skipTests>true</skipTests>
+    </properties>
+
+    <dependencies>
+
+        <!--module configuration -->
+        <dependency>
+            <groupId>com.github.geekuniversity_java_215</groupId>
+            <artifactId>appconfiguration</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--module jrpc-protocol -->
+        <dependency>
+            <groupId>com.github.geekuniversity_java_215</groupId>
+            <artifactId>jrpc-protocol</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--module jrpc-client -->
+        <dependency>
+            <groupId>com.github.geekuniversity_java_215</groupId>
+            <artifactId>jrpc-client</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+        <!--module utils -->
+        <dependency>
+            <groupId>com.github.geekuniversity_java_215</groupId>
+            <artifactId>utils</artifactId>
+            <version>${app.version}</version>
+            <scope>compile</scope>
+        </dependency>
+
+
+    </dependencies>
+</project>

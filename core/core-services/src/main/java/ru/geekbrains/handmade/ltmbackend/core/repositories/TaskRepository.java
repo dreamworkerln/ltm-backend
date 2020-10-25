@@ -3,11 +3,7 @@ package ru.geekbrains.handmade.ltmbackend.core.repositories;
 
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
-//import org.springframework.data.jpa.repository.Query;
-import org.hibernate.collection.internal.PersistentMap;
-import org.hibernate.collection.internal.PersistentSet;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
@@ -15,9 +11,6 @@ import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
-
-import javax.persistence.EntityManager;
-import javax.persistence.NamedEntityGraph;
 import javax.persistence.PersistenceUnitUtil;
 import java.util.*;
 

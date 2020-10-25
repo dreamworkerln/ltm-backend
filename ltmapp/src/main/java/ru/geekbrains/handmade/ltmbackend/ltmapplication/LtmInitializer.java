@@ -44,10 +44,8 @@ public class LtmInitializer implements ApplicationRunner {
         testRepository.save(new TestEntity("Вася test"));
 
         // ASAP EDC
-        // TODO REMOVE ME!!!!
+        // TODO REMOVE ME AFTER auth-server will restored!!!!
         usersInitializer.initUsers();
-        addSomeDebugTasks();
-
 
 
 
@@ -60,38 +58,7 @@ public class LtmInitializer implements ApplicationRunner {
         log.info("LtmInitializer finished");
     }
 
-    private void addSomeDebugTasks() {
-        User user = userService.findByEmail("vasya@mail.ru")
-            .orElseThrow( () -> new UsernameNotFoundException("user 'vasya@mail.ru' не найден"));
 
-        //Optional<User> opUser = userService.findByEmail("vasya@mail.ru");
-        //Assertions.assertThat(opUser).isPresent().info.description("No user 'vasya@mail.ru' was found");
-
-        Task task = new Task("Task1", null, user);
-
-
-        User subUser = new User("subuser", "INVALID",
-            "Subuser", "Sub", 33, "sub@mail.ru", "32101");
-
-        userService.save(subUser);
-
-
-        User execUser = new User("executer", "",
-            "Exe", "Cutor", 45, "exec@mail.ru", "76868");
-
-        userService.save(execUser);
-
-        task.addMember(subUser, TaskUserRole.REGULAR);
-        task.addMember(execUser, TaskUserRole.EXECUTOR);
-
-        Task subtask = new Task("Task1subtask1", task, subUser);
-
-
-        subtask.addMember(userService.findByUsername("sema").get(),TaskUserRole.REGULAR);
-        taskService.save(task); // cascading
-        //taskService.save(subtask);
-        System.out.println("remove me - added some tasks for debug");
-    }
 
 }
 

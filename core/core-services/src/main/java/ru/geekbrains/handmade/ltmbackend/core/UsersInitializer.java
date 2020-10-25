@@ -8,6 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+
+/**
+ * Called from auth-server to create basic users
+ * ToDo: now called from ltmapplication due to auth-server disabling
+ */
 @Component
 @Slf4j
 public class UsersInitializer {
@@ -19,7 +24,7 @@ public class UsersInitializer {
         this.userService = userService;
     }
 
-    @SuppressWarnings("OptionalGetWithoutIsPresent")
+    //@SuppressWarnings("OptionalGetWithoutIsPresent")
     public void initUsers() {
 
         User user;
@@ -27,7 +32,7 @@ public class UsersInitializer {
 
         // admin user  --------------------------------------------------
         // root/toor
-        if (!userService.findByUsername("root").isPresent()) {
+        if (userService.findByUsername("root").isEmpty()) {
             user = new User("root",
                 "{bcrypt}$2a$10$SQUaDnIckmdPr1Wf/WOYiOL42yn0zCPHoM9qC3XNYsH9NyLqVbWKK",
                 "root", "root", null, "root@mail.ru", "root");
@@ -35,6 +40,14 @@ public class UsersInitializer {
             user.getRoles().add(UserRole.MANAGER);
             userService.save(user);
         }
+
+        // user/user_password
+        if (userService.findByUsername("user").isEmpty()) {
+            user = new User("user", "{bcrypt}$2a$10$4oxoJzJti6NZmP.4d98VJue..tPH6otFLlgMTuA.nWHvtmnZRupE2",
+                "user", "user", null,"user@mail.ru", "user");
+            userService.save(user);
+        }
+
 
 //        // frontend user that register new users  ---------------------
 //        // registrar/registrar_password
@@ -48,27 +61,6 @@ public class UsersInitializer {
 
         // demo users --------------------------------------------------
 
-        // user/user_password
-        if (!userService.findByUsername("user").isPresent()) {
-            user = new User("user", "{bcrypt}$2a$10$4oxoJzJti6NZmP.4d98VJue..tPH6otFLlgMTuA.nWHvtmnZRupE2",
-                "user", "user", null,"user@mail.ru", "user");
-            userService.save(user);
-        }
-
-        // vasya/vasya_password
-        if (!userService.findByUsername("pupkinvasya").isPresent()) {
-            user = new User("pupkinvasya", "{bcrypt}$2a$10$ptWulW3vFICm8Pu.CmulbuNx1GsgwO8UHrcZuVJi22mF792qRxjMu",
-                "Вася", "Пупкин", 37, "vasya@mail.ru", "1122334455");
-
-            userService.save(user);
-        }
-
-        // sema/sema_password
-        if (!userService.findByUsername("sema").isPresent()) {
-            user = new User("sema", "{bcrypt}$2a$10$zqdgSPaIehsb82r7psbBKOU5bkfCo8pqv9BwuwLz5BoEcSXQuqdnW",
-                "Сема", "Пасечкин",null, "sema@mail.ru", "908796786543");
-            userService.save(user);
-        }
 
         log.info("initialize default users done");
     }

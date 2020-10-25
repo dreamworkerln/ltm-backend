@@ -2,7 +2,7 @@
 PGDATA_LTM=${HOME}/pgdata/ltm
 mkdir -p $PGDATA_LTM
 
-docker run -d \
+docker run -d --rm \
 --name ltm-postgres \
 -e POSTGRES_PASSWORD=gjhUY876787ytuh87gdf \
 -e PGDATA=/var/lib/postgresql/data/pgdata \

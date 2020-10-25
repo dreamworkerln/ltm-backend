@@ -8,6 +8,9 @@ import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * Участник задачи (многие-ко-многим)
+ */
 @Entity
 @Table(name = "task_member")
 @Data

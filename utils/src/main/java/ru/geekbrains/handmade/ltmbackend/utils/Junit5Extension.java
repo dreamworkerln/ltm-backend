@@ -1,6 +1,8 @@
 package ru.geekbrains.handmade.ltmbackend.utils;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.stereotype.Component;
 import ru.geekbrains.handmade.ltmbackend.utils.testcontainers.PostgresContainerStarter;
 import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
@@ -15,11 +17,12 @@ public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Stor
     private static boolean started = false;
 
     @Value("${testcontainers.enable:true}")
-    private boolean testContainersEnabled;
-
+    private boolean testContainersEnabled; // отключает загрузку docker образов testcontainers
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
+
+        System.out.println(zalupa);
 
         if(!testContainersEnabled) return;
 

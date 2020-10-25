@@ -44,18 +44,13 @@ public class LtmTestInitializer implements ApplicationRunner {
         // Prepare database here
 
         log.info("LtmTestInitializer - add basic entities to DB for tests");
-
-        Address from;
-        Address to;
-        Order order;
-
         User user;
-        Client client;
-        Courier courier;
+
 
         // Prepare database here
 
         try {
+            /*
             from = new Address("Москва", "Улица красных тюленей", 1, 2, 3);
             to = new Address("Мухосранск", "Западная", 2, 2, 5);
 
@@ -71,7 +66,6 @@ public class LtmTestInitializer implements ApplicationRunner {
             userService.save(user);
             courier = new Courier(user, "COURIER_DATA");
             courierService.save(courier);
-
             order = new Order();
             order.setFrom(from);
             order.setTo(to);
@@ -79,9 +73,10 @@ public class LtmTestInitializer implements ApplicationRunner {
             order.setCourier(courier);
             order.setClient(client);
             orderService.save(order);
+            */
         }
-        catch (Exception ignore){
-            log.info("ну и хрен с ним, это пока отладка");
+        catch (Exception e){
+            log.error("LtmTestInitializer init test error:", e);
         }
     }
 }

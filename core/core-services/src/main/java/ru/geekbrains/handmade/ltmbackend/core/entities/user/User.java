@@ -158,7 +158,8 @@ public class User extends AbstractEntity {
 //        this.getRoles().add(UserRole.USER);
 //    }
 
-    @Default
+    // Create user, with UserRole == ROLE_USER
+    @Default // Annotation used by Mapstruct to select appropriate constructor
     public User(@NotNull String username,
                 @NotNull String password,
                 @NotNull String firstName,
