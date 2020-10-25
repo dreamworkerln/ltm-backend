@@ -4,9 +4,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+
     <parent>
-        <artifactId>cms-backend</artifactId>
-        <groupId>com.github.geekuniversity_java_215</groupId>
+        <artifactId>ltm-backend</artifactId>
+        <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
         <version>0.1</version>
         <relativePath>../../pom.xml</relativePath>
     </parent>
@@ -26,33 +27,37 @@
 
     <dependencies>
 
-        <!--module configuration -->
+        <!--
+        &lt;!&ndash;module configuration &ndash;&gt;
         <dependency>
             <groupId>com.github.geekuniversity_java_215</groupId>
             <artifactId>appconfiguration</artifactId>
             <version>${app.version}</version>
             <scope>compile</scope>
         </dependency>
+        -->
 
         <!--module jrpc-protocol -->
         <dependency>
-            <groupId>com.github.geekuniversity_java_215</groupId>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
             <artifactId>jrpc-protocol</artifactId>
-            <version>${app.version}</version>
+            <version>${jrpc.protocol.version}</version>
             <scope>compile</scope>
         </dependency>
 
+
         <!--module jrpc-client -->
         <dependency>
-            <groupId>com.github.geekuniversity_java_215</groupId>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
             <artifactId>jrpc-client</artifactId>
             <version>${app.version}</version>
             <scope>compile</scope>
         </dependency>
 
-        <!--module utils -->
+
+        <!--module util -->
         <dependency>
-            <groupId>com.github.geekuniversity_java_215</groupId>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
             <artifactId>utils</artifactId>
             <version>${app.version}</version>
             <scope>compile</scope>

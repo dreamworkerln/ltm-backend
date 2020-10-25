@@ -37,9 +37,13 @@ public class CoreTestInitializer implements ApplicationRunner {
         this.orderService = orderService;
     }
 
-    @Override
-    public void run(ApplicationArguments args) throws Exception {
 
+    @Override
+    public void run(ApplicationArguments args) {
+
+        initUsers();
+
+        /*
         Address from;
         Address to;
         Order order;
@@ -56,14 +60,16 @@ public class CoreTestInitializer implements ApplicationRunner {
                 "Вася", "Пупкин", 55,"vasya@mail.ru", "1122334455");
         userService.save(user);
 
-        client = new Client(user, "CLIENT_DATA");
-        clientService.save(client);
+        //client = new Client(user, "CLIENT_DATA");
+        //clientService.save(client);
 
         user = new User("sema", "INVALID",
                 "Сема", "Пасечкин", 46, "sema@mail.ru", "908796786543");
         userService.save(user);
-        courier = new Courier(user, "COURIER_DATA");
-        courierService.save(courier);
+
+        //courier = new Courier(user, "COURIER_DATA");
+        //courierService.save(courier);
+
 
         order = new Order();
         order.setFrom(from);
@@ -72,6 +78,31 @@ public class CoreTestInitializer implements ApplicationRunner {
         order.setCourier(courier);
         order.setClient(client);
         orderService.save(order);
+        */
+
+    }
+
+
+    private void initUsers() {
+
+        User user;
+        // vasya/vasya_password
+
+
+
+        if (userService.findByUsername("vasya").isEmpty()) {
+            user = new User("vasya", "{bcrypt}$2a$10$ptWulW3vFICm8Pu.CmulbuNx1GsgwO8UHrcZuVJi22mF792qRxjMu",
+                "Вася", "Пупкин", 37, "vasya@mail.ru", "1122334455");
+
+            userService.save(user);
+        }
+
+        // sema/sema_password
+        if (userService.findByUsername("sema").isEmpty()) {
+            user = new User("sema", "{bcrypt}$2a$10$zqdgSPaIehsb82r7psbBKOU5bkfCo8pqv9BwuwLz5BoEcSXQuqdnW",
+                "Сема", "Пасечкин",null, "sema@mail.ru", "908796786543");
+            userService.save(user);
+        }
     }
 }
 

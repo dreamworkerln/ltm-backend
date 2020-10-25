@@ -1,8 +1,8 @@
-package com.github.geekuniversity_java_215.cmsbackend.tests.system_test.configurations;
+package ru.geekbrains.handmade.ltmbackend.tests.system_test.configurations;
 
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.configurations.ClientConfigurationMapper;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.configurations.JrpcClientProperties;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.configurations.JrpcClientPropertiesFile;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.configurations.ClientConfigurationMapper;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.configurations.JrpcClientProperties;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.configurations.JrpcClientPropertiesFile;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Disabled;
 import org.springframework.beans.BeanUtils;

@@ -1,13 +1,13 @@
-package com.github.geekuniversity_java_215.cmsbackend.tests.system_test.controllers.payment;
+package ru.geekbrains.handmade.ltmbackend.tests.system_test.controllers.payment;
 
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.client.ClientRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.payment.CashFlowRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.user.UserRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.client.ClientDto;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.payment.CashFlowDto;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.user.UserDto;
-import com.github.geekuniversity_java_215.cmsbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
-import com.github.geekuniversity_java_215.cmsbackend.utils.data.enums.CurrencyCode;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.client.ClientRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.payment.CashFlowRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.user.UserRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.client.ClientDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.payment.CashFlowDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
+import ru.geekbrains.handmade.ltmbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.CurrencyCode;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;

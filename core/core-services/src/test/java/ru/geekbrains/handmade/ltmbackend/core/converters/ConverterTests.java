@@ -1,6 +1,7 @@
 package ru.geekbrains.handmade.ltmbackend.core.converters;
 
 import com.fasterxml.jackson.databind.JsonNode;
+import org.junit.jupiter.api.Disabled;
 import ru.geekbrains.handmade.ltmbackend.core.converters.address.AddressConverter;
 import ru.geekbrains.handmade.ltmbackend.core.converters.order.OrderConverter;
 import ru.geekbrains.handmade.ltmbackend.core.converters.user.UserConverter;
@@ -29,6 +30,7 @@ import javax.annotation.PostConstruct;
 @SpringBootTest
 @ExtendWith({Junit5Extension.class})
 @Slf4j
+@Disabled
 class ConverterTests {
 
     @Autowired

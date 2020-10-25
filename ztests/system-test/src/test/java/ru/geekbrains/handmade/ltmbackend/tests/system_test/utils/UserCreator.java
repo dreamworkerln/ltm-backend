@@ -1,18 +1,18 @@
-package com.github.geekuniversity_java_215.cmsbackend.tests.system_test.utils;
+package ru.geekbrains.handmade.ltmbackend.tests.system_test.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.configurations.JrpcClientProperties;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.client.ClientRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.courier.CourierRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.manager.ClientManagerRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.manager.CourierManagerRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.manager.UserManagerRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.user.UserRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.client.ClientDto;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.courier.CourierDto;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.user.UserDto;
-import com.github.geekuniversity_java_215.cmsbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
-import com.github.geekuniversity_java_215.cmsbackend.utils.data.enums.UserRole;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.configurations.JrpcClientProperties;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.client.ClientRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.courier.CourierRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.manager.ClientManagerRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.manager.CourierManagerRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.manager.UserManagerRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.user.UserRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.client.ClientDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.courier.CourierDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
+import ru.geekbrains.handmade.ltmbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 

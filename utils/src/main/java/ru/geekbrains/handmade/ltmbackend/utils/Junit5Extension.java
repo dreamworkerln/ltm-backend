@@ -8,6 +8,8 @@ import org.junit.jupiter.api.extension.AfterAllCallback;
 import org.junit.jupiter.api.extension.BeforeAllCallback;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
+import java.util.Properties;
+
 import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 
 // https://stackoverflow.com/questions/43282798/in-junit-5-how-to-run-code-before-all-tests/51556718#51556718
@@ -16,13 +18,11 @@ public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Stor
 
     private static boolean started = false;
 
-    @Value("${testcontainers.enable:true}")
-    private boolean testContainersEnabled; // отключает загрузку docker образов testcontainers
+    //@Value("${testcontainers.enable:true}")
+    private boolean testContainersEnabled = true;
 
     @Override
     public void beforeAll(ExtensionContext context) throws Exception {
-
-        System.out.println(zalupa);
 
         if(!testContainersEnabled) return;
 

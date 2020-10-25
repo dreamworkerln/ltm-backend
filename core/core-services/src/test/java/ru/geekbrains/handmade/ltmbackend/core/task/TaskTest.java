@@ -32,30 +32,8 @@ class TaskTest {
     private TaskService taskService;
 
 
-    private void addSomeUsers() {
-
-        User user;
-        // vasya/vasya_password
-        if (userService.findByUsername("pupkinvasya").isEmpty()) {
-            user = new User("pupkinvasya", "{bcrypt}$2a$10$ptWulW3vFICm8Pu.CmulbuNx1GsgwO8UHrcZuVJi22mF792qRxjMu",
-                "Вася", "Пупкин", 37, "vasya@mail.ru", "1122334455");
-
-            userService.save(user);
-        }
-
-        // sema/sema_password
-        if (userService.findByUsername("sema").isEmpty()) {
-            user = new User("sema", "{bcrypt}$2a$10$zqdgSPaIehsb82r7psbBKOU5bkfCo8pqv9BwuwLz5BoEcSXQuqdnW",
-                "Сема", "Пасечкин",null, "sema@mail.ru", "908796786543");
-            userService.save(user);
-        }
-    }
-
     @Test
     void createTasks() {
-
-        addSomeUsers();
-
         User user = userService.findByEmail("vasya@mail.ru")
             .orElseThrow(() -> new UsernameNotFoundException("user 'vasya@mail.ru' не найден"));
 
@@ -69,7 +47,7 @@ class TaskTest {
 
         userService.save(subUser);
 
-        User execUser = new User("executer", "******",
+        User execUser = new User("executor", "******",
             "Exe", "Cutor", 45, "exec@mail.ru", "76868");
 
         userService.save(execUser);
@@ -84,6 +62,7 @@ class TaskTest {
         taskService.save(task); // cascade save all inner stuff
 
         Long subtaskId = subtask.getId();
+        log.debug("subtaskId == {}", subtaskId);
         Assertions.assertNotNull(subtaskId, "Subtask id == null");
     }
 }

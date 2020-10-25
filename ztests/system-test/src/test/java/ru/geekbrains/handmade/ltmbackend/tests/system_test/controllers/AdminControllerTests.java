@@ -1,13 +1,12 @@
-package com.github.geekuniversity_java_215.cmsbackend.tests.system_test.controllers;
+package ru.geekbrains.handmade.ltmbackend.tests.system_test.controllers;
 
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.admin.AdminRequest;
-import com.github.geekuniversity_java_215.cmsbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.admin.AdminRequest;
+import ru.geekbrains.handmade.ltmbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 

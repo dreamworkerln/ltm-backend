@@ -21,11 +21,6 @@ public class CoreInitializer implements ApplicationRunner {
 
     private final Environment environment;
 
-    @Value("${zalupa.enabled:true}")
-    public boolean zalupa;
-
-
-
     public CoreInitializer(Environment environment) {
         this.environment = environment;
     }
@@ -40,8 +35,6 @@ public class CoreInitializer implements ApplicationRunner {
         log.debug("CoreInitializer started");
         initDataBase();
         log.debug("CoreInitializer finished");
-
-        System.out.println(zalupa);
     }
 
 

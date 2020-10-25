@@ -1,12 +1,12 @@
-package com.github.geekuniversity_java_215.cmsbackend.tests.system_test.lifecycle.user;
+package ru.geekbrains.handmade.ltmbackend.tests.system_test.lifecycle.user;
 
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.configurations.JrpcClientProperties;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.registrar.ConfirmRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.oauth.OauthTestRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_client.request.registrar.RegistrarRequest;
-import com.github.geekuniversity_java_215.cmsbackend.jrpc_protocol.dto.user.UnconfirmedUserDto;
-import com.github.geekuniversity_java_215.cmsbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
-import com.github.geekuniversity_java_215.cmsbackend.utils.StringUtils;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.configurations.JrpcClientProperties;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.registrar.ConfirmRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.oauth.OauthTestRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.registrar.RegistrarRequest;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UnconfirmedUserDto;
+import ru.geekbrains.handmade.ltmbackend.tests.system_test.configurations.SystemTestSpringConfiguration;
+import ru.geekbrains.handmade.ltmbackend.utils.StringUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
 import org.junit.jupiter.api.Test;

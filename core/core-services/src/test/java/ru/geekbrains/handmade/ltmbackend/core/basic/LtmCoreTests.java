@@ -132,36 +132,4 @@ class LtmCoreTests {
 
         log.info("баланс: {}", acc.getBalance());
     }
-
-    @Test
-    void checkTasks() throws Exception {
-
-        User user = userService.findByEmail("vasya@mail.ru")
-            .orElseThrow( () -> new UsernameNotFoundException("user 'vasya@mail.ru' не найден"));
-
-        //Optional<User> opUser = userService.findByEmail("vasya@mail.ru");
-        //Assertions.assertThat(opUser).isPresent().info.description("No user 'vasya@mail.ru' was found");
-
-        Task task = new Task("Task1", null, user);
-
-
-        User subUser = new User("subuser", "INVALID",
-            "Subuser", "Sub", 33, "sub@mail.ru", "32101");
-
-        userService.save(subUser);
-
-
-        User execUser = new User("executer", "",
-            "Exe", "Cutor", 45, "exec@mail.ru", "76868");
-
-        userService.save(execUser);
-
-        task.addMember(subUser, TaskUserRole.REGULAR);
-        task.addMember(execUser, TaskUserRole.EXECUTOR);
-
-        Task subtask = new Task("Task1subtask1", task, subUser);
-        taskService.save(task); // cascading
-        //taskService.save(subtask);
-        System.out.println("ok");
-    }
 }
