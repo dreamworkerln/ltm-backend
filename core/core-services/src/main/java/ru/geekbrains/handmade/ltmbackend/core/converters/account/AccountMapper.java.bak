@@ -2,8 +2,6 @@ package ru.geekbrains.handmade.ltmbackend.core.converters.account;
 
 import ru.geekbrains.handmade.ltmbackend.core.converters._base.AbstractMapper;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
-import ru.geekbrains.handmade.ltmbackend.core.services.AccountService;
-import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.Account.AccountDto;
 
 import org.mapstruct.*;
 import org.springframework.beans.factory.annotation.Autowired;

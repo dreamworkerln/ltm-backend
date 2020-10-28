@@ -7,6 +7,11 @@ import org.springframework.stereotype.Component;
 import java.io.Serializable;
 
 
+/**
+ * Настройки клиента, адреса сервера авторизации, сервера ресурсов
+ * Хранится в памяти
+ */
+
 @Component("jrpcClientProperties")
 @Primary
 @Data

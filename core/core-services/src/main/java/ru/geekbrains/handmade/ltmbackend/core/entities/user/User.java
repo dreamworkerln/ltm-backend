@@ -1,11 +1,8 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.user;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
-import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.oauth2.token.RefreshToken;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
-//import ru.geekbrains.handmade.ltmbackend.utils.configurations.Default;
 import ru.geekbrains.handmade.ltmbackend.utils.configurations.Default;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import lombok.*;
@@ -32,17 +29,14 @@ import java.util.*;
     attributeNodes = @NamedAttributeNode("refreshTokenList")
 )
 
-@EntityListeners(UserToPersistListener.class)
+// Используется @Converter UserRoleConverter
+// - конвертирует enum UserRole при сохранении в базу и обратно при доставании из базы
+
+@EntityListeners(UserToPersistListener.class)  // доп действия над сущностью до сохранения/после загрузки из БД
 @Data
 public class User extends AbstractEntity {
 
     public static final String FULL_ENTITY_GRAPH = "User.full";
-
-//    @Id
-//    @Column(name = "id")
-//    @GeneratedValue(generator = "user_id_seq")
-//    @EqualsAndHashCode.Exclude
-//    private Long id;
 
     @NotNull
     @Column(name = "username")
@@ -106,57 +100,21 @@ public class User extends AbstractEntity {
     @Setter(AccessLevel.NONE)
     private String phoneNumber;
 
-    @OneToOne(/*cascade = CascadeType.ALL,*/ orphanRemoval = true/*, fetch = FetchType.EAGER*/)
-    @JoinColumn(name = "account_id", referencedColumnName = "id")
-    private Account account;
+//    @OneToOne(/*cascade = CascadeType.ALL,*/ orphanRemoval = true/*, fetch = FetchType.EAGER*/)
+//    @JoinColumn(name = "account_id", referencedColumnName = "id")
+//    private Account account;
 
 
     @Column(name = "age")
     @Setter(AccessLevel.NONE)
     private Integer age;
 
-
+    // Many tom many
+    // User tasks (user may have roles of owner, executor or other crew in each task)
     @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     Set<TaskMember> taskMembers;/* = new HashSet<>();*/
 
-//    // User tasks (user may have roles of owner, executor or other crew in each task)
-//    @ManyToMany
-//    @JoinTable(name = "task_member",
-//        joinColumns = @JoinColumn(name = "user_id"),
-//        inverseJoinColumns = @JoinColumn(name = "task_id"))
-//    Set<Task> tasks = new HashSet<>();
-
-//    @OneToOne(mappedBy= "user", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    private Client client;
-//
-//    @OneToOne(mappedBy= "user", orphanRemoval = true)
-//    @OrderBy("id ASC")
-//    private Courier courier;
-
-    //public User() {}
-
-
     protected User() {}
-
-
-
-//    public User(@NotNull String username,
-//                @NotNull String password,
-//                @NotNull String firstName,
-//                @NotNull String lastName,
-//                @NotNull String email,
-//                @NotNull String phoneNumber) {
-//
-//        this.username = username;
-//        this.password = password;
-//        this.firstName = firstName;
-//        this.lastName = lastName;
-//        this.email = email;
-//        this.phoneNumber = phoneNumber;
-//
-//        this.getRoles().add(UserRole.USER);
-//    }
 
     // Create user, with UserRole == ROLE_USER
     @Default // Annotation used by Mapstruct to select appropriate constructor
@@ -179,16 +137,6 @@ public class User extends AbstractEntity {
         this.getRoles().add(UserRole.USER);
     }
 
-
-
-    public void setAccount(Account account) {
-
-        if (account != null) {
-            this.account = account;
-            account.setUser(this);
-        }
-    }
-
     @Override
     public String toString() {
         return "User{" +
@@ -197,7 +145,6 @@ public class User extends AbstractEntity {
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
                 ", phoneNumber='" + phoneNumber + '\'' +
-                ", account=" + account +
                 '}';
     }
 

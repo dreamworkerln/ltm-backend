@@ -5,27 +5,14 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.geekbrains.handmade.ltmbackend.core.converters._base.AbstractMapper;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Client;
-import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
-import ru.geekbrains.handmade.ltmbackend.core.entities.task.TaskMember;
-import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskMemberService;
 import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
-import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.client.ClientDto;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.task.TaskDto;
-import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.task.TaskMemberDto;
 
 
 import javax.annotation.PostConstruct;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 @Mapper(config = AbstractMapper.class,
     uses = {TaskMemberMapper.class})

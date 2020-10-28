@@ -39,13 +39,13 @@ public class LtmInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
-        log.info("LtmInitializer started");
+        //log.info("LtmInitializer started");
 
         testRepository.save(new TestEntity("Вася test"));
 
         // ASAP EDC
         // TODO REMOVE ME AFTER auth-server will restored!!!!
-        usersInitializer.initUsers();
+        // usersInitializer.initUsers();
 
 
 
@@ -55,7 +55,7 @@ public class LtmInitializer implements ApplicationRunner {
 //        log.debug("AuthServer initialize users");
 //        usersInitializer.initUsers();
 
-        log.info("LtmInitializer finished");
+        //log.info("LtmInitializer finished");
     }
 
 

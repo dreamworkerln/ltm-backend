@@ -3,17 +3,12 @@ package ru.geekbrains.handmade.ltmbackend.core.converters;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.jupiter.api.Disabled;
 import ru.geekbrains.handmade.ltmbackend.core.converters.address.AddressConverter;
-import ru.geekbrains.handmade.ltmbackend.core.converters.order.OrderConverter;
 import ru.geekbrains.handmade.ltmbackend.core.converters.user.UserConverter;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Address;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Order;
-import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.services.AddressService;
-import ru.geekbrains.handmade.ltmbackend.core.services.order.OrderService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.address.AddressDto;
-import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
 import ru.geekbrains.handmade.ltmbackend.utils.Junit5Extension;
 import ru.geekbrains.handmade.ltmbackend.utils.Utils;
 import lombok.extern.slf4j.Slf4j;
@@ -34,13 +29,9 @@ import javax.annotation.PostConstruct;
 class ConverterTests {
 
     @Autowired
-    private OrderConverter orderConverter;
-    @Autowired
     private UserService userService;
     @Autowired
     private UserConverter userConverter;
-    @Autowired
-    private OrderService orderService;
     @Autowired
     private AddressService addressService;
     @Autowired
@@ -57,28 +48,28 @@ class ConverterTests {
     }
 
 
-    @Test
-    void OrderConverterTest() {
-
-        log.info("Checking OrderConverter");
-
-        Order order = orderService.findById(1L).get();
-
-        JsonNode orderJson = orderConverter.toDtoJson(order);
-        String json = orderJson.toString();
-        log.info(orderJson.toPrettyString());
-        Order newWorldOrder = orderConverter.toEntity(orderJson);
-
-//        copyTimes(newWorldOrder, order);
-//        copyTimes(newWorldOrder.getFrom(), order.getFrom());
-//        copyTimes(newWorldOrder.getTo(), order.getTo());
-
-        JsonNode orderJsonNew = orderConverter.toDtoJson(order);
-        String jsonNew = orderJson.toString();
-        log.info(orderJsonNew.toPrettyString());
-
-        Assert.isTrue(json.equals(jsonNew), "OrderConverter failed");
-    }
+//    @Test
+//    void OrderConverterTest() {
+//
+//        log.info("Checking OrderConverter");
+//
+//        Order order = orderService.findById(1L).get();
+//
+//        JsonNode orderJson = orderConverter.toDtoJson(order);
+//        String json = orderJson.toString();
+//        log.info(orderJson.toPrettyString());
+//        Order newWorldOrder = orderConverter.toEntity(orderJson);
+//
+////        copyTimes(newWorldOrder, order);
+////        copyTimes(newWorldOrder.getFrom(), order.getFrom());
+////        copyTimes(newWorldOrder.getTo(), order.getTo());
+//
+//        JsonNode orderJsonNew = orderConverter.toDtoJson(order);
+//        String jsonNew = orderJson.toString();
+//        log.info(orderJsonNew.toPrettyString());
+//
+//        Assert.isTrue(json.equals(jsonNew), "OrderConverter failed");
+//    }
 
     @Test
     void AddressConverterTest() {

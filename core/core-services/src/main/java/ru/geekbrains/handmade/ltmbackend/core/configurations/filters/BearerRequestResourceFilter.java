@@ -83,26 +83,26 @@ public class BearerRequestResourceFilter extends OncePerRequestFilter {
             }
         }
 
-        // ASAP EDC
-        // TODO REMOVE ME!!!!
-        // DEBUGZ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        Collection<? extends GrantedAuthority> grantedAuthorities =
-        //    new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.ADMIN.getName())));
-            new HashSet<GrantedAuthority>(Arrays.asList(
-                new SimpleGrantedAuthority(UserRole.ADMIN.getName()),
-                new SimpleGrantedAuthority(UserRole.MANAGER.getName()),
-                new SimpleGrantedAuthority(UserRole.USER.getName())
-            ));
-
-        UserDetails userDetails =
-            new org.springframework.security.core.userdetails.User(
-                "pupkinvasya",
-                "",
-                grantedAuthorities);
-        UsernamePasswordAuthenticationToken authToken =
-            new UsernamePasswordAuthenticationToken(userDetails, null, grantedAuthorities);
-        SecurityContextHolder.getContext().setAuthentication(authToken);
-        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        // ASAP EDC
+//        // TODO REMOVE ME!!!!
+//        // DEBUGZ !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+//        Collection<? extends GrantedAuthority> grantedAuthorities =
+//        //    new HashSet<GrantedAuthority>(Collections.singletonList(new SimpleGrantedAuthority(UserRole.ADMIN.getName())));
+//            new HashSet<GrantedAuthority>(Arrays.asList(
+//                new SimpleGrantedAuthority(UserRole.ADMIN.getName()),
+//                new SimpleGrantedAuthority(UserRole.MANAGER.getName()),
+//                new SimpleGrantedAuthority(UserRole.USER.getName())
+//            ));
+//
+//        UserDetails userDetails =
+//            new org.springframework.security.core.userdetails.User(
+//                "user",
+//                "",
+//                grantedAuthorities);
+//        UsernamePasswordAuthenticationToken authToken =
+//            new UsernamePasswordAuthenticationToken(userDetails, null, grantedAuthorities);
+//        SecurityContextHolder.getContext().setAuthentication(authToken);
+//        // !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
 
         chain.doFilter(request, response);

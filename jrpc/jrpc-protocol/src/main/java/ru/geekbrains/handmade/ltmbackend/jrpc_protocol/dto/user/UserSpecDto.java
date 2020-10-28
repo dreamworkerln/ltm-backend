@@ -10,12 +10,6 @@ public class UserSpecDto extends AbstractSpecDto {
 
     public enum OrderBy {ASC,DESC}
 
-    // null - выдать сразу все заказы, иначе по сколько отдавать
+    // null - выдать сразу всех пользователей, иначе по сколько отдавать
     private Integer limit;
-
-    // принадлежность курьеру
-    private CourierDto courier;
-
-    // принадлежность клиенту
-    private ClientDto client;
 }

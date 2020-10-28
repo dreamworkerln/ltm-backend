@@ -35,7 +35,7 @@ public class TaskController {
     }
 
     /**
-     * Return all tasks for current user
+     * Return all tasks only for current user
      * @return List<TaskDto>
      */
     @JrpcMethod(HandlerName.task.findAll)
@@ -52,10 +52,6 @@ public class TaskController {
      * @return List<TaskDto>
      */                                      //TaskUserPrivilege.VAL.READ
     @JrpcMethod(HandlerName.task.findById)
-//    @PreAuthorize("hasPermission(#id, " +
-//        "T(ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName$task).path, " +
-//        "T(ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege).READ)")
-
     @CheckPrivileges(targetId = "#id",
         permission = TaskUserPrivilege.VAL.READ,
         targetClass = Task.class)
@@ -89,3 +85,10 @@ public class TaskController {
 
 
 }
+
+
+/*
+//    @PreAuthorize("hasPermission(#id, " +
+        "T(ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName$task).path, " +
+        "T(ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege).READ)")
+ */

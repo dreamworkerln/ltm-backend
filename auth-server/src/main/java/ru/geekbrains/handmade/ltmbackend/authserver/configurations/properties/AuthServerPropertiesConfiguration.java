@@ -6,6 +6,7 @@ import org.springframework.context.annotation.PropertySource;
 
 /**
  * Загружатель Properties для конфигураций.
+ * https://stackoverflow.com/a/14167357
  * <br>Такое делаем в своем модуле, если используются .properties
  * Главное префиксы ключей внутри .properties
  * для разных модулей делать разными иначе перекроются.

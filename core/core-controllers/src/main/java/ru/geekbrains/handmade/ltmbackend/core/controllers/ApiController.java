@@ -7,6 +7,7 @@ import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.http_wrapper.Http
 import ru.geekbrains.handmade.ltmbackend.core.controllers.utils.HandlerSignature;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.utils.ReflectionUtils;
 import ru.geekbrains.handmade.ltmbackend.core.exceptions.InvalidLogicException;
+import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.protocol.JrpcException;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.protocol.request.JrpcRequestHeader;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.protocol.response.JrpcErrorCode;
@@ -49,6 +50,7 @@ public class ApiController {
     private final ApplicationContext context;
     private final ObjectMapper objectMapper;
     private final ReflectionUtils reflectionUtils;
+    private final UserService userService;
 
 
 
@@ -59,10 +61,11 @@ public class ApiController {
     private final Map<String, HandlerSignature> handlersParams = new HashMap<>();
 
     @Autowired
-    public ApiController(ApplicationContext context, ObjectMapper objectMapper, ReflectionUtils reflectionUtils) {
+    public ApiController(ApplicationContext context, ObjectMapper objectMapper, ReflectionUtils reflectionUtils, UserService userService) {
         this.context = context;
         this.objectMapper = objectMapper;
         this.reflectionUtils = reflectionUtils;
+        this.userService = userService;
     }
 
     @PostConstruct
@@ -82,6 +85,8 @@ public class ApiController {
         HttpResponse httpResponse;
 
         log.debug("POST " + API_PATH + ": " + request);
+
+        log.debug("USER : {}", userService.getCurrent());
 
 
         try {

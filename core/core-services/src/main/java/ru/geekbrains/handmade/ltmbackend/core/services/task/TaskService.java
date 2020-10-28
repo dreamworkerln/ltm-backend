@@ -44,8 +44,7 @@ public class TaskService extends BaseRepoAccessService<Task> {
      * Get task by user
      */
     public List<Task> findByUser(User user) {
-        return
-            repository.findByUser(user, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
+        return repository.findByUser(user, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
     }
 
     @Override

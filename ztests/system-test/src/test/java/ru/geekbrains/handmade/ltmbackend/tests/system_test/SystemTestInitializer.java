@@ -19,8 +19,8 @@ public class SystemTestInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) throws JsonProcessingException {
 
-        userCreator.createClientUser();
-        userCreator.createCourierUser();
+        //userCreator.cre
+        //userCreator.createCourierUser();
     }
 }
 

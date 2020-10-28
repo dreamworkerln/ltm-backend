@@ -98,7 +98,8 @@ public class ManagementUserController {
     @JrpcMethod(HandlerName.management.user.findFirst)
     public List<UserDto> findFirst(UserSpecDto specDto) {
 
-        int limit = specDto != null ? specDto.getLimit() : 1;
+        int limit = specDto != null && specDto.getLimit() != null ? specDto.getLimit() : 1;
+
         Specification<User> spec =  converter.buildSpec(specDto);
         Page<User> page = userService.findAll(spec, PageRequest.of(0, limit));
         return converter.toDtoList(page.toList());

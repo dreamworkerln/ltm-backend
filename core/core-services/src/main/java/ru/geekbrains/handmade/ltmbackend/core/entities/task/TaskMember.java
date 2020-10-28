@@ -9,7 +9,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * Участник задачи (многие-ко-многим)
+ * Участник задачи (многие-ко-многим) <br>
+ * Используется @Converter TaskUserRoleConverter
+ * - конвертирует enum TaskUserRole при сохранении в базу и обратно при доставании из базы
  */
 @Entity
 @Table(name = "task_member")

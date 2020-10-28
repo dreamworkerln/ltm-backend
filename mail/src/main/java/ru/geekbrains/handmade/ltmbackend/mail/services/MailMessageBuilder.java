@@ -26,8 +26,8 @@ public class MailMessageBuilder {
     public String buildPaymentSuccess(User user, BigDecimal amount ) {
         Context context = new Context();
         context.setVariable("sender", user.getFirstName());
-        context.setVariable("amount",amount);
-        context.setVariable("balance", user.getAccount().getBalance().toString());
+        context.setVariable("amount", amount);
+        //context.setVariable("balance", user.getAccount().getBalance().toString());
         return templateEngine.process("mail/payment_success", context);
     }
 

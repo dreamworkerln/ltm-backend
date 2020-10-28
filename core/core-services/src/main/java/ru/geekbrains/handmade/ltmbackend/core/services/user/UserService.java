@@ -2,6 +2,7 @@ package ru.geekbrains.handmade.ltmbackend.core.services.user;
 
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.UserDetailsCustom;
 import ru.geekbrains.handmade.ltmbackend.core.repositories.UserRepository;
 import ru.geekbrains.handmade.ltmbackend.core.services.base.BaseRepoAccessService;
@@ -111,10 +112,10 @@ public class UserService extends BaseRepoAccessService<User> {
             UserDetailsCustom userDetails = (UserDetailsCustom)authentication.getPrincipal();
             return userDetails.getUser();
         }
-        // Resource server
+        // Resource server - in this configuration have access to user DB
         else {
-            //noinspection OptionalGetWithoutIsPresent
-            result = findByUsername(authentication.getName()).get();
+            result = findByUsername(authentication.getName()).orElseThrow(() ->
+            new UsernameNotFoundException("User " + authentication.getName() + " not found"));
 
         }
         return result;

@@ -1,7 +1,6 @@
 package ru.geekbrains.handmade.ltmbackend.core.converters.user;
 
 import ru.geekbrains.handmade.ltmbackend.core.converters._base.AbstractMapper;
-import ru.geekbrains.handmade.ltmbackend.core.converters.account.AccountMapper;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
@@ -10,8 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.annotation.PostConstruct;
 
-@Mapper(config = AbstractMapper.class,
-        uses = {AccountMapper.class})
+@Mapper(config = AbstractMapper.class)
 public abstract class UserMapper extends AbstractMapper<User, UserDto> {
 
     @Autowired
@@ -28,7 +26,6 @@ public abstract class UserMapper extends AbstractMapper<User, UserDto> {
     public abstract UserDto toDto(User user);
 
     @Mapping(target = "refreshTokenList", expression = "java(null)") // всегда подгружаем из БД
-    @Mapping(target = "account", ignore = true)
     @Mapping(target = "taskMembers", ignore = true)
     public abstract User toEntity(UserDto userDto);
 

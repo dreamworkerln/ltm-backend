@@ -22,6 +22,10 @@ import java.util.stream.Collectors;
 
 // Храним роли в коде, а не в БД
 
+
+// Используется @Converter UserRoleConverter
+// - конвертирует enum UserRole при сохранении в базу и обратно при доставании из базы
+
 /**
  * Глобальные роли пользователя
  */

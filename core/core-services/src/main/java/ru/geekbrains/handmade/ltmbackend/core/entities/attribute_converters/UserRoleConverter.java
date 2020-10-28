@@ -1,4 +1,4 @@
-package ru.geekbrains.handmade.ltmbackend.core.data.enums.converters;
+package ru.geekbrains.handmade.ltmbackend.core.entities.attribute_converters;
 
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 

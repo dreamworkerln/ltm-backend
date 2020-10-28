@@ -17,7 +17,7 @@
     <artifactId>system-test</artifactId>
     <description>
         Subsystem tests, disabled by default, required running
-        auth-server and cmsapp to perform
+        auth-server and ltmapp to perform
     </description>
 
     <!-- This test suite is DISABLED by default-->

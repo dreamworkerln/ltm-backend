@@ -2,8 +2,6 @@ package ru.geekbrains.handmade.ltmbackend.core.entities.user;
 
 import lombok.Data;
 import org.springframework.beans.factory.annotation.Autowired;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
-import ru.geekbrains.handmade.ltmbackend.core.services.AccountService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -15,24 +13,27 @@ import javax.persistence.PreUpdate;
 @Slf4j
 public class UserToPersistListener {
 
-// SETTER INJECTION NOT WORKING
+// SETTER INJECTION WILL NOT WORK
 //    private AccountService accountService;
 //
 //    public void setAccountService(AccountService accountService) {
 //        this.accountService = accountService;
 //    }
 
-    static private AccountService accountService;
+
+    // !! SPRING STATIC FIELD DEPENDENCY INJECTOR !!
+    // static private AccountService accountService;
     // Injecting a Spring dependency into a JPA EntityListener
     // https://stackoverflow.com/questions/12155632/injecting-a-spring-dependency-into-a-jpa-entitylistener
-    @Autowired
-    public void init(AccountService accountService) {
-        UserToPersistListener.accountService = accountService;
-    }
+//    @Autowired
+//    public void init(AccountService accountService) {
+//
+//       UserToPersistListener.accountService = accountService;
+//    }
 
-    @PrePersist
-    @PreUpdate
-    public void methodExecuteBeforeSave(User user) {
+//    @PrePersist
+//    @PreUpdate
+//    public void methodExecuteBeforeSave(User user) {
 
 //        // Make sure that User contains persisted UserRoles
 //        for (UserRole role : new HashSet<>(user.getRoles())) {
@@ -44,17 +45,17 @@ public class UserToPersistListener {
 //            }
 //        }
 
-        // создадим для User аккаунт, если его у него нет
-        if (user.getAccount() == null) {
-            accountService.findByUser(user)
-                .ifPresent(account -> {
-                    throw new IllegalArgumentException("User " + user.getUsername() + " already have Account");
-                });
-
-            Account account = new Account();
-            user.setAccount(account);
-            account.setUser(user);
-            accountService.save(account);
-        }
-    }
+//        // создадим для User аккаунт, если его у него нет
+//        if (user.getAccount() == null) {
+//            accountService.findByUser(user)
+//                .ifPresent(account -> {
+//                    throw new IllegalArgumentException("User " + user.getUsername() + " already have Account");
+//                });
+//
+//            Account account = new Account();
+//            user.setAccount(account);
+//            account.setUser(user);
+//            accountService.save(account);
+//        }
+//    }
 }

@@ -26,6 +26,11 @@ import java.io.Serializable;
 
 //@ConfigurationProperties("jrpc-client${spring.profiles.active}.properties")
 //@Validated
+
+/**
+ * Настройки клиента, адреса сервера авторизации, сервера ресурсов
+ * Читается из файла ресурсов
+ */
 @Configuration
 @ConfigurationProperties
 @Validated

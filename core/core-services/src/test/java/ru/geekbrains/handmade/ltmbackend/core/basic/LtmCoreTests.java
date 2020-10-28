@@ -2,14 +2,11 @@ package ru.geekbrains.handmade.ltmbackend.core.basic;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import ru.geekbrains.handmade.ltmbackend.core.entities.*;
-import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskService;
 import ru.geekbrains.handmade.ltmbackend.utils.Junit5Extension;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.CurrencyCode;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.OrderStatus;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.core.services.*;
-import ru.geekbrains.handmade.ltmbackend.core.services.order.OrderService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Assert;
@@ -19,7 +16,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.ApplicationContext;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
 import java.math.BigDecimal;
 import java.util.concurrent.ExecutorService;
@@ -38,15 +34,7 @@ class LtmCoreTests {
     @Autowired
     ApplicationContext context;
     @Autowired
-    private AccountService accountService;
-    @Autowired
     private UserService userService;
-    @Autowired
-    private ClientService clientService;
-    @Autowired
-    private CourierService courierService;
-    @Autowired
-    private OrderService orderService;
     @Autowired
     private TaskService taskService;
 
@@ -81,8 +69,6 @@ class LtmCoreTests {
         //user.setAccount(acc);
         //userService.save(user);
         log.info("user id: {}", user.getId());
-        Courier courier = new Courier(user, "КУРЬЕР_DATA");
-        courierService.save(courier);
 
         User finalUser = user;
         userService.findByFullName(user.getLastName(), user.getFirstName())
@@ -94,42 +80,25 @@ class LtmCoreTests {
         user = new User("testsema", "INVALID",
             "Семенов", "Тест", 23, "testsema@mail.ru", "456678test");
         userService.save(user);
-        Client client = new Client(user, "КЛИЕНТ_DATA");
-        clientService.save(client);
-
-        Account acc = accountService.findById(user.getAccount().getId()).get();
-        log.info("loaded: {} ok!", acc);
-
-
-
-        Order o = new Order();
-        o.setCourier(courier);
-        o.setClient(client);
-        o.setStatus(OrderStatus.TRANSIT);
-        o = orderService.save(o);
-        log.info("order: {}", o);
-
-        o = orderService.save(o);
-        log.info("new order: {}", o);
     }
 
 
-    @Test
-    void checkTableRowLock() throws Exception {
-
-        ExecutorService executor = Executors.newFixedThreadPool(2);
-
-        Account finalAcc1 = accountService.findById(1L).get();
-        Account finalAcc2 = accountService.findById(1L).get();
-        Future<?> f1 = executor.submit(unchecked(() ->
-            accountService.addBalance(finalAcc1, BigDecimal.valueOf(100), CurrencyCode.RUB)));
-        Future<?> f2 = executor.submit(unchecked(() ->
-            accountService.addBalance(finalAcc2, BigDecimal.valueOf(100), CurrencyCode.RUB)));
-
-        f1.get();
-        f2.get();
-        Account acc = accountService.findById(1L).get();
-
-        log.info("баланс: {}", acc.getBalance());
-    }
+//    @Test
+//    void checkTableRowLock() throws Exception {
+//
+//        ExecutorService executor = Executors.newFixedThreadPool(2);
+//
+//        Account finalAcc1 = accountService.findById(1L).get();
+//        Account finalAcc2 = accountService.findById(1L).get();
+//        Future<?> f1 = executor.submit(unchecked(() ->
+//            accountService.addBalance(finalAcc1, BigDecimal.valueOf(100), CurrencyCode.RUB)));
+//        Future<?> f2 = executor.submit(unchecked(() ->
+//            accountService.addBalance(finalAcc2, BigDecimal.valueOf(100), CurrencyCode.RUB)));
+//
+//        f1.get();
+//        f2.get();
+//        Account acc = accountService.findById(1L).get();
+//
+//        log.info("баланс: {}", acc.getBalance());
+//    }
 }

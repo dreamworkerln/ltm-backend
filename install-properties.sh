@@ -71,7 +71,7 @@ if [[ ! -f "$TO" ]]; then
 
     cp -an $FROM $TO
     sed -i 's/<logger name=\"org.hibernate.SQL\" level=\"OFF\"\/>/<logger name=\"org.hibernate.SQL\" level=\"TRACE\"\/>/g' $TO
-    sed -i 's/<logger name=\"com.github.geekuniversity_java_215.cmsbackend\" level=\"INFO\"\/>/<logger name=\"com.github.geekuniversity_java_215.cmsbackend\" level=\"TRACE\"\/>/g' $TO
+    sed -i 's/<logger name=\"ru.geekbrains.handmade.ltmbackend\" level=\"INFO\"\/>/<logger name=\"ru.geekbrains.handmade.ltmbackend\" level=\"TRACE\"\/>/g' $TO
 fi
 
 
@@ -94,7 +94,7 @@ if [[ ! -f "$FROM" ]]; then
 
     # copy mail*.properties from folder above (if exists, suppress the error exit code and message)
     # to not manually copy mail*.properties
-    cp ../cms-backend-properties/mail/mail*.properties mail/src/main/resources/ 2>/dev/null || :
+    cp ../ltm-backend-properties/mail/mail*.properties mail/src/main/resources/ 2>/dev/null || :
 fi
 
 
@@ -112,7 +112,7 @@ if [[ ! -f "$FROM" ]]; then
 
     # copy payment*.properties from folder above (if exists, suppress the error exit code and message)
     # to not manually copy payment*.properties
-    cp ../cms-backend-properties/payment/payment*.properties payment/src/main/resources/ 2>/dev/null || :
+    cp ../ltm-backend-properties/payment/payment*.properties payment/src/main/resources/ 2>/dev/null || :
 fi
 
 

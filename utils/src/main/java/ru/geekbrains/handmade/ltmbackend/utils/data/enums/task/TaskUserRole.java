@@ -6,7 +6,8 @@ import lombok.Getter;
 import java.util.*;
 
 /**
- * Роль пользователя в контексте конкретной Task
+ * Роль пользователя в контексте Task<br>
+ * не путать с UserRole - те роли глобальные
  */
 public enum TaskUserRole {
 

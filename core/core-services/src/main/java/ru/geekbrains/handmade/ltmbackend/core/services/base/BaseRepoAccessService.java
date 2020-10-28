@@ -1,9 +1,6 @@
 package ru.geekbrains.handmade.ltmbackend.core.services.base;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
-import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Account;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Order;
 import ru.geekbrains.handmade.ltmbackend.core.repositories.CustomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

@@ -63,6 +63,8 @@ public class PermissionEvaluatorAspect {
         Set<String> permissions = new HashSet<>(Arrays.asList(checkPrivileges.permission()));
         String key = targetClass.getName();
 
+        // Если у нас есть permissionEvaluatorHandler для конкретной сущности (по классу сущности)
+        // "key" - это String Entity.class.GetName(), то проверяем
         if(permissionEvaluatorHandlers.containsKey(key)) {
             if(!permissionEvaluatorHandlers.get(key).hasPermission(
                 userService.getCurrent(),

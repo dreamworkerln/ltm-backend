@@ -29,25 +29,25 @@ public class UserSpecBuilder implements SpecBuilder<User, UserSpecDto> {
         final String client = "client";
         //final String categoryName = "category";
 
-        // FILTER BY COURIER
-        if (s.getCourier() != null) {
-
-            specA = specA.and(
-                (root, query, builder) -> {
-                    //query.orderBy(builder.desc(root.get(priceName)));
-                    return builder.equal(root.get(courier).get(idName), s.getCourier().getId());
-                });
-        }
-
-        // FILTER BY CLIENT
-        if (s.getClient() != null) {
-
-            specA = specA.and(
-                (root, query, builder) -> {
-                    //query.orderBy(builder.desc(root.get(priceName)));
-                    return builder.equal(root.get(client).get(idName), s.getClient().getId());
-                });
-        }
+//        // FILTER BY COURIER
+//        if (s.getCourier() != null) {
+//
+//            specA = specA.and(
+//                (root, query, builder) -> {
+//                    //query.orderBy(builder.desc(root.get(priceName)));
+//                    return builder.equal(root.get(courier).get(idName), s.getCourier().getId());
+//                });
+//        }
+//
+//        // FILTER BY CLIENT
+//        if (s.getClient() != null) {
+//
+//            specA = specA.and(
+//                (root, query, builder) -> {
+//                    //query.orderBy(builder.desc(root.get(priceName)));
+//                    return builder.equal(root.get(client).get(idName), s.getClient().getId());
+//                });
+//        }
 
 
 

@@ -4,11 +4,7 @@ package ru.geekbrains.handmade.ltmbackend.ltmapplication.controllers.user;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcController;
 import ru.geekbrains.handmade.ltmbackend.core.controllers.jrpc.annotations.JrpcMethod;
 import ru.geekbrains.handmade.ltmbackend.core.converters.user.UserConverter;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Client;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Courier;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.core.services.ClientService;
-import ru.geekbrains.handmade.ltmbackend.core.services.CourierService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.HandlerName;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
@@ -30,18 +26,12 @@ public class UserController {
     private final UserConverter converter;
     private final PasswordEncoder passwordEncoder;
 
-    private final ClientService clientService;
-    private final CourierService courierService;
-
-    public UserController(UserService userService, UserConverter converter,
-                          PasswordEncoder passwordEncoder, ClientService clientService,
-                          CourierService courierService) {
+    public UserController(UserService userService, UserConverter converter, PasswordEncoder passwordEncoder) {
         this.userService = userService;
         this.converter = converter;
         this.passwordEncoder = passwordEncoder;
-        this.clientService = clientService;
-        this.courierService = courierService;
     }
+
 
     /**
      * Return current user
@@ -77,91 +67,17 @@ public class UserController {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
         }
 
-        // Security
+        // Security ---------------------------------
         User currentUser = userService.getCurrent();
         // preserve roles
         user.setRoles(currentUser.getRoles());
-        // preserve Account
-        user.setAccount(currentUser.getAccount());
         // preserve enabled
         user.setEnabled(currentUser.isEnabled());
+        // ------------------------------------------
 
+        // finally save
         user = userService.save(user);
         return user.getId();
-    }
-
-
-    /**
-     * Upgrade current user to Client
-     * @return Long id of created Client
-     */
-    @JrpcMethod(HandlerName.user.makeClient)
-    public Long makeClient() {
-
-        Client result;
-        User user = userService.getCurrent();
-
-        // already has ROLE_CLIENT
-        if(user.getRoles().contains(UserRole.CLIENT)) {
-
-            result = clientService.getCurrent();
-            Assert.notNull(result,user.getUsername() + " has role ROLE_CLIENT, but user.client == null");
-        }
-        // create new Client
-        else {
-            clientService.findOneByUser(user).ifPresent(client -> {
-                throw new RuntimeException(user.getUsername() +
-                    " had no ROLE_CLIENT but have Client, clientId: " + client.getId());
-            });
-
-            // Add ROLE_CLIENT
-            user.getRoles().add(UserRole.CLIENT);
-
-            // Add Client
-            result = new Client();
-            result.setUser(user);
-            clientService.save(result);
-
-            userService.save(user);
-        }
-        return result.getId();
-    }
-
-
-    /**
-     * Upgrade current user to Courier
-     * @return Long id of created Client
-     */
-    @JrpcMethod(HandlerName.user.makeCourier)
-    public Long makeCourier() {
-
-        Courier result;
-        User user = userService.getCurrent();
-
-        // already has ROLE_CLIENT
-        if(user.getRoles().contains(UserRole.COURIER)) {
-
-            result = courierService.getCurrent();
-            Assert.notNull(result,user.getUsername() + " has role ROLE_COURIER, but user.courier == null");
-        }
-        // create new Courier
-        else {
-            courierService.findOneByUser(user).ifPresent(courier -> {
-                throw new RuntimeException(user.getUsername() +
-                    " had no ROLE_COURIER but have Courier, courierId: " + courier.getId());
-            });
-
-            // Add ROLE_COURIER
-            user.getRoles().add(UserRole.COURIER);
-
-            // Add Client
-            result = new Courier();
-            result.setUser(user);
-            courierService.save(result);
-
-            userService.save(user);
-        }
-        return result.getId();
     }
 }
 

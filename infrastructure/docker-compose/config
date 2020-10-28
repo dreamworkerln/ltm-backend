@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 WEB_PORT=8080
+AUTH_PORT=8090
 POSTGRES_PORT=5432
 POSTGRES_HOST=ltm-postgres
 POSTGRES_URL=jdbc:postgresql://${POSTGRES_HOST}:${POSTGRES_PORT}/ltm\?currentSchema=ltm\&autoReconnect=true

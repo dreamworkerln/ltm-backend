@@ -6,7 +6,8 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Назначение привилегий по ролям, хранится только в коде
+ * Привилегии для ролей по Task<br>
+ * хранится только в коде
  */
 @Component
 @Data
@@ -16,20 +17,23 @@ public class TaskUserRolePrivilege {
     // assign privileges to roles
     public TaskUserRolePrivilege() {
 
+        // Владелец задачи может все
         rolePrivileges.put(TaskUserRole.OWNER,
             new HashSet<>(Arrays.asList(
                 TaskUserPrivilege.READ,
                 TaskUserPrivilege.WRITE,
                 TaskUserPrivilege.CREATE_SUBTASK)));
 
+        // Ответственный за исполнение, ну пока тоже может все)
         rolePrivileges.put(TaskUserRole.EXECUTOR,
             new HashSet<>(Arrays.asList(
                 TaskUserPrivilege.READ,
                 TaskUserPrivilege.WRITE,
                 TaskUserPrivilege.CREATE_SUBTASK)));
 
+        // обычный участник может читать данные
         rolePrivileges.put(TaskUserRole.REGULAR,
-            new HashSet<>(Arrays.asList(
+            new HashSet<>(Collections.singletonList(
                 TaskUserPrivilege.READ)));
     }
 }

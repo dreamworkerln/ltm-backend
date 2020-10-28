@@ -26,7 +26,7 @@ public class SystemTestSpringConfiguration {
     public static final String CLIENT ="clientProperties";
     public static final String COURIER ="courierProperties";
     public static final String VASYA ="vasyaProperties";
-
+    public static final String SEMA ="semaProperties";
 
 
     private final JrpcClientProperties defaultProperties;
@@ -97,6 +97,14 @@ public class SystemTestSpringConfiguration {
         JrpcClientProperties result = clientConfigurationMapper.toProperties(defaultPropertiesFile);
         result.getLogin().setUsername("vasya");
         result.getLogin().setPassword("vasya_password");
+        return result;
+    }
+
+    @Bean(SEMA)
+    JrpcClientProperties semaProperties() {
+        JrpcClientProperties result = clientConfigurationMapper.toProperties(defaultPropertiesFile);
+        result.getLogin().setUsername("sema");
+        result.getLogin().setPassword("sema_password");
         return result;
     }
 
