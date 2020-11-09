@@ -1,13 +1,14 @@
 package ru.geekbrains.handmade.ltmbackend.core.converters._base;
 
 
+import org.mapstruct.*;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.services.base.BaseRepoAccessService;
 import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto._base.AbstractDto;
+import ru.geekbrains.handmade.ltmbackend.jrpc_protocol.dto.user.UserDto;
 import ru.geekbrains.handmade.ltmbackend.utils.SpringBeanUtilsEx;
-import org.mapstruct.MapperConfig;
-import org.mapstruct.Mapping;
-import org.mapstruct.ReportingPolicy;
+
 import java.util.List;
 
 
@@ -74,6 +75,13 @@ public abstract class AbstractMapper<E extends AbstractEntity, D extends Abstrac
     public abstract List<D> toDtoList(List<E> entityList);
 
     public abstract List<E> toEntityList(List<D> dtoList);
+
+
+
+    @AfterMapping
+    public E afterMapping(D source, @MappingTarget E target) {
+        return merge(source, target);
+    }
 
 //    // ====================================================
 //

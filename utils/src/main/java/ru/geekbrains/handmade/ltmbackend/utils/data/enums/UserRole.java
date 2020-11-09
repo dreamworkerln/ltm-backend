@@ -33,14 +33,12 @@ public enum UserRole {
 
     // ENUM(role,code)
     ADMIN(VAL.ADMIN, VAL.M.get(VAL.ADMIN)),
+    MANAGER(VAL.MANAGER, VAL.M.get(VAL.MANAGER)),
     USER(VAL.USER, VAL.M.get(VAL.USER)),
     ANONYMOUS(VAL.ANONYMOUS, VAL.M.get(VAL.ANONYMOUS)),
     RESOURCE(VAL.RESOURCE, VAL.M.get(VAL.RESOURCE)),
     REFRESH(VAL.REFRESH, VAL.M.get(VAL.REFRESH)),
-    CONFIRM_REGISTRATION(VAL.CONFIRM_REGISTRATION, VAL.M.get(VAL.CONFIRM_REGISTRATION)),
-    CLIENT(VAL.CLIENT, VAL.M.get(VAL.CLIENT)),
-    COURIER(VAL.COURIER, VAL.M.get(VAL.COURIER)),
-    MANAGER(VAL.MANAGER, VAL.M.get(VAL.MANAGER));
+    CONFIRM_REGISTRATION(VAL.CONFIRM_REGISTRATION, VAL.M.get(VAL.CONFIRM_REGISTRATION));
 
     private final static Map<String, UserRole> NAME_MAP = new HashMap<>(); // name index
     private final static Map<String, UserRole> CODE_MAP = new HashMap<>(); // code index
@@ -122,8 +120,8 @@ public enum UserRole {
         public static final String REFRESH                = "ROLE_REFRESH";
         public static final String CONFIRM_REGISTRATION   = "ROLE_CONFIRM_REGISTRATION";
 
-        public static final String CLIENT                 = "ROLE_CLIENT";
-        public static final String COURIER                = "ROLE_COURIER";
+        //public static final String CLIENT                 = "ROLE_CLIENT";
+        //public static final String COURIER                = "ROLE_COURIER";
         public static final String MANAGER                = "ROLE_MANAGER";
 
         private final static Map<String, String> M = new HashMap<>();
@@ -131,14 +129,12 @@ public enum UserRole {
         // это коды имен ролей (кодированные имена ролей), в таком виде они хранятся в БД
         static {
             M.put(ADMIN,                "ADMIN");
+            M.put(MANAGER,              "MANAGER");
             M.put(USER,                 "USER");
             M.put(ANONYMOUS,            "ANON");
             M.put(RESOURCE,             "RESOURCE");
             M.put(REFRESH,              "REFRESH");
             M.put(CONFIRM_REGISTRATION, "CONFIRM");
-            M.put(CLIENT,               "CLIENT");
-            M.put(COURIER,              "COURIER");
-            M.put(MANAGER,              "MANAGER");
         }
 
     }

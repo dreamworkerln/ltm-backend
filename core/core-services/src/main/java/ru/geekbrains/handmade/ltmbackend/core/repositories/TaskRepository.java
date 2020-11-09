@@ -29,7 +29,7 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
 
 
     // When explicitly define @Query Cosium/Hibernate will JOIN FETCH for self referencing entities(tables)
-    // (Without will do for different tables but not for self referencing)
+    // (Without will do join fetch for different tables but not for self referencing)
     @Query("FROM Task t " +
         "WHERE t.id = :#{#id}")
     Optional<Task> findById(@Param("id") Long id, EntityGraph entityGraph);
@@ -60,14 +60,14 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
             for (Task sub : task.getSubtasks()) {
 
                 if(!unitUtil.isLoaded(sub.getSubtasks())) {
-                    sub.setSubtasks(new HashSet<>());
+                    sub.setSubtasks(/*new HashSet<>()*/null);
+                }
+                if(!unitUtil.isLoaded(sub.getMembers())) {
+                    sub.setMembers(/*new HashMap<>()*/null);
                 }
 //                if(!unitUtil.isLoaded(sub.getMembers())) {
-//                    sub.setMembers(new HashMap<>());
+//                    sub.setMembers(new HashSet<>());
 //                }
-                if(!unitUtil.isLoaded(sub.getMembers())) {
-                    sub.setMembers(new HashSet<>());
-                }
 
 //                if (sub.getSubtasks().getClass() == PersistentSet.class) {
 //                    sub.setSubtasks(new HashSet<>());
@@ -82,6 +82,11 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
             }
         }
     }
+
+
+    @Query("FROM Task t " +
+        "WHERE t.id = :#{#id} OR t.parent = t")
+    Optional<Task> findByIdZeta(Long id, EntityGraph entityGraph);
 
 
 //    public void lazyLoadFixSubtasks(Collection<Task> tasks) {

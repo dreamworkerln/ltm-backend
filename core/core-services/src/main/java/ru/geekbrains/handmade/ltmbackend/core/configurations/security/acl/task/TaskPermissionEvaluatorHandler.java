@@ -9,7 +9,7 @@ import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.core.services.task.TaskService;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.UserRole;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserPrivilege;
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRolePrivilege;
+import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRolePrivilegeDictionary;
 import ru.geekbrains.handmade.ltmbackend.core.entities.task.Task;
 
 
@@ -22,11 +22,11 @@ public class TaskPermissionEvaluatorHandler implements PermissionEvaluatorHandle
     private final static Class<?> TARGET_CLASS = Task.class;
 
     private final TaskService taskService;
-    private final TaskUserRolePrivilege taskUserRolePrivilege;
+    private final TaskUserRolePrivilegeDictionary taskPrivilegeDictionary;
 
-    public TaskPermissionEvaluatorHandler(TaskService taskService, TaskUserRolePrivilege taskUserRolePrivilege) {
+    public TaskPermissionEvaluatorHandler(TaskService taskService, TaskUserRolePrivilegeDictionary taskPrivilegeDictionary) {
         this.taskService = taskService;
-        this.taskUserRolePrivilege = taskUserRolePrivilege;
+        this.taskPrivilegeDictionary = taskPrivilegeDictionary;
     }
 
     @Override
@@ -47,18 +47,26 @@ public class TaskPermissionEvaluatorHandler implements PermissionEvaluatorHandle
             result.set(true);
         }
         else {
-            // 1. check user role on this task
+            // Проверяем, содержится ли запрошенная клиентом привилегия(привилегии)
+            // В наборе предопределенных привилегий для роли пользователя в контексте указанной задачи.
+
+            // 1. Узнаем роль у текущего пользователя по указанной задаче
             taskService.getTaskMemberRole(targetId, user)
                 .ifPresent(taskUserRole -> {
 
-                    // check if taskUserRole contain requested permissions(privileges)
+                    // Получаем набор (предопределенных) привилегий для этой роли
+                    Set<TaskUserPrivilege> userRolePrivileges = taskPrivilegeDictionary.getRolePrivileges().get(taskUserRole);
+
+                    // Проверяем, что в роли пользователя по указанной задачи
+                    // содержатся запрашиваемые привилегии
                     for (String p : privileges) {
 
-                        TaskUserPrivilege privilege = TaskUserPrivilege.getByName(p);
-                        if (!taskUserRolePrivilege.getRolePrivileges().get(taskUserRole).contains(privilege)) {
+                        // переводим привилегию из String в Enum
+                        TaskUserPrivilege requestedPrivilege = TaskUserPrivilege.getByName(p);
+                        if (!userRolePrivileges.contains(requestedPrivilege)) {
                             break;
                         }
-                        // All is OK
+                        // finally all is OK
                         result.set(true);
                     }
                 });

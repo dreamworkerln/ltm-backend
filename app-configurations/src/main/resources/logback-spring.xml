@@ -103,8 +103,8 @@
     <logger name="org.hibernate" level="WARN"/>
     <logger name="org.hibernate.validator" level="WARN"/>
     <logger name="org.hibernate.ejb.HibernatePersistence" level="OFF"/>
-    <logger name="org.hibernate.SQL" level="TRACE"/>                      <!-- SHOW SQL; TRACE to enable -->
-    <logger name="org.hibernate.type.descriptor.sql" level="TRACE"/>        <!-- SHOW PARAMS VALUES -->
+    <logger name="org.hibernate.SQL" level="OFF"/>                      <!-- SHOW SQL; TRACE to enable -->
+    <logger name="org.hibernate.type.descriptor.sql" level="OFF"/>        <!-- SHOW PARAMS VALUES -->
     <logger name="org.hibernate.tool.hbm2ddl" level="TRACE"/>             <!-- DDL SQL SCHEMA MIGRATION -->
     <logger name="org.springframework" level="WARN"/>
     <logger name="org.springframework.web" level="WARN"/>

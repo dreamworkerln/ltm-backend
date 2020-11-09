@@ -40,16 +40,24 @@ public class TaskService extends BaseRepoAccessService<Task> {
 //    }
 
 
-    /**
-     * Get task by user
-     */
     public List<Task> findByUser(User user) {
         return repository.findByUser(user, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
     }
 
     @Override
     public Optional<Task> findById(Long id) {
-        return repository.findById(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
+        return super.findById(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
+    }
+
+
+    public Optional<Task> findByIdZeta(Long id) {
+        return repository.findByIdZeta(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH));
+    }
+
+    @Override
+    public Task findByIdOrError(Long id) {
+        return super.findById(id, EntityGraphs.named(Task.PARENT_SUBTASKS_MEMBERS_GRAPH))
+            .orElseThrow(() -> new IllegalArgumentException("Entity by id: " + id + " not found"));
     }
 
 
@@ -61,6 +69,10 @@ public class TaskService extends BaseRepoAccessService<Task> {
 
     // ----------------------------------------------------------------------
 
+    /**
+     * Replace not initialized lazy JPA Proxies to null
+     * @param task task to truncate Lazy proxies in
+     */
     public void truncateLazy(Task task) {
         repository.truncateLazy(task);
     }

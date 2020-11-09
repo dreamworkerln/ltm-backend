@@ -1,0 +1,56 @@
+package ru.geekbrains.handmade.ltmbackend.core.entities.task;
+
+import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Component;
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+
+import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
+import java.util.Map;
+
+@Component
+@Data
+@Slf4j
+public class TaskPersistListener {
+
+
+    @PrePersist
+    @PreUpdate
+    public void methodExecuteBeforeSave(Task task) {
+
+        for (Map.Entry<User, TaskMember> entry : task.getMembers4().entrySet()) {
+
+        }
+
+
+        for (TaskMember tm : task.getMembersPersist()) {
+
+        }
+    }
+}
+
+//        // Make sure that User contains persisted UserRoles
+//        for (UserRole role : new HashSet<>(user.getRoles())) {
+//
+//            if (role.getId() == null) {
+//                user.getRoles().remove(role);
+//                user.getRoles().add(userRoleService.findByName(role.getName())
+//                    .orElseThrow(() -> new IllegalArgumentException("UserRole " + role.getName() + "not found")));
+//            }
+//        }
+
+//        // создадим для User аккаунт, если его у него нет
+//        if (user.getAccount() == null) {
+//            accountService.findByUser(user)
+//                .ifPresent(account -> {
+//                    throw new IllegalArgumentException("User " + user.getUsername() + " already have Account");
+//                });
+//
+//            Account account = new Account();
+//            user.setAccount(account);
+//            account.setUser(user);
+//            accountService.save(account);
+//        }
+//    }
+

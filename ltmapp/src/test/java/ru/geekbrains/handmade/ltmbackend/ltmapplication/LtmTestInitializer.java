@@ -1,16 +1,8 @@
 package ru.geekbrains.handmade.ltmbackend.ltmapplication;
 
-import ru.geekbrains.handmade.ltmbackend.utils.data.enums.OrderStatus;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Address;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Client;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Courier;
-import ru.geekbrains.handmade.ltmbackend.core.entities.Order;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
-import ru.geekbrains.handmade.ltmbackend.core.services.*;
-import ru.geekbrains.handmade.ltmbackend.core.services.order.OrderService;
 import ru.geekbrains.handmade.ltmbackend.core.services.user.UserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -20,23 +12,11 @@ import org.springframework.stereotype.Component;
 public class LtmTestInitializer implements ApplicationRunner {
 
     private final UserService userService;
-    private final AccountService accountService;
-    private final OrderService orderService;
-    private final ClientService clientService;
-    private final CourierService courierService;
 
-    @Autowired
-    public LtmTestInitializer(UserService userService,
-                              AccountService accountService,
-                              OrderService orderService,
-                              ClientService clientService,
-                              CourierService courierService) {
+    public LtmTestInitializer(UserService userService) {
         this.userService = userService;
-        this.accountService = accountService;
-        this.orderService = orderService;
-        this.clientService = clientService;
-        this.courierService = courierService;
     }
+
 
     @Override
     public void run(ApplicationArguments args) {

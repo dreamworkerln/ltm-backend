@@ -18,7 +18,6 @@ import java.util.*;
 @Table(
         name = "uzer",
         indexes = {
-                @Index(name = "user_account_id_idx", columnList = "account_id"),
                 @Index(name = "user_username_unq", columnList = "username", unique = true),
                 @Index(name = "user_email_unq", columnList = "email", unique = true),
                 @Index(name = "user_phone_number_unq", columnList = "phone_number", unique = true),
@@ -180,9 +179,9 @@ public class User extends AbstractEntity {
     //  public UserDetails loadUserByPhone(String phone)
     //  Далее уже везде, где внедряется/используется UserDetailsService заменить на UserDetailsCustomService
     //  Но тогда не понятно, а что тогда использовать вместо username - глобального идентификатора пользователя в системе?
-    //  Или что использоваться в качестве этого username(как генерировать username - на основе телефона, ящика GUID, и т.д.) ?
+    //  Или что использоваться в качестве этого username(как генерировать username - на основе телефона, ящика, GUID, и т.д.) ?
     //
-    // Тут пользователь предполагается идентичным если у него одинаковые поля username & email & phone
+    // Тут пользователи предполагаются идентичным если у них одинаковые поля username
 
     @Override
     public boolean equals(Object o) {

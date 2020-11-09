@@ -50,7 +50,7 @@ public class TaskController {
     /**
      * Return tasks by id, check permissions
      * @return List<TaskDto>
-     */                                      //TaskUserPrivilege.VAL.READ
+     */
     @JrpcMethod(HandlerName.task.findById)
     @CheckPrivileges(targetId = "#id",
         permission = TaskUserPrivilege.VAL.READ,

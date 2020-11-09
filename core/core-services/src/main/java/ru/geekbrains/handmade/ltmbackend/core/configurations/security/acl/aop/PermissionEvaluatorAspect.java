@@ -59,7 +59,7 @@ public class PermissionEvaluatorAspect {
 
         Assert.notNull(checkPrivileges, "@CheckPrivileges == null");
         Long targetId = (Long)parser.parseExpression(checkPrivileges.targetId()).getValue(ctx);
-        Class<?> targetClass = checkPrivileges.targetClass();
+        Class<?> targetClass = checkPrivileges.targetClass(); // класс Entity, для которого проверяются права доступа
         Set<String> permissions = new HashSet<>(Arrays.asList(checkPrivileges.permission()));
         String key = targetClass.getName();
 

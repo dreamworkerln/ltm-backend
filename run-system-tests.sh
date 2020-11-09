@@ -6,9 +6,8 @@ set -a
 source ztests/scripts/0-config_params.sh
 
 {
-# unit/integration tests
-echo -e "---===== UNIT TESTING =====---" && \
-ztests/scripts/1-unit-tests.sh && \
+# compile & package
+mvn ${POSTGRESQL_PARAMS} clean -DskipTests package
 
 # system tests
 echo -e "---===== SYSTEM TESTING =====---" && \

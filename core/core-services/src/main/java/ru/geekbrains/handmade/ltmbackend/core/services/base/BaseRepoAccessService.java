@@ -1,6 +1,7 @@
 package ru.geekbrains.handmade.ltmbackend.core.services.base;
 
 import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraph;
+import com.cosium.spring.data.jpa.entity.graph.domain.EntityGraphs;
 import ru.geekbrains.handmade.ltmbackend.core.repositories.CustomRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,8 @@ import java.util.Optional;
 @RequiredArgsConstructor
 @Slf4j
 public abstract class BaseRepoAccessService<T> {
+
+    //protected EntityGraph defaultEntityGraph = EntityGraphs.empty();
 
 
     private final CustomRepository<T, Long> baseRepository;
@@ -45,6 +48,11 @@ public abstract class BaseRepoAccessService<T> {
 
     public T findByIdOrError(Long id) {
         return baseRepository.findById(id)
+            .orElseThrow(() -> new IllegalArgumentException("Entity by id: " + id + " not found"));
+    }
+
+    public T findByIdOrError(Long id, EntityGraph entityGraph) {
+        return baseRepository.findById(id, entityGraph)
             .orElseThrow(() -> new IllegalArgumentException("Entity by id: " + id + " not found"));
     }
 

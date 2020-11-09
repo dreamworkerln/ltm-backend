@@ -27,7 +27,7 @@ public class CalculatorControllerTests {
     void test() {
 
         // Use here admin properties (principals and credentials)
-        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.ADMIN);
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
 
         double result = calculatorRequest.add(1,2);
         log.info("result: {}", result);

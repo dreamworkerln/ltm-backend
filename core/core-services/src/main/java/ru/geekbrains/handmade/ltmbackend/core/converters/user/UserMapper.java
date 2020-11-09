@@ -39,11 +39,11 @@ public abstract class UserMapper extends AbstractMapper<User, UserDto> {
 //    }
 
 
-    @AfterMapping
-    User afterMapping(UserDto source, @MappingTarget User target) {
-
-        return merge(source, target);
-    }
+//    @AfterMapping
+//    public User afterMapping(UserDto source, @MappingTarget User target) {
+//
+//        return merge(source, target);
+//    }
 
 //    protected class EntityConstructor extends Constructor<User, UserDto> {
 //

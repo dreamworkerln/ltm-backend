@@ -1,16 +1,23 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.task;
 
 import lombok.*;
+import lombok.extern.slf4j.Slf4j;
+import org.hibernate.annotations.Cascade;
+import org.springframework.stereotype.Component;
 import ru.geekbrains.handmade.ltmbackend.core.entities.Address;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
+import ru.geekbrains.handmade.ltmbackend.core.entities.user.UserToPersistListener;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.time.Instant;
 import java.util.*;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 
 /**
@@ -30,6 +37,7 @@ import java.util.*;
         @NamedAttributeNode("members")}
 )
 
+//@EntityListeners(Task.TaskPersistListener.class)  // доп действия над сущностью до сохранения/после загрузки из БД
 
 //@NamedEntityGraph(
 //    name = Task.PARENT_SUBTASKS_MEMBERS_GRAPH,
@@ -72,12 +80,24 @@ public class Task extends AbstractEntity {
     @JoinColumn(name="address_id")
     private Address address;
 
-
+    /*
     @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = CascadeType.ALL)
     //@MapKey(name = "user")
     //@MapKeyJoinColumn(name = "user")
     //private Map<User, TaskMember> members = new HashMap<>();
-    private Set<TaskMember> members = new HashSet<>();
+    @Setter(AccessLevel.NONE) // инвалиды отакуе!
+    private Set<TaskMember> membersPersist = new HashSet<>();
+
+    @Transient
+    private Map<User, TaskMember> members = new HashMap<>();
+
+    */
+
+    // Не надо пытаться пихать сюда одного пользователя больше одного раза с разными ролями,
+    // Обладание одним пользователем несколькими ролями в контексте одной задачи не предусмотрено
+    @OneToMany(mappedBy = "task", orphanRemoval = true, cascade = CascadeType.ALL)
+    @MapKeyJoinColumn(name="user_id")
+    private Map<User, TaskMember> members = new HashMap<>();
 
 //    // owner
 //    @ManyToOne
@@ -118,36 +138,24 @@ public class Task extends AbstractEntity {
         addMember(owner, TaskUserRole.OWNER);
     }
 
-    public Task(String title, Task parent, Set<Task> subtasks, Set<TaskMember> members) {
-
-        this.parent = parent;
-        this.title = title;
-        this.subtasks = subtasks;
-        this.members = members;
-        //this.members = members.stream().collect(Collectors.toMap(TaskMember::getUser, tm -> tm));
-    }
+//    public Task(String title, Task parent, Set<Task> subtasks, Set<TaskMember> members) {
+//
+//        this.parent = parent;
+//        this.title = title;
+//        this.subtasks = subtasks;
+//        this.members = members;
+//        //this.members = members.stream().collect(Collectors.toMap(TaskMember::getUser, tm -> tm));
+//    }
 
     public void addMember(User user, TaskUserRole taskUserRole) {
 
-        // user was already added to Task
-
-        for (TaskMember member : members) {
-            // user was already added to Task
-            if (member.getUser().equals(user)) {
-                throw new IllegalArgumentException("User " + user.getUsername() +
-                    " has been already assigned to task + " + title + ", " + id);
-            }
+        if(members.containsKey(user)) {
+            throw new IllegalArgumentException("User " + user.getUsername() +
+                " has been already assigned to task + " + title + ", " + id);
         }
 
-
-//        if(members.containsKey(user)) {
-//            throw new IllegalArgumentException("User " + user.getUsername() +
-//                " has been already assigned to task + " + title + ", " + id);
-//        }
-
         TaskMember taskMember = new TaskMember(this, user, taskUserRole);
-        members.add(taskMember);
-        //members.put(user, taskMember);
+        members.put(user, taskMember);
     }
 
 
@@ -174,4 +182,31 @@ public class Task extends AbstractEntity {
     }
 
 
+
+
+
+
+//    @Component
+//    @Data
+//    @Slf4j
+//    public static class TaskPersistListener {
+//
+//
+//        @PrePersist
+//        @PreUpdate
+//        public void methodExecutedBeforeSave(Task task) {
+//
+//            task.membersPersist.clear();
+//            task.membersPersist.addAll(task.members.values());
+//        }
+//
+//
+//        @PostLoad
+//        public void methodExecutedAfterLoad(Task task) {
+//
+//            task.members = task.membersPersist.stream().collect(Collectors.toMap(
+//                TaskMember::getUser,
+//                Function.identity()));
+//        }
+//    }
 }

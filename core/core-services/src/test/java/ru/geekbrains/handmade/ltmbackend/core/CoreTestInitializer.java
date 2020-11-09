@@ -14,9 +14,12 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class CoreTestInitializer implements ApplicationRunner {
 
+    private final UsersInitializer usersInitializer;
+
     private final UserService userService;
 
-    public CoreTestInitializer(UserService userService) {
+    public CoreTestInitializer(UsersInitializer usersInitializer, UserService userService) {
+        this.usersInitializer = usersInitializer;
         this.userService = userService;
     }
 
@@ -24,6 +27,10 @@ public class CoreTestInitializer implements ApplicationRunner {
     @Override
     public void run(ApplicationArguments args) {
 
+        // create default users, that Authorisation server do
+        usersInitializer.initUsers();
+
+        // Create additional users
         initUsers();
 
         /*

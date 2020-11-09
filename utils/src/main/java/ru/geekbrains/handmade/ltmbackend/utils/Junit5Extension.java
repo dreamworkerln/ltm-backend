@@ -17,7 +17,9 @@ import static org.junit.jupiter.api.extension.ExtensionContext.Namespace.GLOBAL;
 public class Junit5Extension implements BeforeAllCallback, ExtensionContext.Store.CloseableResource, AfterAllCallback {
 
     private static boolean started = false;
-
+    
+    // аннотации для Spring тут работать не будут, maven спринг еще не стартанул, контекст не поднялся
+    // Этот класс вообще не managed'ся Spring
     //@Value("${testcontainers.enable:true}")
     private boolean testContainersEnabled = true;
 

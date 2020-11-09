@@ -27,15 +27,13 @@
 
     <dependencies>
 
-        <!--
-        &lt;!&ndash;module configuration &ndash;&gt;
+        <!--module configuration -->
         <dependency>
-            <groupId>com.github.geekuniversity_java_215</groupId>
-            <artifactId>appconfiguration</artifactId>
+            <groupId>ru.geekbrains.handmade.ltmbackend</groupId>
+            <artifactId>app-configurations</artifactId>
             <version>${app.version}</version>
             <scope>compile</scope>
         </dependency>
-        -->
 
         <!--module jrpc-protocol -->
         <dependency>

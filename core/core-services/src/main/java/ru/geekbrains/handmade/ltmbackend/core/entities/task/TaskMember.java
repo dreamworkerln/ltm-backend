@@ -1,6 +1,7 @@
 package ru.geekbrains.handmade.ltmbackend.core.entities.task;
 
 import lombok.Data;
+import org.springframework.util.Assert;
 import ru.geekbrains.handmade.ltmbackend.core.entities.base.AbstractEntity;
 import ru.geekbrains.handmade.ltmbackend.core.entities.user.User;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
@@ -10,7 +11,7 @@ import java.util.Objects;
 
 /**
  * Участник задачи (многие-ко-многим) <br>
- * Используется @Converter TaskUserRoleConverter
+ * <br>Используется @Converter TaskUserRoleConverter
  * - конвертирует enum TaskUserRole при сохранении в базу и обратно при доставании из базы
  */
 @Entity
@@ -60,6 +61,14 @@ public class TaskMember extends AbstractEntity {
 
     @Override
     public String toString() {
+
+        Assert.notNull(user, "user == null");
+
+//        String userString = "null";
+//        if (user == null) {
+//            userString = user.getId() + ": " + user.getUsername();
+//        }
+
         return "TaskMember{" +
             "id=" + id +
             ", user=" + user.getId() + ": " + user.getUsername() +

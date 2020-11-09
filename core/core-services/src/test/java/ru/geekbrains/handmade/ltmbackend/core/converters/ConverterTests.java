@@ -72,7 +72,7 @@ class ConverterTests {
 //    }
 
     @Test
-    void AddressConverterTest() {
+    void addressConverterTest() {
 
         log.info("Checking AddressConverter");
 

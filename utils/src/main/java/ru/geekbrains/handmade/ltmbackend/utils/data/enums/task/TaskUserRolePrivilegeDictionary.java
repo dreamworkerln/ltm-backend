@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 import java.util.*;
 
 /**
- * Привилегии для ролей по Task<br>
+ * Словарь привязок привилегий(TaskUserPrivilege) по ролям(TaskUserRole)<br>
  * хранится только в коде
  */
 @Component
 @Data
-public class TaskUserRolePrivilege {
+public class TaskUserRolePrivilegeDictionary {
     private final Map<TaskUserRole, Set<TaskUserPrivilege>> rolePrivileges = new HashMap<>();
 
     // assign privileges to roles
-    public TaskUserRolePrivilege() {
+    public TaskUserRolePrivilegeDictionary() {
 
         // Владелец задачи может все
         rolePrivileges.put(TaskUserRole.OWNER,

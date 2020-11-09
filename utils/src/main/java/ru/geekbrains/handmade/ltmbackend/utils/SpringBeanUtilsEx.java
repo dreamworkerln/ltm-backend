@@ -35,7 +35,11 @@ public class SpringBeanUtilsEx {
         return emptyNames.toArray(new String[0]);
     }
 
-    // Copy upper level fields if not null from from source to target
+    /**
+     * Copy upper level fields if not null in source from source to target
+     * @param source from
+     * @param target to
+     */
     public static void CopyPropertiesExcludeNull(Object source, Object target) {
         BeanUtils.copyProperties(source, target, getNullPropertyNames(source, target));
     }

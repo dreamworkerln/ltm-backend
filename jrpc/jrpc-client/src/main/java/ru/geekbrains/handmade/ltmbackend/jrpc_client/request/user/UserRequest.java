@@ -28,17 +28,17 @@ public class UserRequest extends AbstractJrpcRequest {
         return objectMapper.treeToValue(response, Long.class);
     }
 
-    @SneakyThrows
-    public Long makeClient() {
-        String uri = HandlerName.user.path + "." + HandlerName.user.makeClient;
-        JsonNode response = performJrpcRequest(uri, null);
-        return objectMapper.treeToValue(response, Long.class);
-    }
-
-    @SneakyThrows
-    public Long makeCourier() {
-        String uri = HandlerName.user.path + "." + HandlerName.user.makeCourier;
-        JsonNode response = performJrpcRequest(uri, null);
-        return objectMapper.treeToValue(response, Long.class);
-    }
+//    @SneakyThrows
+//    public Long makeClient() {
+//        String uri = HandlerName.user.path + "." + HandlerName.user.makeClient;
+//        JsonNode response = performJrpcRequest(uri, null);
+//        return objectMapper.treeToValue(response, Long.class);
+//    }
+//
+//    @SneakyThrows
+//    public Long makeCourier() {
+//        String uri = HandlerName.user.path + "." + HandlerName.user.makeCourier;
+//        JsonNode response = performJrpcRequest(uri, null);
+//        return objectMapper.treeToValue(response, Long.class);
+//    }
 }

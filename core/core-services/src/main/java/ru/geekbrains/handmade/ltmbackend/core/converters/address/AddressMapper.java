@@ -27,10 +27,10 @@ public abstract class AddressMapper extends AbstractMapper<Address, AddressDto> 
 
     public abstract Address toEntity(AddressDto orderDto);
 
-    @AfterMapping
-    Address afterMapping(AddressDto source, @MappingTarget Address target) {
-        return merge(source, target);
-    }
+//    @AfterMapping
+//    Address afterMapping(AddressDto source, @MappingTarget Address target) {
+//        return merge(source, target);
+//    }
 
 //    protected class EntityConstructor extends Constructor<Address, AddressDto> {
 //        @Override
