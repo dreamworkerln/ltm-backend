@@ -7,6 +7,7 @@ public class HandlerName {
     private static final String findAllById = "findAllById";
     private static final String findAll = "findAll";
     private static final String findFirst = "findFirst";
+    private static final String fetchAllById = "fetchAllById"; // load whole graph of parent-child
 
     private static final String save = "save";
     private static final String delete = "delete";
@@ -79,8 +80,6 @@ public class HandlerName {
         public static final String path = "ltmapp.core.user";
         public static final String getCurrent = HandlerName.getCurrent;    // current user tasks
         public static final String save = HandlerName.save;
-        public static final String makeClient = HandlerName.makeClient;
-        public static final String makeCourier = HandlerName.makeCourier;
     }
 
 
@@ -92,6 +91,7 @@ public class HandlerName {
         public static final String findAll = HandlerName.findAll;
         public static final String findById = HandlerName.findById;
         public static final String findByUser = HandlerName.findByUser;  // used by manager
+        public static final String fetchAllById = HandlerName.fetchAllById;
         public static final String save = HandlerName.save;
         //experimental ACL
         public static final String findExperimental = HandlerName.findExperimental;

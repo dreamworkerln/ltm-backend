@@ -49,7 +49,6 @@ public class ManagementUserController {
         return converter.toDto(user);
     }
 
-
     /**
      * Get List<User> by idList
      * @param params List<Long> idList

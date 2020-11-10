@@ -31,6 +31,16 @@ public class TaskRequest extends AbstractJrpcRequest {
     }
 
     @SneakyThrows
+    public TaskDto fetchAllById(Long id) {
+        String uri = HandlerName.task.path + "." + HandlerName.task.fetchAllById;
+        JsonNode response = performJrpcRequest(uri, id);
+        return objectMapper.treeToValue(response, TaskDto.class);
+    }
+
+
+
+
+    @SneakyThrows
     public Long save(TaskDto task) {
         String uri = HandlerName.task.path + "." + HandlerName.task.save;
         JsonNode response = performJrpcRequest(uri, task);

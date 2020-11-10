@@ -34,7 +34,6 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
         "WHERE t.id = :#{#id}")
     Optional<Task> findById(@Param("id") Long id, EntityGraph entityGraph);
 
-
     // ----------------------------------------------------------------
 
     // Подразумевается, что в конкретном задании у одного пользователя одновременно может существовать только одна роль
@@ -83,10 +82,10 @@ public interface TaskRepository extends CustomRepository<Task, Long> {
         }
     }
 
-
-    @Query("FROM Task t " +
-        "WHERE t.id = :#{#id} OR t.parent = t")
-    Optional<Task> findByIdZeta(Long id, EntityGraph entityGraph);
+//
+//    @Query("FROM Task t " +
+//        "WHERE t.id = :#{#id} OR t.parent = t")
+//    Optional<Task> findByIdZeta(Long id, EntityGraph entityGraph);
 
 
 //    public void lazyLoadFixSubtasks(Collection<Task> tasks) {

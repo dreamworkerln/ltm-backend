@@ -52,26 +52,41 @@ public abstract class TaskMapper extends AbstractMapper<Task, TaskDto> {
 
     protected Map<User, TaskMember> membersToMap(Set<TaskMemberDto> memberSetDto) {
 
-        Map<User, TaskMember> result = new HashMap<>();
+        Map<User, TaskMember> result = null;
 
-        for (TaskMemberDto tmDto : memberSetDto) {
-            TaskMember tm = taskMemberMapper.toEntity(tmDto);
-            result.put(tm.getUser(), tm);
+        if(memberSetDto != null) {
+
+            result = new HashMap<>();
+            for (TaskMemberDto tmDto : memberSetDto) {
+                TaskMember tm = taskMemberMapper.toEntity(tmDto);
+                result.put(tm.getUser(), tm);
+            }
         }
         return result;
     }
 
     protected Set<TaskMemberDto> membersToSet(Map<User, TaskMember> memberMap) {
-        return memberMap.values().stream().map(tm -> taskMemberMapper.toDto(tm)).collect(Collectors.toSet());
+
+        Set<TaskMemberDto> result = null;
+
+        if (memberMap != null) {
+            result = memberMap.values().stream().map(tm -> taskMemberMapper.toDto(tm)).collect(Collectors.toSet());
+        }
+        return result;
     }
 
     @Override
     @AfterMapping
     public Task afterMapping(TaskDto source, @MappingTarget Task target) {
 
-        // load Task parent
+        // set Task parent
         target.setParent(taskService.findById(source.getParentId()).orElse(null));
 
+        // set Task.subtask.parent to this Task
+        for (Task subtask : target.getSubtasks()) {
+            subtask.setParent(target);
+        }
+        
         // if target.getMembers().task == null then set it to current task
         for (Map.Entry<User, TaskMember> entry : target.getMembers().entrySet()) {
             TaskMember tm = entry.getValue();

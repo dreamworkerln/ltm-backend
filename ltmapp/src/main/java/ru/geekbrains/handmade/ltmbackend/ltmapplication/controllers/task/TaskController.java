@@ -62,6 +62,24 @@ public class TaskController {
     }
 
 
+    /**
+     * Return tasks by id, check permissions
+     * @return List<TaskDto>
+     */
+    @JrpcMethod(HandlerName.task.fetchAllById)
+    @CheckPrivileges(targetId = "#id",
+        permission = TaskUserPrivilege.VAL.READ,
+        targetClass = Task.class)
+    public TaskDto fetchAllById(Long id) {
+        Task result = taskService.fetchAllById(id).orElse(null);
+        //taskService.truncateLazy(result);
+        return converter.toDto(result);
+    }
+
+
+
+
+
 
     @JrpcMethod(HandlerName.task.save)
     public Long save(TaskDto taskDto) {

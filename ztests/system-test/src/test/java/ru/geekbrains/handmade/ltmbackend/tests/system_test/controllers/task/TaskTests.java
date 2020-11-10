@@ -89,6 +89,63 @@ public class TaskTests {
         System.out.println(loadedTask);
     }
 
+    @Test
+    @Order(3)
+    void createOuterAndInner() {
 
-        //log.info("result: {}", list);
+        log.info("createOuterAndInner");
+
+        // select user
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
+        UserDto user = userRequest.getCurrent();
+
+        // create new task
+        TaskDto task = new TaskDto();
+        task.setTitle("Task02");
+        task.setDeadline(Instant.now().plus(10, ChronoUnit.MINUTES));
+        task.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+
+        TaskDto innerTask = new TaskDto();
+        innerTask.setTitle("Task02Inner");
+        innerTask.setDeadline(Instant.now().plus(10, ChronoUnit.MINUTES));
+        innerTask.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+        task.getSubtasks().add(innerTask);
+
+        TaskDto innerInnerTask = new TaskDto();
+        innerInnerTask.setTitle("Task03InnerInner");
+        innerInnerTask.setDeadline(Instant.now().plus(10, ChronoUnit.MINUTES));
+        innerInnerTask.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+        innerTask.getSubtasks().add(innerInnerTask);
+
+        // save task
+        Long taskId = taskRequest.save(task);
+        Assertions.assertNotNull(taskId, "New saved task id == null");
+        System.out.println(task);
+
+
+        // reload task from server, DDD
+        TaskDto loadedTask = taskRequest.fetchAllById(taskId);
+        System.out.println(loadedTask);
     }
+
+
+
+
+
+    @Test
+    @Order(3)
+    void loadById() {
+        log.info("loadById");
+
+        // select user
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
+        UserDto user = userRequest.getCurrent();
+
+        // load task from server, DDD
+        TaskDto loadedTask = taskRequest.fetchAllById(33L);
+        System.out.println(loadedTask);
+    }
+
+
+    //log.info("result: {}", list);
+}

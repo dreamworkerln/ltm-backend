@@ -30,9 +30,15 @@ import java.util.stream.Collectors;
 @Table(name = "task")
 
 
-@NamedEntityGraph(name = Task.PARENT_SUBTASKS_MEMBERS_GRAPH,
+//@NamedEntityGraph(name = Task.PARENT_SUBTASKS_MEMBERS_GRAPH,
+//    attributeNodes= {
+//        @NamedAttributeNode("parent"),
+//        @NamedAttributeNode("subtasks"),
+//        @NamedAttributeNode("members")}
+//)
+
+@NamedEntityGraph(name = Task.SUBTASKS_MEMBERS_GRAPH,
     attributeNodes= {
-        @NamedAttributeNode("parent"),
         @NamedAttributeNode("subtasks"),
         @NamedAttributeNode("members")}
 )
@@ -58,7 +64,9 @@ import java.util.stream.Collectors;
 
 public class Task extends AbstractEntity {
 
-    public static final String PARENT_SUBTASKS_MEMBERS_GRAPH = "task.parent.subtask.members";
+    //public static final String PARENT_SUBTASKS_MEMBERS_GRAPH = "task.parent.subtask.members";
+    public static final String SUBTASKS_MEMBERS_GRAPH = "task.subtask.members";
+
 
     @NotNull
     @Size(min = 3, max = 30)
