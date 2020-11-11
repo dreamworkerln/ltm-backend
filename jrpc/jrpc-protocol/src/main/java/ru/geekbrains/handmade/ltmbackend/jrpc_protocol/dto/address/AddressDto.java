@@ -18,7 +18,8 @@ public class AddressDto extends AbstractDto {
     private Double latitude;
 
 
-    public AddressDto(String city, String street, Integer house, Integer building, Integer flat) {
+    public AddressDto(String city, String street, Integer house, Integer building, Integer flat,
+                      Double longitude, Double latitude) {
         this.city = city;
         this.street = street;
         this.house = house;

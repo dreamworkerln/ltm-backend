@@ -2,6 +2,7 @@ package ru.geekbrains.handmade.ltmbackend.tests.system_test.controllers.task;
 
 import com.github.dockerjava.api.model.Task;
 import org.junit.jupiter.api.*;
+import org.springframework.web.client.HttpClientErrorException;
 import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.client.ClientRequest;
 import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.management.ManagementUserRequest;
 import ru.geekbrains.handmade.ltmbackend.jrpc_client.request.payment.CashFlowRequest;
@@ -19,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import ru.geekbrains.handmade.ltmbackend.utils.data.enums.task.TaskUserRole;
 
+import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
@@ -133,9 +135,9 @@ public class TaskTests {
 
 
     @Test
-    @Order(3)
-    void loadById() {
-        log.info("loadById");
+    @Order(4)
+    void fetchAllById() {
+        log.info("fetchAllById");
 
         // select user
         userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
@@ -144,6 +146,38 @@ public class TaskTests {
         // load task from server, DDD
         TaskDto loadedTask = taskRequest.fetchAllById(33L);
         System.out.println(loadedTask);
+    }
+
+    @Test
+    @Order(4)
+    void fetchAllByIdFailed() {
+        log.info("fetchAllByIdFailed");
+
+        // select user
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
+
+        // load task from server should fail
+        Assertions.assertThrows(HttpClientErrorException.Forbidden.class,
+            () -> taskRequest.fetchAllById(Long.MAX_VALUE),
+            "Task with id " + Long.MAX_VALUE + " should not be available");
+    }
+
+    @Test
+    @Order(5)
+    void findById() {
+        log.info("findById");
+
+        // select user
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
+        UserDto user = userRequest.getCurrent();
+
+        // load task list from server, DDD
+        List<TaskDto> taskList = taskRequest.findAll(null);
+
+        for (TaskDto taskDto : taskList) {
+            System.out.println(taskDto);
+        }
+
     }
 
 

@@ -19,4 +19,13 @@ public class TaskDto extends AbstractDto {
     private Set<TaskMemberDto> members = new HashSet<>();
     private AddressDto address;
     private Instant deadline;
+
+    @Override
+    public String toString() {
+        return "TaskDto{" +
+            "title='" + title + '\'' +
+            ", id=" + id +
+            ", parentId=" + parentId +
+            '}';
+    }
 }

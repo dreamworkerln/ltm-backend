@@ -9,7 +9,7 @@ import org.springframework.context.annotation.Configuration;
 public class AuthServerSpringConfiguration {
 
     // JWT ISSUER field
-    @Value("auth-server.issuer")
+    @Value("${auth-server.issuer}")
     @Getter(AccessLevel.PUBLIC)
     private String ISSUER;
 

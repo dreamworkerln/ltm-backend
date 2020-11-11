@@ -21,13 +21,13 @@ import java.util.*;
 public class TaskService extends BaseRepoAccessService<Task> {
 
     private final TaskRepository repository;
-    private final UserService userService;
+    //private final UserService userService;
 
     @Autowired
-    public TaskService(TaskRepository repository, UserService userService) {
+    public TaskService(TaskRepository repository/*, UserService userService*/) {
         super(repository);
         this.repository = repository;
-        this.userService = userService;
+        //this.userService = userService;
     }
 
 //    /**
@@ -49,7 +49,7 @@ public class TaskService extends BaseRepoAccessService<Task> {
         return super.findById(id, EntityGraphs.named(Task.SUBTASKS_MEMBERS_GRAPH));
     }
 
-    @Transactional(propagation = Propagation.REQUIRES_NEW)
+    //@Transactional(propagation = Propagation.REQUIRES_NEW)
     public Optional<Task> fetchAllById(Long id) {
         Optional<Task> result = super.findById(id, EntityGraphs.named(Task.SUBTASKS_MEMBERS_GRAPH));
 
