@@ -24,7 +24,9 @@ import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @SpringBootTest
 @Slf4j
@@ -39,6 +41,78 @@ public class TaskTests {
     private TaskRequest taskRequest;
     @Autowired
     private ManagementUserRequest managementUserRequest;
+
+
+    @Test
+    @Order(-1)
+    void verifyDtoEqualsAndHashCode() {
+
+        log.info("checkDtoEqualsAndHashCode");
+
+        // select user
+        userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
+        UserDto user = userRequest.getCurrent();
+
+        Instant deadline = Instant.now().plus(10, ChronoUnit.MINUTES);
+
+        // create new task01
+        TaskDto task01 = createNestedTasks(user, deadline);
+        // create new task02
+        //TaskDto task02 = createNestedTasks(user, deadline);
+
+
+        TaskDto t1_sub = task01.getSubtasks().iterator().next();
+        //TaskDto t2_sub =  task02.getSubtasks().iterator().next();
+
+        task01.hashCode();
+        
+        //task01.getSubtasks().contains(t1_sub);
+        //task01.getSubtasks().contains(t2_sub);
+
+
+
+        //log.info("\ntask01: {}\ntask02: {}", task01.hashCode(), task02.hashCode());
+
+        //Assertions.assertEquals(task02, task01, "TaskDto.equals not work");
+        //Assertions.assertEquals(task02.hashCode(), task01.hashCode(), "TaskDto.hashCode not work");
+
+
+    }
+
+    private TaskDto createNestedTasks(UserDto user, Instant deadline) {
+
+        // create new task
+        TaskDto task = new TaskDto();
+        task.setTitle("Task01");
+        task.setDeadline(deadline);
+        task.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+
+        TaskDto innerTask = new TaskDto();
+        innerTask.setTitle("Task01.Task02");
+        innerTask.setDeadline(deadline);
+        innerTask.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+        task.getSubtasks().add(innerTask);
+
+        TaskDto innerInnerTask = new TaskDto();
+        innerInnerTask.setTitle("Task01.Task02.Task03");
+        innerInnerTask.setDeadline(deadline);
+        innerInnerTask.getMembers().add(new TaskMemberDto(task, user, TaskUserRole.OWNER));
+        innerTask.getSubtasks().add(innerInnerTask);
+
+        return task;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
 
     @Test
     @Order(1)
@@ -156,7 +230,7 @@ public class TaskTests {
         // select user
         userConfig.switchJrpcClientProperties(SystemTestSpringConfiguration.USER);
 
-        // load task from server should fail
+        // load non-existing task from server should fail
         Assertions.assertThrows(HttpClientErrorException.Forbidden.class,
             () -> taskRequest.fetchAllById(Long.MAX_VALUE),
             "Task with id " + Long.MAX_VALUE + " should not be available");

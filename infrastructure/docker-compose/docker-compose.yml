@@ -12,6 +12,7 @@ services:
       - type: bind
         source: ${PGDATA_LTM}
         target: ${PGDATA}
+    restart: always
   ltm-app:
     image: "dreamworkerln/ltm-app"
     #network_mode: bridge
@@ -34,5 +35,6 @@ services:
       spring.datasource.url: ${POSTGRES_URL}
     ports:
       - ${AUTH_PORT}:8090
+    restart: always
 
 
